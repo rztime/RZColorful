@@ -277,4 +277,50 @@
     }
     [_colorfuls setObject:_url forKey:NSLinkAttributeName ];
 }
+
+/** FIXME:阴影未完成
+ 阴影
+ */
+- (RZColorfulAttribute *(^)(NSShadow *shadow))shado {
+    __weak typeof(self)weakSelf = self;
+    return ^id (NSShadow *shadow) {
+        weakSelf.shadow = shadow;
+        return self;
+    };
+}
+
+- (void)setShadow:(NSShadow *)shadow {
+
+}
+
+/** FIXME:附加属性还未完成
+ 附件，比如图片，等
+ */
+- (RZColorfulAttribute *(^)(NSTextAttachment *attachment))attachmen {
+    __weak typeof(self)weakSelf = self;
+    return ^id (NSTextAttachment *attachment) {
+        weakSelf.attachment = attachment;
+        return self;
+    };
+}
+
+- (void)setAttachment:(NSTextAttachment *)attachment {
+
+}
+
+/**  FIXME:段落样式还未完成
+ 设置段落样式
+ */
+- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyl {
+    __weak typeof(self)weakSelf = self;
+    return ^id (NSMutableParagraphStyle *paragraphStyle) {
+        weakSelf.paragraphStyle = paragraphStyle;
+        return self;
+    };
+}
+
+- (void)setParagraphStyle:(NSMutableParagraphStyle *)paragraphStyle {
+
+}
+
 @end
