@@ -1,14 +1,14 @@
-## RZColorful
+# RZColorful
 NSAttributedString富文本的方法集合，以及简单优雅的使用其多种属性
 
 日常iOS开发过程中，少不得需要添加富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用集合。
 
-# 关于RZColorful
+## 关于RZColorful
 * 支持UILabel、UITextView、UITextField的AttributedString的设置。
 * 大部分富文本常用功能已经支持，剩余待空闲之后在补充完善。
 * 因为构思不长，也找不到比较好的方法来规避iOS长方法名的限制，所以这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路方法也是目前我能想到的比较优雅的实现方式。
 
-# How to use
+## How to use
 * 请在需要使用的地方加上
 
 ```objc
@@ -56,16 +56,16 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 }
 ```
 
-###看看效果图
+##看看效果图
 ![IMG10.jpeg](https://github.com/rztime/RZColorful/blob/master/IMG10.jpeg)
 
 
-###注意
+##注意
 
 * 因为富文本渲染需要一定的时间，在使用过程中，如果需要在scrollView如tableView上不断的设置其富文本，此时请尽量少使用`rz_colorfulConferAppend:`这个方法，因为这个方法搭配`rz_colorfulConfer:`会重复绘制两次，在tableview滑动时可能会造成卡顿
 * 所以在优化时，尽量少使用`rz_colorfulConferAppend:`这个方法，在`rz_colorfulConfer:`方法中绘制多一点进去将不影响
 * 尽管我已经在代码中已经处理过（弱）引用问题，但是在实际运用写入text时，还是请尽量检查避免循环引用
 
 
-###最后
+##最后
 * 在使用过程中，如果您发现有什么问题，欢迎向我反馈，谢谢
