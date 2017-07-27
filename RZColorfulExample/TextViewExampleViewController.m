@@ -28,7 +28,6 @@
     textView.delegate = self;
     [self.view addSubview:textView];
     textView.editable = NO;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"关闭键盘" style:0 target:self action:@selector(closeKeyBoard)];
 
     [textView rz_colorfulConfer:^(RZColorfulConferrer *confer) {
         confer.text(@"hello，大家好，先来默认数据\n");
@@ -60,11 +59,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)closeKeyBoard {
-    [textView endEditing:YES];
-}
-
 /*
  #pragma mark - Navigation
 
