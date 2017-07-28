@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "RZShadow.h"
 
 #define RZWARMING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
@@ -23,8 +24,13 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
 @interface RZColorfulAttribute : NSObject
 
+/**
+ 两属性请勿操作
+ */
 @property (nonatomic, strong, readonly) NSMutableDictionary *colorfuls;
+@property (nonatomic, strong) NSShadow *nsShadow;
 
+#pragma mark - 连接
 /**
  方便阅读用的连接词
 
@@ -33,6 +39,7 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 - (RZColorfulAttribute *)and;
 - (RZColorfulAttribute *)with;
 
+#pragma mark - 基本属性设置
 /**
  设置文本颜色
  */
@@ -105,10 +112,17 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  */
 - (RZColorfulAttribute *(^)(NSNumber *expansion))expansion;
 
-/** FIXME:阴影未完成
- 阴影
+
+#pragma mark -阴影设置
+/**
+ 阴影 给文本设置阴影，直接在shadow后添加阴影属性，
+ 如阴影颜色confer.text(@"text").shadow.color(color);
+ 如果需要继续添加text的属性，请使用and\with\end相连
+ 如confer.text(@"text").shadow.color(color).and.textColor(tColor)...
+
+ @return <#return value description#>
  */
-- (RZColorfulAttribute *(^)(NSShadow *shadow))shadow RZWARMING("该方法暂未实现，等稍后完善");
+-(RZShadow *)shadow;
 
 @end
 

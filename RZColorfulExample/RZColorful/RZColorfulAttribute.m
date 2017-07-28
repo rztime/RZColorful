@@ -271,19 +271,11 @@
     [_colorfuls setObject:_url forKey:NSLinkAttributeName ];
 }
 
-/** FIXME:阴影未完成
- 阴影
- */
-- (RZColorfulAttribute *(^)(NSShadow *shadow))shadow {
-    __weak typeof(self)weakSelf = self;
-    return ^id (NSShadow *shadow) {
-        weakSelf.shadow = shadow;
-        return self;
-    };
-}
-
-- (void)setShadow:(NSShadow *)shadow {
-
+// 阴影
+- (RZShadow *)shadow {
+    RZShadow * _shadow = [[RZShadow alloc]init];
+    _shadow.colorfulsAttr = self;
+    return _shadow;
 }
 
 /**  FIXME:段落样式还未完成

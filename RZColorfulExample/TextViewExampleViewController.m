@@ -39,7 +39,7 @@
         confer.appendImage([UIImage imageNamed:@"flower"]).bounds(CGRectMake(10, -2, 15, 15));
         confer.text(@"继续看颜色加字体,给字加个背景, 加点间距").textColor(RGB(255, 55 ,80)).font(FONT(25)).backgroundColor(RGB(230, 230, 230)).wordSpace(@15);
         confer.text(@"限时特卖 加个删除线").strikeThrough(RZLineStyleSignl);
-
+        // 插入图片时，可以设置图片和前后排文字字体大小一样，并且设置其origin.y 为适当负值，可对齐文本
         confer.appendImage([UIImage imageNamed:@""]).bounds(CGRectMake(10, -2, 15, 15));
         confer.text(@"删除线颜色修改").textColor(RGB(255, 0, 0)).font(FONT(15));
 
@@ -57,7 +57,12 @@
         confer.text(@"可以添加一个带有url的字符串,可点击\n").underLineStyle(1).url(nil).font(FONT(30));
 
         confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
-        confer.text(@"  还有几个方法还未实现，我会在稍后继续完善").font(FONT(21)).textColor(RGB(255, 0, 0));
+        confer.text(@"  还有段落方法还未实现，我会在稍后继续完善\n").font(FONT(21)).textColor(RGB(255, 0, 0));
+        // 阴影设置完之后如还需设置其他属性，可直接使用and，with，end连接词以继续添加text的属性
+        confer.text(@"阴影测试").shadow.offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(40)).textColor(RGB(255, 0, 0));
+        confer.text(@"阴影测试2").shadow.color(RGB(0, 255, 0)).offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(22));
+        confer.text(@"阴影测试3").shadow.color(RGB(0, 0, 255)).offset(CGSizeMake(10, 10)).radius(5);
+        confer.text(@"阴影测试4").shadow.color(RGB(0, 255, 255)).offset(CGSizeMake(-10, 10)).radius(5);
     }];
 }
 

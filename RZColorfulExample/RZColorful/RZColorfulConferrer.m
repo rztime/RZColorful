@@ -30,10 +30,14 @@
             if (url) {
                 [colorfulTmp.colorfuls removeObjectForKey:@"NSLink"];
             }
+            if (colorfulTmp.nsShadow) {
+                [colorfulTmp.colorfuls setObject:colorfulTmp.nsShadow forKey:NSShadowAttributeName];
+            }
             NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:text attributes:colorfulTmp.colorfuls];
             if (url) {
                 [attrText addAttribute:NSLinkAttributeName value:url range:NSMakeRange(0, attrText.length)];
             }
+
             [string appendAttributedString:attrText];
         } else if ([text isKindOfClass:[UIImage class]]) {
             NSTextAttachment *attchment = [[NSTextAttachment alloc] init];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B223E2F21F2B907000FBD4E1 /* RZShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B223E2F11F2B907000FBD4E1 /* RZShadow.m */; };
 		B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCC51F28D7AA00688E73 /* LabelExampleViewController.m */; };
 		B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCCE1F28D7E000688E73 /* TextViewExampleViewController.m */; };
 		B279DCD21F28D7F100688E73 /* TextFiledExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCD11F28D7F100688E73 /* TextFiledExampleViewController.m */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B223E2F01F2B907000FBD4E1 /* RZShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZShadow.h; sourceTree = "<group>"; };
+		B223E2F11F2B907000FBD4E1 /* RZShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZShadow.m; sourceTree = "<group>"; };
 		B279DCC41F28D7AA00688E73 /* LabelExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelExampleViewController.h; sourceTree = "<group>"; };
 		B279DCC51F28D7AA00688E73 /* LabelExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelExampleViewController.m; sourceTree = "<group>"; };
 		B279DCCD1F28D7E000688E73 /* TextViewExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewExampleViewController.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				B2B7FBC31F279EAB00643C63 /* RZColorful.h */,
 				B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */,
 				B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */,
+				B223E2F01F2B907000FBD4E1 /* RZShadow.h */,
+				B223E2F11F2B907000FBD4E1 /* RZShadow.m */,
 				B2B7FBC41F279EAB00643C63 /* RZColorfulAttribute.h */,
 				B2B7FBC51F279EAB00643C63 /* RZColorfulAttribute.m */,
 				B2B7FBC61F279EAB00643C63 /* RZColorfulConferrer.h */,
@@ -213,6 +218,7 @@
 				B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */,
 				B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */,
 				B2B7FBD11F279EAB00643C63 /* UITextField+RZColorfulText.m in Sources */,
+				B223E2F21F2B907000FBD4E1 /* RZShadow.m in Sources */,
 				B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */,
 				B2B7FBB01F279E8300643C63 /* AppDelegate.m in Sources */,
 				B2B7FBCE1F279EAB00643C63 /* RZColorfulAttribute.m in Sources */,
