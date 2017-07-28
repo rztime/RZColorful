@@ -8,13 +8,6 @@
 
 #import "RZColorfulAttribute.h"
 
-@interface RZColorfulAttribute ()
-
-- (void)setTextColor:(UIColor *)textColor;
-- (void)setFont:(UIFont *)font;
-
-@end
-
 @implementation RZColorfulAttribute
 
 - (instancetype)init {
@@ -290,21 +283,6 @@
 }
 
 - (void)setShadow:(NSShadow *)shadow {
-
-}
-
-/** FIXME:附加属性还未完成
- 附件，比如图片，等
- */
-- (RZColorfulAttribute *(^)(NSTextAttachment *attachment))attachment {
-    __weak typeof(self)weakSelf = self;
-    return ^id (NSTextAttachment *attachment) {
-        weakSelf.attachment = attachment;
-        return self;
-    };
-}
-
-- (void)setAttachment:(NSTextAttachment *)attachment {
 
 }
 

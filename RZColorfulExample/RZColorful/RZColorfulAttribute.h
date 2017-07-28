@@ -110,10 +110,6 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  */
 - (RZColorfulAttribute *(^)(NSShadow *shadow))shadow RZWARMING("该方法暂未实现，等稍后完善");
 
-/** FIXME:附加属性还未完成
- 附件，比如图片，等
- */
-- (RZColorfulAttribute *(^)(NSTextAttachment *attachment))attachment RZWARMING("该方法暂未实现，等稍后完善");
 @end
 
 #pragma mark - 富文本 url，仅UITextViewd点击有效

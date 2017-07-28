@@ -10,6 +10,7 @@
 		B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCC51F28D7AA00688E73 /* LabelExampleViewController.m */; };
 		B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCCE1F28D7E000688E73 /* TextViewExampleViewController.m */; };
 		B279DCD21F28D7F100688E73 /* TextFiledExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCD11F28D7F100688E73 /* TextFiledExampleViewController.m */; };
+		B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */; };
 		B2B7FBAD1F279E8300643C63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBAC1F279E8300643C63 /* main.m */; };
 		B2B7FBB01F279E8300643C63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBAF1F279E8300643C63 /* AppDelegate.m */; };
 		B2B7FBB31F279E8300643C63 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBB21F279E8300643C63 /* ViewController.m */; };
@@ -31,6 +32,8 @@
 		B279DCD01F28D7F100688E73 /* TextFiledExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFiledExampleViewController.h; sourceTree = "<group>"; };
 		B279DCD11F28D7F100688E73 /* TextFiledExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFiledExampleViewController.m; sourceTree = "<group>"; };
 		B279DCD31F28D88A00688E73 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZImageAttachment.h; sourceTree = "<group>"; };
+		B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZImageAttachment.m; sourceTree = "<group>"; };
 		B2B7FBA81F279E8300643C63 /* RZColorfulExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZColorfulExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B7FBAC1F279E8300643C63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B2B7FBAE1F279E8300643C63 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				B2B7FBC31F279EAB00643C63 /* RZColorful.h */,
+				B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */,
+				B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */,
 				B2B7FBC41F279EAB00643C63 /* RZColorfulAttribute.h */,
 				B2B7FBC51F279EAB00643C63 /* RZColorfulAttribute.m */,
 				B2B7FBC61F279EAB00643C63 /* RZColorfulConferrer.h */,
@@ -205,6 +210,7 @@
 			files = (
 				B279DCD21F28D7F100688E73 /* TextFiledExampleViewController.m in Sources */,
 				B2B7FBB31F279E8300643C63 /* ViewController.m in Sources */,
+				B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */,
 				B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */,
 				B2B7FBD11F279EAB00643C63 /* UITextField+RZColorfulText.m in Sources */,
 				B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */,

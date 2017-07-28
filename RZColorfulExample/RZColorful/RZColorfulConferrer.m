@@ -19,16 +19,28 @@
 
 - (NSAttributedString *)confer {
      NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
+
     for (int i = 0; i < _texts.count; i++) {
-        NSString *text = _texts[i];
-        NSMutableDictionary *colorful = ((RZColorfulAttribute *)_colorfuls[i]).colorfuls.copy;
-        NSAttributedString *textattr = [[NSAttributedString alloc]initWithString:text attributes:colorful];
-        if ([colorful.allKeys containsObject:@"NSLink"]) {
-            NSMutableAttributedString *urlString = [[NSMutableAttributedString alloc]initWithAttributedString:textattr];
-            [urlString addAttribute:NSLinkAttributeName value:[colorful objectForKey:@"NSLink"] range:NSMakeRange(0, urlString.length)];
-            textattr = urlString.copy;
+        id text = _texts[i];
+        id colorful = _colorfuls[i];
+        if ([text isKindOfClass:[NSString class]]) {
+            RZColorfulAttribute * colorfulTmp = (RZColorfulAttribute *)colorful;
+
+            NSURL *url = [colorfulTmp.colorfuls objectForKey:@"NSLink"];
+            if (url) {
+                [colorfulTmp.colorfuls removeObjectForKey:@"NSLink"];
+            }
+            NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:text attributes:colorfulTmp.colorfuls];
+            if (url) {
+                [attrText addAttribute:NSLinkAttributeName value:url range:NSMakeRange(0, attrText.length)];
+            }
+            [string appendAttributedString:attrText];
+        } else if ([text isKindOfClass:[UIImage class]]) {
+            NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
+            attchment.image = text;
+            attchment.bounds = ((RZImageAttachment *)colorful).imageBounds;
+            [string appendAttributedString:[NSAttributedString attributedStringWithAttachment:attchment]];
         }
-        [string appendAttributedString:textattr];
     }
     [self.texts removeAllObjects];
     [self.colorfuls removeAllObjects];
@@ -54,6 +66,23 @@
     [self.texts addObject:_text];
 }
 
+- (RZImageAttachment *(^)(UIImage *appendImage))appendImage {
+    __weak typeof(self) weakSelf = self;
+    return ^id (UIImage *appendImage){
+        weakSelf.appendImage = appendImage;
+        RZImageAttachment *imageAttachement = [[RZImageAttachment alloc]init];
+        [weakSelf.colorfuls addObject:imageAttachement];
+        return imageAttachement;
+    };
+}
+
+- (void)setAppendImage:(UIImage *)appendImage {
+    UIImage *image = appendImage.copy;
+    if (!image) {
+        image = [UIImage new];
+    }
+     [self.texts addObject:image];
+}
 - (NSMutableArray *)texts {
     if (!_texts) {
         _texts = [NSMutableArray new];
