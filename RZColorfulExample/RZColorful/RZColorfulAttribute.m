@@ -281,7 +281,7 @@
 /** FIXME:阴影未完成
  阴影
  */
-- (RZColorfulAttribute *(^)(NSShadow *shadow))shado {
+- (RZColorfulAttribute *(^)(NSShadow *shadow))shadow {
     __weak typeof(self)weakSelf = self;
     return ^id (NSShadow *shadow) {
         weakSelf.shadow = shadow;
@@ -296,7 +296,7 @@
 /** FIXME:附加属性还未完成
  附件，比如图片，等
  */
-- (RZColorfulAttribute *(^)(NSTextAttachment *attachment))attachmen {
+- (RZColorfulAttribute *(^)(NSTextAttachment *attachment))attachment {
     __weak typeof(self)weakSelf = self;
     return ^id (NSTextAttachment *attachment) {
         weakSelf.attachment = attachment;
@@ -311,7 +311,7 @@
 /**  FIXME:段落样式还未完成
  设置段落样式
  */
-- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyl {
+- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyle {
     __weak typeof(self)weakSelf = self;
     return ^id (NSMutableParagraphStyle *paragraphStyle) {
         weakSelf.paragraphStyle = paragraphStyle;
