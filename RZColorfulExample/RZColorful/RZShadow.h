@@ -24,10 +24,21 @@
 - (RZColorfulAttribute *)with;
 - (RZColorfulAttribute *)end;
 
+
+/**
+ 阴影偏移量
+ */
 - (RZShadow *(^)(CGSize offset))offset;
 
+/**
+ // blur radius of the shadow in default user space units
+ // 值越大，越模糊
+ */
 - (RZShadow *(^)(CGFloat radius))radius;
 
+/**
+ 阴影颜色
+ */
 - (RZShadow *(^)(UIColor *color))color;
 
 @end

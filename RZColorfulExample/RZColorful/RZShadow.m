@@ -12,15 +12,12 @@
 @implementation RZShadow
 
 - (RZColorfulAttribute *)and {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)with {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)end {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 

@@ -59,9 +59,9 @@
         confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
         confer.text(@"  还有段落方法还未实现，我会在稍后继续完善\n").font(FONT(21)).textColor(RGB(255, 0, 0));
         // 阴影设置完之后如还需设置其他属性，可直接使用and，with，end连接词以继续添加text的属性
-        confer.text(@"阴影测试").shadow.offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(40)).textColor(RGB(255, 0, 0));
-        confer.text(@"阴影测试2").shadow.color(RGB(0, 255, 0)).offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(22));
-        confer.text(@"阴影测试3").shadow.color(RGB(0, 0, 255)).offset(CGSizeMake(10, 10)).radius(5);
+        confer.text(@"阴影测试").shadow.offset(CGSizeMake(10, 10)).radius(1).and.font(FONT(40)).textColor(RGB(255, 0, 0));
+        confer.text(@"阴影测试2").shadow.color(RGB(0, 255, 0)).offset(CGSizeMake(10, 10)).radius(3).and.font(FONT(22));
+        confer.text(@"阴影测试3").shadow.color(RGB(0, 0, 255)).offset(CGSizeMake(10, 10)).radius(10);
         confer.text(@"阴影测试4").shadow.color(RGB(0, 255, 255)).offset(CGSizeMake(-10, 10)).radius(5);
     }];
 }
