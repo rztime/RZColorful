@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "RZShadow.h"
+#import "RZParagraphStyle.h"
 
 #define RZWARMING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
@@ -28,7 +29,8 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  两属性请勿操作
  */
 @property (nonatomic, strong, readonly) NSMutableDictionary *colorfuls;
-@property (nonatomic, strong) NSShadow *nsShadow;
+@property (nonatomic, strong) NSShadow *rzShadow;
+@property (nonatomic, strong) NSMutableParagraphStyle *rzParagraph;
 
 #pragma mark - 连接
 /**
@@ -122,7 +124,9 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
  @return <#return value description#>
  */
--(RZShadow *)shadow;
+- (RZShadow *)shadow;
+
+
 
 @end
 
@@ -138,9 +142,15 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
 #pragma mark - 设置文本段落样式
 @interface RZColorfulAttribute (ParagraphStyle)
-/**  FIXME:段落样式还未完成
- 设置段落样式
- */
-- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyle RZWARMING("该方法暂未实现，等稍后完善");
+///**  FIXME:段落样式还未完成
+// 设置段落样式
+// */
+//- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyle RZWARMING("该方法暂未实现，等稍后完善");
 
+/**
+ 段落样式，具体设置请看 RZParagraphStyle.h
+
+ @return <#return value description#>
+ */
+- (RZParagraphStyle *)paragraph;
 @end

@@ -12,15 +12,12 @@
 @implementation RZShadow
 
 - (RZColorfulAttribute *)and {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)with {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)end {
-    _colorfulsAttr.nsShadow = self.shadow.copy;
     return _colorfulsAttr;
 }
 
@@ -41,7 +38,7 @@
 
 - (void)setOffset:(CGSize)offset {
     self.shadow.shadowOffset = offset;
-    _colorfulsAttr.nsShadow = self.shadow.copy;
+    _colorfulsAttr.rzShadow = self.shadow.copy;
 }
 
 - (RZShadow *(^)(CGFloat radius))radius {
@@ -54,7 +51,7 @@
 
 - (void)setRadius:(CGFloat)radius {
     self.shadow.shadowBlurRadius = radius;
-    _colorfulsAttr.nsShadow = self.shadow.copy;
+    _colorfulsAttr.rzShadow = self.shadow.copy;
 }
 
 - (RZShadow *(^)(UIColor *color))color {
@@ -71,7 +68,7 @@
         _color = [UIColor clearColor];
     }
     self.shadow.shadowColor = _color;
-    _colorfulsAttr.nsShadow = self.shadow.copy;
+    _colorfulsAttr.rzShadow = self.shadow.copy;
 }
 
 @end

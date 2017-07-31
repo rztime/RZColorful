@@ -278,19 +278,15 @@
     return _shadow;
 }
 
-/**  FIXME:段落样式还未完成
- 设置段落样式
+
+/**
+ 段落样式，具体设置请看 RZParagraphStyle.h
+
+ @return <#return value description#>
  */
-- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyle {
-    __weak typeof(self)weakSelf = self;
-    return ^id (NSMutableParagraphStyle *paragraphStyle) {
-        weakSelf.paragraphStyle = paragraphStyle;
-        return self;
-    };
+- (RZParagraphStyle *)paragraph {
+    RZParagraphStyle *_paragraph = [[RZParagraphStyle alloc]init];
+    _paragraph.colorfulsAttr = self;
+    return _paragraph;
 }
-
-- (void)setParagraphStyle:(NSMutableParagraphStyle *)paragraphStyle {
-
-}
-
 @end

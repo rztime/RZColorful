@@ -30,8 +30,8 @@
             if (url) {
                 [colorfulTmp.colorfuls removeObjectForKey:@"NSLink"];
             }
-            if (colorfulTmp.nsShadow) {
-                [colorfulTmp.colorfuls setObject:colorfulTmp.nsShadow forKey:NSShadowAttributeName];
+            if (colorfulTmp.rzShadow) {
+                [colorfulTmp.colorfuls setObject:colorfulTmp.rzShadow forKey:NSShadowAttributeName];
             }
             NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:text attributes:colorfulTmp.colorfuls];
             if (url) {
