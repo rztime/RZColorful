@@ -11,6 +11,10 @@
 
 @implementation RZShadow
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+
 - (RZColorfulAttribute *)and {
     return _colorfulsAttr;
 }
@@ -70,5 +74,5 @@
     self.shadow.shadowColor = _color;
     _colorfulsAttr.rzShadow = self.shadow.copy;
 }
-
+#pragma clang diagnostic pop
 @end

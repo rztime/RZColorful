@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+
 @interface RZImageAttachment : NSObject
 
-@property (nonatomic, assign, readonly) CGRect imageBounds;
-
+@property (nonatomic, assign, readonly) CGRect imageBounds RZWARNING("该属性不可使用，请使用bounds(CGRectMake(...))方法");
 
 /**
   设置图片bounds时,origin.x 设置无效 size.width height 可以设置与前后排文字字体大小一样，且适当调整origin.y为负值，可以让图片文本对齐

@@ -11,7 +11,7 @@
 #import "RZShadow.h"
 #import "RZParagraphStyle.h"
 
-#define RZWARMING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+#define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
 /**
  删除线样式
@@ -26,13 +26,15 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 @interface RZColorfulAttribute : NSObject
 
 /**
- 两属性请勿操作
+ 三属性请勿操作
  */
-@property (nonatomic, strong, readonly) NSMutableDictionary *colorfuls;
-@property (nonatomic, strong) NSShadow *rzShadow;
-@property (nonatomic, strong) NSMutableParagraphStyle *rzParagraph;
+@property (nonatomic, strong, readonly) NSMutableDictionary *colorfuls RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+@property (nonatomic, strong) NSShadow *rzShadow RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
 
-#pragma mark - 连接
+@property (nonatomic, strong) NSMutableParagraphStyle *rzParagraph RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+
+
+#pragma mark - 连接词
 /**
  方便阅读用的连接词
 
@@ -81,6 +83,8 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
 /**
  下划线样式  取值参照删除线，位置不同罢了
+ 取值为 0 - 7时，效果为单实线，随着值得增加，单实线逐渐变粗，
+ 取值为 9 - 15时，效果为双实线，取值越大，双实线越粗。
  */
 - (RZColorfulAttribute *(^)(RZLineStyle underLineStyle))underLineStyle;
 
@@ -142,14 +146,8 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
 #pragma mark - 设置文本段落样式
 @interface RZColorfulAttribute (ParagraphStyle)
-///**  FIXME:段落样式还未完成
-// 设置段落样式
-// */
-//- (RZColorfulAttribute *(^)(NSMutableParagraphStyle *paragraphStyle))paragraphStyle RZWARMING("该方法暂未实现，等稍后完善");
-
 /**
  段落样式，具体设置请看 RZParagraphStyle.h
-
  @return <#return value description#>
  */
 - (RZParagraphStyle *)paragraph;

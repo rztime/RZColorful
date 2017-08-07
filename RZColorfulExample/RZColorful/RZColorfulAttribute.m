@@ -10,6 +10,9 @@
 
 @implementation RZColorfulAttribute
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (instancetype)init {
     if (self = [super init]) {
         _colorfuls = [NSMutableDictionary new];
@@ -268,7 +271,7 @@
     if (!_url || _url.absoluteString.length == 0) {
         _url = [NSURL URLWithString:@""];
     }
-    [_colorfuls setObject:_url forKey:NSLinkAttributeName ];
+    [_colorfuls setObject:_url forKey:NSLinkAttributeName];
 }
 
 // 阴影
@@ -289,4 +292,5 @@
     _paragraph.colorfulsAttr = self;
     return _paragraph;
 }
+#pragma clang diagnostic pop
 @end

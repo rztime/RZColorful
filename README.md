@@ -5,8 +5,19 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 
 ## 关于RZColorful
 * 支持UILabel、UITextView、UITextField的AttributedString的设置。
-* 大部分富文本常用功能已经支持(颜色，字体，插入图片，阴影，下划线，删除线等等)，剩段落设置方法未实现，待空闲之后在补充完善。
-* 因为构思不长，也找不到比较好的方法来规避iOS长方法名的限制，所以这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路方法也是目前我能想到的比较优雅的实现方式。
+* 包含的属性快捷设置
+    * 文本颜色
+    * 文本所在区域对应的背景颜色
+    * 字体
+    * 连体字
+    * 字间距
+    * 删除线、下划线，及其线条颜色
+    * 描边，及其颜色
+    * 斜体字
+    * 拉伸
+    * 阴影
+    * 段落样式
+* 这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路才实现了快捷简单使用的方法。
 
 ## How to use
 * 请在需要使用的地方加上
@@ -16,47 +27,70 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 ```
 下面以一段简单的代码来展示使用方法
 
+### 基本的简单使用方法
 ```objc
-    [textView rz_colorfulConfer:^(RZColorfulConferrer *confer) {
-        confer.text(@"hello，大家好，先来默认数据").font(FONT(21));
-        confer.appendImage([UIImage imageNamed:@"flower"]);
-        confer.text(@"先来个红色").textColor(RGB(255, 0 ,0));
-        confer.text(@"继续看颜色加字体").textColor(RGB(255, 255 ,80)).font(FONT(25));
-        confer.text(@"继续看颜色加字体,给字加个背景").textColor(RGB(255, 55 ,80)).font(FONT(25)).backgroundColor(RGB(230, 230, 230));
-        confer.text(@"flush 连体字效果没看出来").ligature(@1);
-        confer.appendImage([UIImage imageNamed:@"flower"]).bounds(CGRectMake(10, -2, 15, 15));
-        confer.text(@"继续看颜色加字体,给字加个背景, 加点间距").textColor(RGB(255, 55 ,80)).font(FONT(25)).backgroundColor(RGB(230, 230, 230)).wordSpace(@15);
-        confer.text(@"限时特卖 加个删除线").strikeThrough(RZLineStyleSignl);
-        // 插入图片时，可以设置图片和前后排文字字体大小一样，并且设置其origin.y 为适当负值，可对齐文本
-        confer.appendImage([UIImage imageNamed:@""]).bounds(CGRectMake(10, -2, 15, 15));
-        confer.text(@"删除线颜色修改").textColor(RGB(255, 0, 0)).font(FONT(15));
 
-
-    }];
-
-    [textView rz_colorfulConferAppend:^(RZColorfulConferrer *confer) {
-        confer.text(@"此方法在原内容上增加文本\n");
-        confer.text(@"空心描边\n").strokeColor(RGB(255, 0, 0)).strokeWidth(@3).font(FONT(30));
-        confer.text(@"横竖排版好像iOS上并没有卵用\n").verticalGlyphForm(@1);
-        confer.text(@"斜体字设置 > 0\n").italic(@1);
-        confer.text(@"斜体字设置 < 0\n").italic(@(-1));
-        confer.text(@"拉伸字体\n").expansion(@2);
-        confer.text(@"设置点击的链接属性，需要textView.editable = NO\n");
-        confer.text(@"可以添加一个带有url的字符串,可点击\n").underLineStyle(1).url(nil).font(FONT(30));
-
-        confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
-        confer.text(@"  还有段落方法还未实现，我会在稍后继续完善\n").font(FONT(21)).textColor(RGB(255, 0, 0));
-        // 阴影设置完之后如还需设置其他属性，可直接使用and，with，end连接词以继续添加text的属性
-        confer.text(@"阴影测试").shadow.offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(40)).textColor(RGB(255, 0, 0));
-        confer.text(@"阴影测试2").shadow.color(RGB(0, 255, 0)).offset(CGSizeMake(10, 10)).radius(5).and.font(FONT(22));
-        confer.text(@"阴影测试3").shadow.color(RGB(0, 0, 255)).offset(CGSizeMake(10, 10)).radius(5);
-        confer.text(@"阴影测试4").shadow.color(RGB(0, 255, 255)).offset(CGSizeMake(-10, 10)).radius(5);
+    // 基本简单使用方法
+    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+        // 设置文本颜色
+        confer.text(@"荷花开后西湖好，\n").textColor(RGB(255, 0, 0));
+        // 设置文本字体
+        confer.text(@"载酒来时。\n").font(FONT(19));
+        // 可以将属性连起来
+        confer.text(@"不用旌旗，\n").textColor(RGB(255, 0, 0)).font(FONT(19));
+        // 更多属性方法可以参考 RZColorfulAttribute.h文件 基本属性设置
+        // 基本属性包含 文本颜色、文字所在区域背景色，字体，连体字，字间距，删除线以及其颜色，下划线以及其颜色，描边，横竖排版，斜体字，拉伸字体（扩展）,带url的文本等
+        confer.text(@"前后红幢绿盖随。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
     }];
 
 ```
-* 上边的代码主要就是textView的attributedString使用方法，UILabel、UITextFile是同样的使用方法
-* `在UILabel、UITextFiled上url点击方法无效`
-* `在UITextView中若要添加url且可点击方法，请先设置其editable = NO,并实现代理`
+### 有特殊属性使用方法（阴影，段落）
+
+```objc
+
+    // 基本简单使用方法 包含特殊的属性（阴影、段落），有且只有这两个属性设置稍有不同
+    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+         // 设置阴影，偏移量，颜色，模糊等等
+        confer.text(@"画船撑入花深处，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9));
+        // 可设置好文本属性在设置阴影
+        confer.text(@"香泛金卮。\n").font(FONT(19)).textColor(RGB(255, 0 , 0)).shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9));
+        // 也可以使用连接词and/with/end之后，在继续设置文本的属性
+        confer.text(@"烟雨微微，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9)).and.textColor(RGB(255, 0, 0)).font(FONT(19));
+        // 段落使用方法及技巧也是同样如此，具体方法参照 RZParagraphStyle.h设置
+        confer.text(@"一片笙歌醉里归。\n").paragraph.alignment(1).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+    }];
+
+```
+
+### 段落方法---统一的段落样式
+
+```objc
+
+        // 设置统一段落样式
+    [label rz_colorfulWithParagraphStyle:^(RZParagraphStyle * _Nullable paragraph) {
+        // 这里设置统一的段落样式，即confer.text（）都遵循此段落样式
+        // 这里设置完后请勿使用and/with/end连接词，使用无效
+        paragraph.lineSpacing(5).alignment(1);
+
+    } confer:^(RZColorfulConferrer * _Nonnull confer) {
+        // 所有的text内容都遵循上边的paragraphStyle，这里设置paragraph将无效。
+        confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").paragraph.alignment(0).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraph.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+    }];
+
+```
+
+* 在confer.text后添加的所有属性，仅且仅对当前行的text有效，对其他行无效
+* 段落样式的两种方法
+    * 1. confer.text().paragraph...() 
+    * 2. rz_colorfulWithParagraphStyle: confer: 
+    其区别在于第二种方法，可以设置confer中多种文本统一段落样式，文本更富有多样化，而第一种段落仅对其当前行内容有效
+
+# 备注：
+    * 多种属性使用名请参考对应的文件。
+    * UILabel、UITextFile是同样的使用方法。
+    * `在UILabel、UITextFiled上url点击方法无效`。
+    * `在UITextView中若要添加url且可点击方法，请先设置其editable = NO,并实现代理`。
 
 
 ```objc
@@ -67,14 +101,9 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 }
 ```
 
-## 看看效果图
-![IMG10.jpeg](https://github.com/rztime/RZColorful/blob/master/IMG10.jpeg)
-
-
 ## 注意
 
-* 因为富文本渲染需要一定的时间，在使用过程中，如果需要在scrollView如tableView上不断的设置其富文本，此时请尽量少使用`rz_colorfulConferAppend:`这个方法，因为这个方法搭配`rz_colorfulConfer:`会重复绘制两次，在tableview滑动时可能会造成卡顿
-* 所以在优化时，尽量少使用`rz_colorfulConferAppend:`这个方法，在`rz_colorfulConfer:`方法中绘制多一点进去将不影响
+* 因为富文本渲染需要一定的时间，在使用过程中，如果需要在scrollView如tableView上不断的设置其富文本，此时请尽量少使用`rz_colorfulConferAppend:` 以及 `rz_colorfulWithParagraphStyleAppend: attribute:`方法，因为其追加时将重复绘制，在tableview滑动时可能会造成卡顿
 * 尽管我已经在代码中已经处理过（弱）引用问题，但是在实际运用写入text时，还是请尽量检查避免循环引用
 
 

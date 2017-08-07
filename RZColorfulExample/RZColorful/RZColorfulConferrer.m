@@ -12,10 +12,13 @@
 
 @property (nonatomic, strong) NSMutableArray *texts;
 @property (nonatomic, strong) NSMutableArray *colorfuls;
-
+@property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
 @end
 
 @implementation RZColorfulConferrer
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (NSAttributedString *)confer {
      NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
@@ -25,19 +28,16 @@
         id colorful = _colorfuls[i];
         if ([text isKindOfClass:[NSString class]]) {
             RZColorfulAttribute * colorfulTmp = (RZColorfulAttribute *)colorful;
-
-            NSURL *url = [colorfulTmp.colorfuls objectForKey:@"NSLink"];
-            if (url) {
-                [colorfulTmp.colorfuls removeObjectForKey:@"NSLink"];
-            }
             if (colorfulTmp.rzShadow) {
                 [colorfulTmp.colorfuls setObject:colorfulTmp.rzShadow forKey:NSShadowAttributeName];
             }
-            NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:text attributes:colorfulTmp.colorfuls];
-            if (url) {
-                [attrText addAttribute:NSLinkAttributeName value:url range:NSMakeRange(0, attrText.length)];
+            if (colorfulTmp.rzParagraph) {
+                [colorfulTmp.colorfuls setObject:colorfulTmp.rzParagraph forKey:NSParagraphStyleAttributeName];
+            } else if(_paragraphStyle){
+                [colorfulTmp.colorfuls setObject:_paragraphStyle.paragraph forKey:NSParagraphStyleAttributeName];
             }
 
+            NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:text attributes:colorfulTmp.colorfuls];
             [string appendAttributedString:attrText];
         } else if ([text isKindOfClass:[UIImage class]]) {
             NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
@@ -85,8 +85,18 @@
     if (!image) {
         image = [UIImage new];
     }
-     [self.texts addObject:image];
+    [self.texts addObject:image];
 }
+/**
+ 设置当前控件对象统一段落样式
+ */
+- (RZParagraphStyle * _Nullable)paragraphStyle {
+    if (!_paragraphStyle) {
+        _paragraphStyle = [[RZParagraphStyle alloc] init];
+    }
+    return _paragraphStyle;
+}
+
 - (NSMutableArray *)texts {
     if (!_texts) {
         _texts = [NSMutableArray new];
@@ -100,5 +110,7 @@
     }
     return _colorfuls;
 }
+
+#pragma clang diagnostic pop
 
 @end

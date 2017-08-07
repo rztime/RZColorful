@@ -10,6 +10,7 @@
 #import "LabelExampleViewController.h"
 #import "TextViewExampleViewController.h"
 #import "TextFiledExampleViewController.h"
+#import "RZColorfulDemoViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -29,7 +30,8 @@
     _dataArray = @[
                    @"UILabel     富文本使用",
                    @"UITextView  富文本使用",
-                   @"UITextFiled 富文本使用"];
+                   @"UITextFiled 富文本使用",
+                   @"实战吧"];
 
     _tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -74,9 +76,13 @@
     } else if (indexPath.section == 1) {
         TextViewExampleViewController *vc = [[TextViewExampleViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-    } else {
+    } else if (indexPath.section == 2){
         TextFiledExampleViewController *vc = [[TextFiledExampleViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        RZColorfulDemoViewController *demo = [[RZColorfulDemoViewController alloc] init];
+        [self.navigationController pushViewController:demo animated:YES];
     }
+
 }
 @end

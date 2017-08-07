@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21CD09C1F347CC10054A0A5 /* RZColorfulDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B21CD09B1F347CC10054A0A5 /* RZColorfulDemoViewController.m */; };
 		B223E2F21F2B907000FBD4E1 /* RZShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B223E2F11F2B907000FBD4E1 /* RZShadow.m */; };
 		B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCC51F28D7AA00688E73 /* LabelExampleViewController.m */; };
 		B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCCE1F28D7E000688E73 /* TextViewExampleViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B21CD09A1F347CC10054A0A5 /* RZColorfulDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZColorfulDemoViewController.h; sourceTree = "<group>"; };
+		B21CD09B1F347CC10054A0A5 /* RZColorfulDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZColorfulDemoViewController.m; sourceTree = "<group>"; };
 		B223E2F01F2B907000FBD4E1 /* RZShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZShadow.h; sourceTree = "<group>"; };
 		B223E2F11F2B907000FBD4E1 /* RZShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZShadow.m; sourceTree = "<group>"; };
 		B279DCC41F28D7AA00688E73 /* LabelExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelExampleViewController.h; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				B279DCCE1F28D7E000688E73 /* TextViewExampleViewController.m */,
 				B279DCD01F28D7F100688E73 /* TextFiledExampleViewController.h */,
 				B279DCD11F28D7F100688E73 /* TextFiledExampleViewController.m */,
+				B21CD09A1F347CC10054A0A5 /* RZColorfulDemoViewController.h */,
+				B21CD09B1F347CC10054A0A5 /* RZColorfulDemoViewController.m */,
 				B2B7FBB41F279E8300643C63 /* Main.storyboard */,
 				B2B7FBB71F279E8300643C63 /* Assets.xcassets */,
 				B2B7FBB91F279E8300643C63 /* LaunchScreen.storyboard */,
@@ -231,6 +236,7 @@
 				B2B7FBD01F279EAB00643C63 /* UILabel+RZColorfulText.m in Sources */,
 				B2B7FBAD1F279E8300643C63 /* main.m in Sources */,
 				B2B7FBD21F279EAB00643C63 /* UITextView+RZColorfulText.m in Sources */,
+				B21CD09C1F347CC10054A0A5 /* RZColorfulDemoViewController.m in Sources */,
 				B2B7FBCF1F279EAB00643C63 /* RZColorfulConferrer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

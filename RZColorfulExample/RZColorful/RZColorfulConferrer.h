@@ -7,21 +7,37 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RZColorfulAttribute.h"
 #import "RZImageAttachment.h"
+#import "RZColorfulAttribute.h"
+//#import "RZParagraphStyle.h"
 
+#define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface RZColorfulConferrer : NSObject
 
-- (NSAttributedString *)confer;
+- (NSAttributedString *)confer RZWARNING("请勿使用及修改此方法, 具体设置请参照RZColorfulConferrer.h");
 
-- (RZColorfulAttribute *(^)(NSString *text))text;
+
+/**
+ 文本内容 要设置其属性，使用"."语法直接连接属性，属性参考RZColorfulAttribute.h
+ 如: confer.text(@"内容").textColor([UIColor redColor]).font(FONT(16)); 即设置 “内容”显示为红色,16号字体
+ text.之后的属性，仅对当前text()内容有效
+ */
+- (RZColorfulAttribute *(^)(NSString * _Nullable text))text;
 
 
 /**
  添加图片，为使图片与前后排文字对齐，可设置其bounds的size高度和文字大小一样。且origin.y适当的取负值，即可对齐
  设置图片bounds时,origin.x 设置无效
  */
-- (RZImageAttachment *(^)(UIImage *appendImage))appendImage;
+- (RZImageAttachment *(^)(UIImage * _Nullable appendImage))appendImage;
 
+
+/**
+ 设置当前控件对象统一段落样式, 这里设置段落之后，请勿使用and等连接词
+ */
+- (RZParagraphStyle * _Nullable)paragraphStyle;
 @end
+NS_ASSUME_NONNULL_END

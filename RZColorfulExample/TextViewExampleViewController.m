@@ -54,7 +54,7 @@
         confer.text(@"斜体字设置 < 0\n").italic(@(-1));
         confer.text(@"拉伸字体\n").expansion(@2);
         confer.text(@"设置点击的链接属性，需要textView.editable = NO\n");
-        confer.text(@"可以添加一个带有url的字符串,可点击\n").underLineStyle(1).url(nil).font(FONT(30));
+        confer.text(@"可以添加一个带有url的字符串,可点击\n").underLineStyle(1).url([NSURL URLWithString:@"http:www.baicu.com"]).font(FONT(30));
 
         confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
         confer.text(@"  还有段落方法还未实现，我会在稍后继续完善\n").font(FONT(21)).textColor(RGB(255, 0, 0));

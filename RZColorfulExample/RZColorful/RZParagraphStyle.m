@@ -11,16 +11,17 @@
 
 @implementation RZParagraphStyle
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+
 - (RZColorfulAttribute *)and {
-    _colorfulsAttr.rzParagraph = self.paragraph.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)with {
-    _colorfulsAttr.rzParagraph = self.paragraph.copy;
     return _colorfulsAttr;
 }
 - (RZColorfulAttribute *)end {
-    _colorfulsAttr.rzParagraph = self.paragraph.copy;
     return _colorfulsAttr;
 }
 
@@ -29,6 +30,12 @@
         _paragraph = [[NSMutableParagraphStyle alloc] init];
     }
     return _paragraph;
+}
+
+- (void)syncParagraphStyle {
+    if(_colorfulsAttr) {
+        _colorfulsAttr.rzParagraph = self.paragraph.copy;
+    }
 }
 
 - (RZParagraphStyle *(^)(CGFloat lineSpacing))lineSpacing {
@@ -40,6 +47,7 @@
 }
 - (void)setLineSpacing:(CGFloat)lineSpacing {
     self.paragraph.lineSpacing = lineSpacing;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat paragraphSpacing))paragraphSpacing {
@@ -51,6 +59,7 @@
 }
 - (void)setParagraphSpacing:(CGFloat)paragraphSpacing {
     self.paragraph.paragraphSpacing = paragraphSpacing;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(NSTextAlignment alignment))alignment {
@@ -62,6 +71,7 @@
 }
 - (void)setAlignment:(NSTextAlignment)alignment {
     self.paragraph.alignment = alignment;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat firstLineHeadIndent))firstLineHeadIndent {
@@ -74,6 +84,7 @@
 
 - (void)setFirstLineHeadIndent:(CGFloat)firstLineHeadIndent {
     self.paragraph.firstLineHeadIndent = firstLineHeadIndent;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat headIndent))headIndent {
@@ -85,6 +96,7 @@
 }
 - (void)setHeadIndent:(CGFloat)headIndent {
     self.paragraph.headIndent = headIndent;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat tailIndent))tailIndent {
@@ -97,6 +109,7 @@
 
 - (void)setTailIndent:(CGFloat)tailIndent {
     self.paragraph.tailIndent = tailIndent;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(NSLineBreakMode lineBreakMode))lineBreakMode {
@@ -108,6 +121,7 @@
 }
 - (void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
     self.paragraph.lineBreakMode = lineBreakMode;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat minimumLineHeight))minimumLineHeight {
@@ -119,6 +133,7 @@
 }
 - (void)setMinimumLineHeight:(CGFloat)minimumLineHeight {
     self.paragraph.minimumLineHeight = minimumLineHeight;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat maximumLineHeight))maximumLineHeight {
@@ -131,6 +146,7 @@
 
 - (void)setMaximumLineHeight:(CGFloat)maximumLineHeight {
     self.paragraph.maximumLineHeight = maximumLineHeight;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(NSWritingDirection baseWritingDirection))baseWritingDirection {
@@ -142,6 +158,7 @@
 }
 - (void)setBaseWritingDirection:(NSWritingDirection)baseWritingDirection {
     self.paragraph.baseWritingDirection = baseWritingDirection;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat lineHeightMultiple))lineHeightMultiple {
@@ -153,6 +170,7 @@
 }
 - (void)setLineHeightMultiple:(CGFloat)lineHeightMultiple {
     self.paragraph.lineHeightMultiple = lineHeightMultiple;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat paragraphSpacingBefore))paragraphSpacingBefore {
@@ -164,6 +182,7 @@
 }
 - (void)setParagraphSpacingBefore:(CGFloat)paragraphSpacingBefore {
     self.paragraph.paragraphSpacingBefore = paragraphSpacingBefore;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(float hyphenationFactor))hyphenationFactor {
@@ -175,6 +194,7 @@
 }
 - (void)setHyphenationFactor:(float)hyphenationFactor {
     self.paragraph.hyphenationFactor = hyphenationFactor;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(CGFloat defaultTabInterval))defaultTabInterval {
@@ -186,6 +206,7 @@
 }
 - (void)setDefaultTabInterval:(CGFloat)defaultTabInterval {
     self.paragraph.defaultTabInterval = defaultTabInterval;
+    [self syncParagraphStyle];
 }
 
 - (RZParagraphStyle *(^)(BOOL allowsDefaultTighteningForTruncation))allowsDefaultTighteningForTruncation {
@@ -198,6 +219,9 @@
 
 - (void)setAllowsDefaultTighteningForTruncation:(BOOL)allowsDefaultTighteningForTruncation {
     self.paragraph.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation;
+    [self syncParagraphStyle];
 }
+
+#pragma clang diagnostic pop
 
 @end
