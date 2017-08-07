@@ -56,10 +56,9 @@
         confer.text(@"拉伸字体\n").expansion(@2);
         confer.text(@"设置点击的链接属性，需要textView.editable = NO\n");
         confer.text(@"可以添加一个带有url的字符串,可点击\n").underLineStyle(1).url([NSURL URLWithString:@"http:www.baidu.com"]).font(FONT(30));
-
-        confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
         // 阴影设置完之后如还需设置其他属性，可直接使用and，with，end连接词以继续添加text的属性
-        confer.text(@"阴影测试").shadow.offset(CGSizeMake(10, 10)).radius(1).and.font(FONT(40)).textColor(RGB(255, 0, 0));
+        confer.text(@"阴影测试\n").shadow.offset(CGSizeMake(10, 10)).radius(1).and.font(FONT(40)).textColor(RGB(255, 0, 0));
+        confer.text(@"【text】之后的属性添加方法具体可以查看RZColorfulAttribute.h").font(FONT(21)).textColor(RGB(255, 0, 0));
     }];
 }
 

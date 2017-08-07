@@ -57,8 +57,9 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
         // 也可以使用连接词and/with/end之后，在继续设置文本的属性
         confer.text(@"烟雨微微，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9)).and.textColor(RGB(255, 0, 0)).font(FONT(19));
         // 段落使用方法及技巧也是同样如此，具体方法参照 RZParagraphStyle.h设置
-        confer.text(@"一片笙歌醉里归。\n").paragraph.alignment(1).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+        confer.text(@"一片笙歌醉里归。\n").paragraphStyle.alignment(1).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
     }];
+
 
 ```
 
@@ -66,25 +67,22 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 
 ```objc
 
-        // 设置统一段落样式
-    [label rz_colorfulWithParagraphStyle:^(RZParagraphStyle * _Nullable paragraph) {
-        // 这里设置统一的段落样式，即confer.text（）都遵循此段落样式
-        // 这里设置完后请勿使用and/with/end连接词，使用无效
-        paragraph.lineSpacing(5).alignment(1);
-
-    } confer:^(RZColorfulConferrer * _Nonnull confer) {
-        // 所有的text内容都遵循上边的paragraphStyle，这里设置paragraph将无效。
-        confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").paragraph.alignment(0).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
-        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraph.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+    // 段落，阴影，可以设置当前控件全局的统一样式，也可以设置局部的样式，局部的样式优先级高于全局的
+    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.paragraphStyle.lineSpacing(15).baseWritingDirection(NSWritingDirectionRightToLeft); // 这里设置全局的段落样式，and等连接词不可用
+        confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);// 这里设置局部的连接词，and连接词之后可以继续添加text的属性
     }];
 
 ```
 
 * 在confer.text后添加的所有属性，仅且仅对当前行的text有效，对其他行无效
 * 段落样式的两种方法
-    * 1. confer.text().paragraph...() 
-    * 2. rz_colorfulWithParagraphStyle: confer: 
-    其区别在于第二种方法，可以设置confer中多种文本统一段落样式，文本更富有多样化，而第一种段落仅对其当前行内容有效
+    * 1. confer.text().paragraphStyle() 
+    * 2. confer.paragraphStyle 
+    第2种方法时对当前控件的全局的一个段落样式设置，第1种是局部的段落样式，当设置了1的部分，则全局样式将被局部覆盖
+
+* 阴影方法与上同样两种方式
 
 # 备注：
     * 多种属性使用名请参考对应的文件。

@@ -49,11 +49,11 @@
         confer.text(@"一片笙歌醉里归。\n").paragraphStyle.alignment(1).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
     }];
 
-
+    // 段落，阴影，可以设置当前控件全局的统一样式，也可以设置局部的样式，局部的样式优先级高于全局的
     [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
-        confer.paragraphStyle.lineSpacing(15).baseWritingDirection(NSWritingDirectionRightToLeft);
+        confer.paragraphStyle.lineSpacing(15).baseWritingDirection(NSWritingDirectionRightToLeft); // 这里设置全局的段落样式，and等连接词不可用
         confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
-        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);// 这里设置局部的连接词，and连接词之后可以继续添加text的属性
     }];
 }
 
