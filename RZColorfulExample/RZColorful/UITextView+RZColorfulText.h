@@ -26,23 +26,5 @@ NS_ASSUME_NONNULL_BEGIN
  @param attribute <#block description#>
  */
 - (void )rz_colorfulConferAppend:(void (^)(RZColorfulConferrer * _Nonnull confer))attribute;
-
-/**
- 设置段落样式
- 在attribute中设置的所有文本都遵循此paragraphStyle样式，且confer.text().paragraph.属性(值) 设置将无效
-
- @param paragraph 段落样式
- @param attribute 属性文本
- */
-- (void)rz_colorfulWithParagraphStyle:(void(^)(RZParagraphStyle * _Nullable paragraph))paragraph confer:(void(^)(RZColorfulConferrer * _Nonnull confer))attribute;
-
-
-/**
- 追加段落样式
-
- @param paragraph 段落样式
- @param attribute 属性文本
- */
-- (void)rz_colorfulWithParagraphStyleAppend:(void (^)(RZParagraphStyle * _Nullable paragraph))paragraph confer:(void (^)(RZColorfulConferrer * _Nonnull confer))attribute;
 @end
 NS_ASSUME_NONNULL_END

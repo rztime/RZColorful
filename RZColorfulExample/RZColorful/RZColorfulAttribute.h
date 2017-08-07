@@ -150,5 +150,5 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  段落样式，具体设置请看 RZParagraphStyle.h
  @return <#return value description#>
  */
-- (RZParagraphStyle *)paragraph;
+- (RZParagraphStyle *)paragraphStyle;
 @end

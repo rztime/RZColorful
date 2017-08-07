@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *texts;
 @property (nonatomic, strong) NSMutableArray *colorfuls;
 @property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
+@property (nonatomic, strong) RZShadow       *shadow;
 @end
 
 @implementation RZColorfulConferrer
@@ -30,7 +31,10 @@
             RZColorfulAttribute * colorfulTmp = (RZColorfulAttribute *)colorful;
             if (colorfulTmp.rzShadow) {
                 [colorfulTmp.colorfuls setObject:colorfulTmp.rzShadow forKey:NSShadowAttributeName];
+            } else if (_shadow) {
+                [colorfulTmp.colorfuls setObject:_shadow.shadow forKey:NSShadowAttributeName];
             }
+
             if (colorfulTmp.rzParagraph) {
                 [colorfulTmp.colorfuls setObject:colorfulTmp.rzParagraph forKey:NSParagraphStyleAttributeName];
             } else if(_paragraphStyle){
@@ -95,6 +99,19 @@
         _paragraphStyle = [[RZParagraphStyle alloc] init];
     }
     return _paragraphStyle;
+}
+
+
+/**
+ 设置统一阴影对象
+
+ @return <#return value description#>
+ */
+- (RZShadow * _Nullable)shadow {
+    if (!_shadow) {
+        _shadow = [[RZShadow alloc] init];
+    }
+    return _shadow;
 }
 
 - (NSMutableArray *)texts {

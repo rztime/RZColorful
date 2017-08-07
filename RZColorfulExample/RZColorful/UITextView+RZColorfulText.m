@@ -34,46 +34,5 @@
     self.attributedText = attr.copy;
 }
 
-- (void)rz_colorfulWithParagraphStyle:(void (^)(RZParagraphStyle *))paragraph confer:(void (^)(RZColorfulConferrer *))attribute {
-    RZParagraphStyle *paragraphStyle = nil;
-    if (paragraph) {
-        paragraphStyle = [[RZParagraphStyle alloc] init];
-        paragraph(paragraphStyle);
-    }
-    if(!attribute) {
-        return ;
-    }
-    RZColorfulConferrer *confferer = [[RZColorfulConferrer alloc] init];
-    attribute(confferer);
-    NSMutableAttributedString *string = [confferer confer].mutableCopy;
-    if(paragraphStyle){
-        NSDictionary *dict = @{NSParagraphStyleAttributeName : paragraphStyle.paragraph};
-        [string addAttributes:dict range:NSMakeRange(0, string.length)];
-    }
-    self.attributedText = string.copy;
-}
-
-- (void)rz_colorfulWithParagraphStyleAppend:(void (^)(RZParagraphStyle *))paragraph confer:(void (^)(RZColorfulConferrer *))attribute {
-    RZParagraphStyle *paragraphStyle = nil;
-    if (paragraph) {
-        paragraphStyle = [[RZParagraphStyle alloc] init];
-        paragraph(paragraphStyle);
-    }
-    if(!attribute) {
-        return ;
-    }
-    RZColorfulConferrer *confferer = [[RZColorfulConferrer alloc] init];
-    attribute(confferer);
-    NSMutableAttributedString *string = [confferer confer].mutableCopy;
-    if(paragraphStyle){
-        NSDictionary *dict = @{NSParagraphStyleAttributeName : paragraphStyle.paragraph};
-        [string addAttributes:dict range:NSMakeRange(0, string.length)];
-    }
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-    [attr appendAttributedString:string];
-
-    self.attributedText = attr.copy;
-}
-
 #pragma clang diagnostic pop
 @end

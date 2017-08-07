@@ -287,7 +287,7 @@
 
  @return <#return value description#>
  */
-- (RZParagraphStyle *)paragraph {
+- (RZParagraphStyle *)paragraphStyle {
     RZParagraphStyle *_paragraph = [[RZParagraphStyle alloc]init];
     _paragraph.colorfulsAttr = self;
     return _paragraph;
