@@ -20,6 +20,11 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 * 这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路才实现了快捷简单使用的方法。
 
 ## How to use
+* 添加代码到项目中
+```objc
+pod ‘RZColorful’
+```
+
 * 请在需要使用的地方加上
 
 ```objc
