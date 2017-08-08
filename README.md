@@ -78,17 +78,17 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
 
 * 在confer.text后添加的所有属性，仅且仅对当前行的text有效，对其他行无效
 * 段落样式的两种方法
-    * 1. confer.text().paragraphStyle() 
-    * 2. confer.paragraphStyle 
-    第2种方法时对当前控件的全局的一个段落样式设置，第1种是局部的段落样式，当设置了1的部分，则全局样式将被局部覆盖
+    *  1. confer.text().paragraphStyle 
+    *  2. confer.paragraphStyle 
+    第2种方法是对当前控件的全局的一个段落样式设置，第1种是局部的段落样式，当设置了1的部分，则全局样式将被局部覆盖
 
 * 阴影方法与上同样两种方式
 
 # 备注：
     * 多种属性使用名请参考对应的文件。
     * UILabel、UITextFile是同样的使用方法。
-    * `在UILabel、UITextFiled上url点击方法无效`。
-    * `在UITextView中若要添加url且可点击方法，请先设置其editable = NO,并实现代理`。
+    * 在UILabel、UITextFiled上url点击方法无效。
+    * 在UITextView中若要添加url且可点击方法，请先设置其editable = NO,并实现代理。
 
 
 ```objc
