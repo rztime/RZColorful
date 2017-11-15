@@ -26,14 +26,26 @@
     textFiled = [[UITextField alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, 40)];
     [self.view addSubview:textFiled];
 
-    [textFiled rz_colorfulConfer:^(RZColorfulConferrer *confer) {
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString *filePath =[resourcePath stringByAppendingPathComponent:@"test.html"];
+    NSString*htmlstring=[[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    [textFiled rz_colorfulConferInsetTo:rzConferInsertPositionDefault append:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.htmlText(htmlstring);
+        // 不能添加图片即 appendImage 和 appendImageUrl无效
         confer.text(@"具体的使用方法，相信看完UILabel,UITextView，就已经了解了，url的可点击属性只能在UITextView中有效").textColor(RGB(255, 0, 0));
     }];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"追加到光标处" style:0 target:self action:@selector(add)];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)add {
+    [textFiled rz_colorfulConferInsetTo:rzConferInsertPositionCursor append:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.text(@"\n2222222222").textColor([UIColor redColor]);
+    }];
 }
 
 /*

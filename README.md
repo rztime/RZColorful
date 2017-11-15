@@ -17,6 +17,8 @@ NSAttributedString富文本的方法集合，以及简单优雅的使用其多�
     * 拉伸
     * 阴影
     * 段落样式
+    * 通过html源码加载富文本
+    * 通过url添加图片到富文本
 * 这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路才实现了快捷简单使用的方法。
 
 ## How to use
@@ -36,7 +38,7 @@ pod ‘RZColorful’
 ```objc
 
     // 基本简单使用方法
-    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+    [textView rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
         // 设置文本颜色
         confer.text(@"荷花开后西湖好，\n").textColor(RGB(255, 0, 0));
         // 设置文本字体
@@ -46,6 +48,18 @@ pod ‘RZColorful’
         // 更多属性方法可以参考 RZColorfulAttribute.h文件 基本属性设置
         // 基本属性包含 文本颜色、文字所在区域背景色，字体，连体字，字间距，删除线以及其颜色，下划线以及其颜色，描边，横竖排版，斜体字，拉伸字体（扩展）,带url的文本等
         confer.text(@"前后红幢绿盖随。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+        
+        #warning 设置宽或者高为0 时，其将自动根据图片大小适配宽或者高
+        // 通过图片url加载图片
+        confer.appendImageByUrl(url).bounds(CGRectMake(0, 0, 300, 0)); //
+        
+        #warning 加载html源码内容
+        // 通过html源码，加载内容
+        confer.htmlText(htmlstring);
+        
+        #warning 将按照设置宽高显示
+        // 直接添加资源文件中的图片
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, 0, 100, 100));
     }];
 
 ```
@@ -54,7 +68,7 @@ pod ‘RZColorful’
 ```objc
 
     // 基本简单使用方法 包含特殊的属性（阴影、段落），有且只有这两个属性设置稍有不同
-    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+    [textView rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
          // 设置阴影，偏移量，颜色，模糊等等
         confer.text(@"画船撑入花深处，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9));
         // 可设置好文本属性在设置阴影
@@ -106,7 +120,6 @@ pod ‘RZColorful’
 
 ## 注意
 
-* 因为富文本渲染需要一定的时间，在使用过程中，如果需要在scrollView如tableView上不断的设置其富文本，此时请尽量少使用`rz_colorfulConferAppend:` 以及 `rz_colorfulWithParagraphStyleAppend: attribute:`方法，因为其追加时将重复绘制，在tableview滑动时可能会造成卡顿
 * 尽管我已经在代码中已经处理过（弱）引用问题，但是在实际运用写入text时，还是请尽量检查避免循环引用
 
 

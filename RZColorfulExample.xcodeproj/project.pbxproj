@@ -12,6 +12,9 @@
 		B279DCCF1F28D7E000688E73 /* TextViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCCE1F28D7E000688E73 /* TextViewExampleViewController.m */; };
 		B279DCD21F28D7F100688E73 /* TextFiledExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCD11F28D7F100688E73 /* TextFiledExampleViewController.m */; };
 		B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */; };
+		B290B4291FBC18640035850C /* NSAttributedString+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = B290B4281FBC18640035850C /* NSAttributedString+RZColorful.m */; };
+		B290B42B1FBC25EC0035850C /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = B290B42A1FBC25EB0035850C /* test.html */; };
+		B290B4301FBC5D8B0035850C /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B290B42F1FBC5D8A0035850C /* test.jpg */; };
 		B2B7FBAD1F279E8300643C63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBAC1F279E8300643C63 /* main.m */; };
 		B2B7FBB01F279E8300643C63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBAF1F279E8300643C63 /* AppDelegate.m */; };
 		B2B7FBB31F279E8300643C63 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B7FBB21F279E8300643C63 /* ViewController.m */; };
@@ -38,6 +41,10 @@
 		B279DCD31F28D88A00688E73 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZImageAttachment.h; sourceTree = "<group>"; };
 		B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZImageAttachment.m; sourceTree = "<group>"; };
+		B290B4271FBC18640035850C /* NSAttributedString+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+RZColorful.h"; sourceTree = "<group>"; };
+		B290B4281FBC18640035850C /* NSAttributedString+RZColorful.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+RZColorful.m"; sourceTree = "<group>"; };
+		B290B42A1FBC25EB0035850C /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		B290B42F1FBC5D8A0035850C /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		B2B7FBA81F279E8300643C63 /* RZColorfulExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZColorfulExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2B7FBAC1F279E8300643C63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B2B7FBAE1F279E8300643C63 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,6 +100,8 @@
 		B2B7FBAA1F279E8300643C63 /* RZColorfulExample */ = {
 			isa = PBXGroup;
 			children = (
+				B290B42A1FBC25EB0035850C /* test.html */,
+				B290B42F1FBC5D8A0035850C /* test.jpg */,
 				B2B7FBC21F279EAB00643C63 /* RZColorful */,
 				B2B7FBAE1F279E8300643C63 /* AppDelegate.h */,
 				B2B7FBAF1F279E8300643C63 /* AppDelegate.m */,
@@ -126,6 +135,12 @@
 			isa = PBXGroup;
 			children = (
 				B2B7FBC31F279EAB00643C63 /* RZColorful.h */,
+				B2B7FBC81F279EAB00643C63 /* UILabel+RZColorfulText.h */,
+				B2B7FBC91F279EAB00643C63 /* UILabel+RZColorfulText.m */,
+				B2B7FBCA1F279EAB00643C63 /* UITextField+RZColorfulText.h */,
+				B2B7FBCB1F279EAB00643C63 /* UITextField+RZColorfulText.m */,
+				B2B7FBCC1F279EAB00643C63 /* UITextView+RZColorfulText.h */,
+				B2B7FBCD1F279EAB00643C63 /* UITextView+RZColorfulText.m */,
 				B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */,
 				B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */,
 				B223E2F01F2B907000FBD4E1 /* RZShadow.h */,
@@ -136,12 +151,8 @@
 				B2B7FBC51F279EAB00643C63 /* RZColorfulAttribute.m */,
 				B2B7FBC61F279EAB00643C63 /* RZColorfulConferrer.h */,
 				B2B7FBC71F279EAB00643C63 /* RZColorfulConferrer.m */,
-				B2B7FBC81F279EAB00643C63 /* UILabel+RZColorfulText.h */,
-				B2B7FBC91F279EAB00643C63 /* UILabel+RZColorfulText.m */,
-				B2B7FBCA1F279EAB00643C63 /* UITextField+RZColorfulText.h */,
-				B2B7FBCB1F279EAB00643C63 /* UITextField+RZColorfulText.m */,
-				B2B7FBCC1F279EAB00643C63 /* UITextView+RZColorfulText.h */,
-				B2B7FBCD1F279EAB00643C63 /* UITextView+RZColorfulText.m */,
+				B290B4271FBC18640035850C /* NSAttributedString+RZColorful.h */,
+				B290B4281FBC18640035850C /* NSAttributedString+RZColorful.m */,
 			);
 			path = RZColorful;
 			sourceTree = "<group>";
@@ -205,7 +216,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B290B42B1FBC25EC0035850C /* test.html in Resources */,
 				B2B7FBBB1F279E8300643C63 /* LaunchScreen.storyboard in Resources */,
+				B290B4301FBC5D8B0035850C /* test.jpg in Resources */,
 				B2B7FBB81F279E8300643C63 /* Assets.xcassets in Resources */,
 				B2B7FBB61F279E8300643C63 /* Main.storyboard in Resources */,
 			);
@@ -225,6 +238,7 @@
 				B2E3B2521F2F740A0075460E /* RZParagraphStyle.m in Sources */,
 				B2B7FBD11F279EAB00643C63 /* UITextField+RZColorfulText.m in Sources */,
 				B223E2F21F2B907000FBD4E1 /* RZShadow.m in Sources */,
+				B290B4291FBC18640035850C /* NSAttributedString+RZColorful.m in Sources */,
 				B279DCC61F28D7AA00688E73 /* LabelExampleViewController.m in Sources */,
 				B2B7FBB01F279E8300643C63 /* AppDelegate.m in Sources */,
 				B2B7FBCE1F279EAB00643C63 /* RZColorfulAttribute.m in Sources */,

@@ -17,7 +17,18 @@
 
 /**
   设置图片bounds时,origin.x 设置无效 size.width height 可以设置与前后排文字字体大小一样，且适当调整origin.y为负值，可以让图片文本对齐
+ 如果是通过url设置bounds时，宽设置为0：则宽按照高度自动等比显示，高设置为0亦如此
+ 
  */
 - (RZImageAttachment *(^)(CGRect bounds))bounds;
+
+
+/**
+ 将bounds数据转换成html格式的语句
+
+ @param imageUrl <#imageUrl description#>
+ @return <#return value description#>
+ */
+- (NSString *)toHTMLStringWithImageUrl:(NSString *)imageUrl;
 
 @end

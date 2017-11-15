@@ -20,10 +20,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.frame];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     label.numberOfLines = 0;
     [self.view addSubview:label];
 
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    
+    NSString *filePath =[resourcePath stringByAppendingPathComponent:@"test.html"];
+    NSString*htmlstring=[[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //    NSString *html = @"<img  style=\"width: 40px; height: auto;left: 50%;position: absolute;\" src=\"http://pic4.nipic.com/20091217/3885730_124701000519_2.jpg\"/>";
+    NSString *html = @"http://pic4.nipic.com/20091217/3885730_124701000519_2.jpg";
+    [label rz_colorfulConferInsetTo:0 append:^(RZColorfulConferrer * _Nonnull confer) {
+        
+        confer.text(@"1111--------\n");
+        confer.htmlText(htmlstring);
+        confer.text(@"\n2222222222");
+        confer.text(@"333333--------\n");
+        confer.appendImageByUrl(html).bounds(CGRectMake(0, 0, 0, 100));
+        confer.htmlText(html);
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]);
+    }];
+    return ;
+    
     // 基本简单使用方法
     [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
         // 设置文本颜色
@@ -53,8 +71,12 @@
     [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
         confer.paragraphStyle.lineSpacing(15).baseWritingDirection(NSWritingDirectionRightToLeft); // 这里设置全局的段落样式，and等连接词不可用
         confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
-        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);// 这里设置局部的连接词，and连接词之后可以继续添加text的属性
+        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);// 这里设置局部的连接词，and连接词之后可以继续添加text的属性
+        confer.appendImage([UIImage imageNamed:@"flower"]).bounds(CGRectMake(0, 0, 50, 50));
     }];
+    NSLog(@"----label.frame:%f %f %f %f", label.frame.origin.x, label.frame.origin.y, label.frame.size.width, label.frame.size.height);
+    [label sizeToFit];
+    NSLog(@"++++label.frame:%f %f %f %f", label.frame.origin.x, label.frame.origin.y, label.frame.size.width, label.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {
