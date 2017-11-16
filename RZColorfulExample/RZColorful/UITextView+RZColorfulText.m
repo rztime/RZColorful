@@ -72,12 +72,12 @@
         if (conferrerColorful.length == 0) {
             return ;
         }
-        if (loc > self.attributedText.string.length) {
-            loc = self.attributedText.string.length;
-        }
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-        [attr insertAttributedString:conferrerColorful atIndex:loc];
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (loc > self.attributedText.string.length) {
+                loc = self.attributedText.string.length;
+            }
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+            [attr insertAttributedString:conferrerColorful atIndex:loc];
             self.attributedText = attr;
         });
     });
