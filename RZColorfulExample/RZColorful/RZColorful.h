@@ -5,7 +5,7 @@
 //  Copyright © 2017年 rztime. All rights reserved.
 //  使用方法请参照 RZColorfulConferrer 中的属性
 
-#import "UILabel+RZColorfulText.h"
-#import "UITextView+RZColorfulText.h"
-#import "UITextField+RZColorfulText.h"
+#import "UIView+RZColorful.h"
 #import "NSAttributedString+RZColorful.h"
+#import "UITextField+SelectedRange.h"
+#import "UIView+RZContinueFirstResponder.h"

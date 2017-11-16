@@ -6,6 +6,9 @@
 //  Copyright © 2017年 rztime. All rights reserved.
 //
 
+// 普通文本的所有属性的设置集合
+
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "RZShadow.h"

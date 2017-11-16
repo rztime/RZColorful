@@ -5,6 +5,7 @@
 //  Created by 乄若醉灬 on 2017/7/21.
 //  Copyright © 2017年 rztime. All rights reserved.
 //
+// 富文本的控制集合
 
 #import <Foundation/Foundation.h>
 #import "RZImageAttachment.h"

@@ -6,6 +6,9 @@
 //  Copyright © 2017年 rztime. All rights reserved.
 //
 
+// 段落属性的设置集合
+
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @class RZColorfulAttribute;

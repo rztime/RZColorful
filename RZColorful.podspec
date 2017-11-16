@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RZColorful"
-  s.version      = "1.1.2"
+  s.version      = "1.1.4"
   s.summary      = "NSAttributedString富文本的方法集合,以及简单优雅的使用其多种属性"
 
   # This description is used to generate tags and improve search results.
@@ -24,8 +24,11 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = "日常iOS开发过程中，少不得需要添加富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用集合。"
-
+  s.description  = <<-DESC
+                      "日常iOS开发过程中，少不得需要添加富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用集合。"
+                      1.因为textField、textView、label三方内容相似，所以整合所有的使用方法到UIView中。
+                      2.新增刷新界面时保持文本框焦点的方法
+                   DESC
   s.homepage     = "https://github.com/rztime/RZColorful"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
