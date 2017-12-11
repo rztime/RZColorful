@@ -1,16 +1,17 @@
 # RZColorful
 NSAttributedString富文本的方法集合，以及简单优雅的使用其多种属性
 
-* 日常iOS开发过程中，少不得需要添加富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用集合。
-* 因为textField、textView、label三方内容相似，所以整合所有的使用方法到UIView中。
-* 新增刷新界面时保持文本框焦点的方法 [demo查看](https://github.com/rztime/ContinueFirsterResponder)
+* 日常iOS开发过程中，很多时候需要添加多彩多样的富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用设置集合。
+* NSAttributedString 的多样化设置
+* 因为textField、textView、label的attributedText的富文本设置。
+* 添加刷新界面时保持文本框焦点的方法 [demo查看](https://github.com/rztime/ContinueFirsterResponder)
 * 富文本内容可单独抽出来,在下边这个文件夹中
 ```
 #import "NSAttributedString+RZColorful.h"
 ```
 
 ## 关于RZColorful
-* 支持UILabel、UITextView、UITextField的AttributedString的设置。
+* 支持UILabel、UITextView、UITextField的attributedText的设置。
 * 包含的属性快捷设置
     * 文本颜色
     * 文本所在区域对应的背景颜色
@@ -103,7 +104,7 @@ pod ‘RZColorful’
 
 * 在confer.text后添加的所有属性，仅且仅对当前行的text有效，对其他行无效
 * 段落样式的两种方法
-    *   confer.text().paragraphStyle
+    *  confer.text().paragraphStyle
     *  confer.paragraphStyle
     *  第2种方法是对当前控件的全局的一个段落样式设置，第1种是局部的段落样式，当设置了1的部分，则全局样式将被局部覆盖
 
