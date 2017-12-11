@@ -83,21 +83,17 @@
     if (![self rzIsValidView]) {
         return;
     }
-    __block NSUInteger loc = location;
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSAttributedString *conferrerColorful = [NSAttributedString rz_colorfulConfer:attribute];
-        if (conferrerColorful.string.length == 0) {
-            return ;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (loc > [self getEndLocation]) {
-                loc = [self getEndLocation];
-            }
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:[self rzAttributedString]];
-            [attr insertAttributedString:conferrerColorful atIndex:loc];
-            [self rzSetAttributedText:attr];
-        });
-    });
+    NSUInteger loc = location;
+    NSAttributedString *conferrerColorful = [NSAttributedString rz_colorfulConfer:attribute];
+    if (conferrerColorful.string.length == 0) {
+        return ;
+    }
+    if (loc > [self getEndLocation]) {
+        loc = [self getEndLocation];
+    }
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:[self rzAttributedString]];
+    [attr insertAttributedString:conferrerColorful atIndex:loc];
+    [self rzSetAttributedText:attr];
 }
 // 文本框的内容
 - (NSAttributedString *)rzAttributedString {
