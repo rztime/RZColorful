@@ -1,32 +1,30 @@
 # RZColorful
-NSAttributedString富文本的方法集合，以及简单优雅的使用其多种属性
+NSAttributedString 富文本方法 (图文混排、多样式文本)
 
-* 日常iOS开发过程中，很多时候需要添加多彩多样的富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用设置集合。
-* NSAttributedString 的多样化设置
-* 因为textField、textView、label的attributedText的富文本设置。
-* 添加刷新界面时保持文本框焦点的方法 [demo查看](https://github.com/rztime/ContinueFirsterResponder)
-* 富文本内容可单独抽出来,在下边这个文件夹中
+
+* NSAttributedString 的多样化设置(文字字体、颜色、阴影、段落样式、url、下划线，以及图文混排等等)
+* 添加UITextField、UITextView、UILabel的attributedText的富文本设置。
+* 扩展：添加一个刷新界面时保持文本框焦点的方法 [demo查看](https://github.com/rztime/ContinueFirsterResponder)
+* 富文本方法内容可单独抽出来,在下边这个文件夹中
 ```
 #import "NSAttributedString+RZColorful.h"
 ```
 
 ## 关于RZColorful
 * 支持UILabel、UITextView、UITextField的attributedText的设置。
-* 包含的属性快捷设置
-    * 文本颜色
+* 包含的属性快捷设置：
+    * 段落样式
+    * 阴影
+    * 文本字体、颜色
     * 文本所在区域对应的背景颜色
-    * 字体
     * 连体字
     * 字间距
     * 删除线、下划线，及其线条颜色
     * 描边，及其颜色
     * 斜体字
     * 拉伸
-    * 阴影
-    * 段落样式
     * 通过html源码加载富文本
     * 通过url添加图片到富文本
-* 这里感谢[Masnory](https://github.com/SnapKit/Masonry),参照其思路才实现了快捷简单使用的方法。
 
 ## How to use
 * 添加代码到项目中
@@ -39,76 +37,103 @@ pod ‘RZColorful’
 ```objc
 #import "RZColorful.h"
 ```
-下面以一段简单的代码来展示使用方法
 
+* 主要的功能：
+    * RZColorfulConferrer 
+        * text                                -- 添加文本
+        * appendImage                -- 添加图片
+        * htmlText                         -- 添加html源码
+        * appendImageByUrl        -- 添加图片（通过图片的URL添加）
+        * paragraphStyle              -- 全局的段落样式
+        * shadow                          -- 全局的阴影样式
+        
+    * 其中 text、appendImage、appendImageByUrl支持单独设置paragraphStyle、shadow（设置完之后使用and、with等可继续连接设置），此时将覆盖全局的样式，
+
+    * RZColorfulAttribute           -- 设置文本的所有的属性
+    * RZImageAttachment         -- 设置图片的所有的属性
+    
+    
 ### 基本的简单使用方法
 ```objc
+    [cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.paragraphStyle.paragraphSpacing(15); // 设置段落之间的行距
 
-    // 基本简单使用方法
-    [textView rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
-        // 设置文本颜色
-        confer.text(@"荷花开后西湖好，\n").textColor(RGB(255, 0, 0));
-        // 设置文本字体
-        confer.text(@"载酒来时。\n").font(FONT(19));
-        // 可以将属性连起来
-        confer.text(@"不用旌旗，\n").textColor(RGB(255, 0, 0)).font(FONT(19));
-        // 更多属性方法可以参考 RZColorfulAttribute.h文件 基本属性设置
-        // 基本属性包含 文本颜色、文字所在区域背景色，字体，连体字，字间距，删除线以及其颜色，下划线以及其颜色，描边，横竖排版，斜体字，拉伸字体（扩展）,带url的文本等
-        confer.text(@"前后红幢绿盖随。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
-        
-        #warning 设置宽或者高为0 时，其将自动根据图片大小适配宽或者高
-        // 通过图片url加载图片
-        confer.appendImageByUrl(url).bounds(CGRectMake(0, 0, 300, 0)); //
-        
-        #warning 加载html源码内容
-        // 通过html源码，加载内容
-        confer.htmlText(htmlstring);
-        
-        #warning 将按照设置宽高显示
-        // 直接添加资源文件中的图片
-        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, 0, 100, 100));
+        confer.text(@"日常用处:(图片+标题+描述)\n").font(rzFont(17)).textColor([UIColor redColor]);
+
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, -2, 15, 15)); // 图片
+        confer.text(@" 姓        名: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11));
+        confer.text(@"rztime").font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
+
+        confer.text(@"\n");
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, -2, 15, 15));
+        confer.text(@" 时        间: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11));
+        confer.text([NSString stringWithFormat:@"%@", [NSDate new]]).font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
+
+        confer.text(@"\n");
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, -2, 15, 15));
+        confer.text(@" 当次消费: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11));
+        confer.text(@"￥").font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
+        confer.text(@"100").font(rzFont(15)).textColor(RGBA(251, 51, 51, 1));
+        confer.text(@"元").font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
     }];
-
 ```
-### 有特殊属性使用方法（阴影，段落）
+效果如下
+<p align="center" >
+    <img src="image_1.jpg" title="日常列表中常用展示方法">
+</p>
 
+### 段落样式、阴影（局部与全局统一的区别）
+如果设置有局部样式，则全局样式无效
 ```objc
-
-    // 基本简单使用方法 包含特殊的属性（阴影、段落），有且只有这两个属性设置稍有不同
-    [textView rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
-         // 设置阴影，偏移量，颜色，模糊等等
-        confer.text(@"画船撑入花深处，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9));
-        // 可设置好文本属性在设置阴影
-        confer.text(@"香泛金卮。\n").font(FONT(19)).textColor(RGB(255, 0 , 0)).shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9));
-        // 也可以使用连接词and/with/end之后，在继续设置文本的属性
-        confer.text(@"烟雨微微，\n").shadow.offset(CGSizeMake(5, 5)).radius(3).color(RGB(233, 100, 9)).and.textColor(RGB(255, 0, 0)).font(FONT(19));
-        // 段落使用方法及技巧也是同样如此，具体方法参照 RZParagraphStyle.h设置
-        confer.text(@"一片笙歌醉里归。\n").paragraphStyle.alignment(1).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
+    [cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.paragraphStyle.lineSpacing(5).paragraphSpacingBefore(5).alignment(NSTextAlignmentCenter); // 段落全局样式
+        confer.shadow.color(RGBA(255, 0, 0, 0.3)).offset(CGSizeMake(1, 1));   // 阴影全局
+        
+        // 此部分显示全局样式的风格 （红色阴影，居中对齐，段落行距等）
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, -2, 15, 15));
+        confer.text(@" 姓名: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11));
+        confer.text(@"rztime").font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
+        
+        confer.text(@"\n");
+        confer.appendImage([UIImage imageNamed:@"test.jpg"]).bounds(CGRectMake(0, -2, 15, 15));
+        confer.text(@" 时间: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11));
+        confer.text([NSString stringWithFormat:@"%@", [NSDate new]]).font(rzFont(15)).textColor(RGBA(51, 51, 51, 1));
+        
+        // 此部分显示全局样式的风格 （居中对齐，段落行距等）  阴影将被局部覆盖（灰色）
+        confer.text(@"\n地址: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11)).paragraphStyle.paragraphSpacingBefore(20).and.shadow.color(GRAY(151)).offset(CGSizeMake(3, 3));;
+        confer.text(@"成都-软件园").font(rzFont(15)).textColor(RGBA(51, 51, 51, 1)).shadow.color(GRAY(151)).offset(CGSizeMake(3, 3));
+        
+        // 此部分段落样式被局部覆盖  阴影显示全局的
+        confer.text(@"\n爱好: ").font(rzFont(15)).textColor(RGBA(151, 151, 151, 11)).paragraphStyle.paragraphSpacingBefore(20);
+        confer.text(@"游山、").font(rzFont(15)).textColor(RGBA(151, 51, 51, 1));
+        confer.text(@"玩水、").font(rzFont(10)).textColor(RGBA(51, 151, 51, 1));
+        confer.text(@"听歌、").font(rzFont(18)).textColor(RGBA(51, 51, 151, 1));
+        confer.text(@"美食、").font(rzFont(17)).textColor(RGBA(51, 151, 51, 1));
+        confer.text(@"看电影、").font(rzFont(16)).textColor(RGBA(151, 51, 51, 1));
+        confer.text(@"撸代码、").font(rzFont(15)).textColor(RGBA(51, 151, 51, 1));
+        confer.text(@"等等\n\n").font(rzFont(15)).textColor(RGBA(251, 51, 51, 1));
     }];
-
-
 ```
+效果如下
+<p align="center" >
+<img src="image_2.jpg" title="日常列表中常用展示方法">
+</p>
 
-### 段落方法---统一的段落样式
-
+通过url加载图片
 ```objc
-
-    // 段落，阴影，可以设置当前控件全局的统一样式，也可以设置局部的样式，局部的样式优先级高于全局的
-    [label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
-        confer.paragraphStyle.lineSpacing(15).baseWritingDirection(NSWritingDirectionRightToLeft); // 这里设置全局的段落样式，and等连接词不可用
-        confer.text(@"常记溪亭日暮，\n沉醉不知归路。\n").textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);
-        confer.text(@"兴尽晚回舟，\n误入藕花深处。\n争渡，争渡，惊起一滩鸥鹭。\n").paragraphStyle.alignment(3).and.textColor(RGB(255, 0, 0)).font(FONT(19)).underLineStyle(3);// 这里设置局部的连接词，and连接词之后可以继续添加text的属性
+    [cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+        confer.appendImageByUrl(@"http://pic28.photophoto.cn/20130830/0005018667531249_b.jpg").bounds(CGRectMake(0, 0, 200, 0)).paragraphStyle.alignment(NSTextAlignmentLeft); // 宽或高为0时，即自动宽/高按照图片比例来
     }];
-
 ```
-
-* 在confer.text后添加的所有属性，仅且仅对当前行的text有效，对其他行无效
-* 段落样式的两种方法
-    *  confer.text().paragraphStyle
-    *  confer.paragraphStyle
-    *  第2种方法是对当前控件的全局的一个段落样式设置，第1种是局部的段落样式，当设置了1的部分，则全局样式将被局部覆盖
-
-* 阴影方法与上同样两种方式
+通过html源码加载文本
+```objc
+[cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString *filePath =[resourcePath stringByAppendingPathComponent:@"test.html"];
+    NSString *htmlstring=[[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    confer.htmlText(htmlstring);
+}];
+```
 
 # 备注：
     * 多种属性使用名请参考对应的文件。

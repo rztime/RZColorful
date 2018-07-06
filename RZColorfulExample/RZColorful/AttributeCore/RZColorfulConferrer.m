@@ -61,7 +61,16 @@
             NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
             attchment.image = value;
             attchment.bounds = ((RZImageAttachment *)colorful).imageBounds;
-            [string appendAttributedString:[NSAttributedString attributedStringWithAttachment:attchment]];
+            NSMutableAttributedString *imageString = [NSMutableAttributedString attributedStringWithAttachment:attchment].mutableCopy;
+            
+            RZParagraphStyle *style = [(RZImageAttachment *)colorful rz_paragraphStyle];
+            if (style) {
+                [imageString addAttributes:@{NSParagraphStyleAttributeName:style.paragraph} range:NSMakeRange(0, imageString.length)];
+            } else if(_paragraphStyle){
+                [imageString addAttributes:@{NSParagraphStyleAttributeName:_paragraphStyle.paragraph} range:NSMakeRange(0, imageString.length)];
+            }
+            
+            [string appendAttributedString:imageString];
         } else if ([key isEqualToString:rzColorHTMLText]) { // 网页文本
             if ([value length] == 0) {
                 continue;
@@ -72,7 +81,15 @@
                 continue;
             }
             NSString *html = [((RZImageAttachment *)colorful) toHTMLStringWithImageUrl:value];
-            [string appendAttributedString:[NSAttributedString htmlString:html]];
+            NSMutableAttributedString *imageString = [NSAttributedString htmlString:html].mutableCopy;
+            
+            RZParagraphStyle *style = [(RZImageAttachment *)colorful rz_paragraphStyle];
+            if (style) {
+                [imageString addAttributes:@{NSParagraphStyleAttributeName:style.paragraph} range:NSMakeRange(0, imageString.length)];
+            } else if(_paragraphStyle){
+                [imageString addAttributes:@{NSParagraphStyleAttributeName:_paragraphStyle.paragraph} range:NSMakeRange(0, imageString.length)];
+            }
+            [string appendAttributedString:imageString];
         }
     }
     [self.texts removeAllObjects];

@@ -1,28 +1,15 @@
 //
-//  UIView+RZColorful.m
+//  UITextView+RZColorful.m
 //  RZColorfulExample
 //
-//  Created by rztime on 2017/11/16.
-//  Copyright © 2017年 rztime. All rights reserved.
+//  Created by 若醉 on 2018/7/6.
+//  Copyright © 2018年 rztime. All rights reserved.
 //
 
-#import "UIView+RZColorful.h"
+#import "UITextView+RZColorful.h"
 #import "NSAttributedString+RZColorful.h"
-#import "UITextField+SelectedRange.h"
 
-@implementation UIView (RZColorful)
-
-/**
- 是否是有效文本框
-
- @return YES
- */
-- (BOOL)rzIsValidView {
-    if ([self isKindOfClass:[UITextView class]] || [self isKindOfClass:[UITextField class]] || [self isKindOfClass:[UILabel class]]) {
-        return YES;
-    }
-    return NO;
-}
+@implementation UITextView (RZColorful)
 
 /**
  设置富文本，原内容将清除  仅UILabel、UITextField、UITextView 有效
@@ -45,9 +32,6 @@
  @param attribute 新的内容
  */
 - (void )rz_colorfulConferInsetTo:(rzConferInsertPosition)position append:(void (^)(RZColorfulConferrer * _Nonnull confer))attribute {
-    if (![self rzIsValidView]) {
-        return;
-    }
     NSUInteger location;
     switch (position) {
         case rzConferInsertPositionDefault:
@@ -80,9 +64,6 @@
     if(!attribute) {
         return ;
     }
-    if (![self rzIsValidView]) {
-        return;
-    }
     NSUInteger loc = location;
     NSAttributedString *conferrerColorful = [NSAttributedString rz_colorfulConfer:attribute];
     if (conferrerColorful.string.length == 0) {
@@ -97,52 +78,19 @@
 }
 // 文本框的内容
 - (NSAttributedString *)rzAttributedString {
-    if ([self isKindOfClass:[UITextView class]]) {
-        return ((UITextView *)self).attributedText;
-    }
-    if ([self isKindOfClass:[UITextField class]]) {
-        return ((UITextField *)self).attributedText;
-    }
-    if ([self isKindOfClass:[UILabel class]]) {
-        return ((UILabel *)self).attributedText;
-    }
-    return nil;
+    return self.attributedText;
 }
 // 设置文本框的内容
 - (void)rzSetAttributedText:(NSAttributedString *)attributedString {
-    if ([self isKindOfClass:[UITextView class]]) {
-        ((UITextView *)self).attributedText = attributedString;
-    } else if ([self isKindOfClass:[UITextField class]]) {
-        ((UITextField *)self).attributedText = attributedString;
-    }else if ([self isKindOfClass:[UILabel class]]) {
-        ((UILabel *)self).attributedText = attributedString;
-    }
+    self.attributedText = attributedString;
 }
 // 尾部的位置
 - (NSUInteger)getEndLocation {
-    if ([self isKindOfClass:[UITextView class]]) {
-        return ((UITextView *)self).attributedText.string.length;
-    }
-    if ([self isKindOfClass:[UITextField class]]) {
-        return ((UITextField *)self).attributedText.string.length;
-    }
-    if ([self isKindOfClass:[UILabel class]]) {
-        return ((UILabel *)self).attributedText.string.length;
-    }
-    return 0;
+    return self.attributedText.string.length;
 }
 // 光标的位置
 - (NSUInteger)getCursorLocation {
-    if ([self isKindOfClass:[UITextView class]]) {
-        return ((UITextView *)self).selectedRange.location;
-    }
-    if ([self isKindOfClass:[UITextField class]]) {
-        return ((UITextField *)self).selectedRange.location;
-    }
-    if ([self isKindOfClass:[UILabel class]]) {
-        return ((UILabel *)self).attributedText.string.length;
-    }
-    return 0;
+    return self.selectedRange.location;;
 }
 
 @end

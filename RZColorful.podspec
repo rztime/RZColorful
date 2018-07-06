@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RZColorful"
-  s.version      = "1.1.5"
+  s.version      = "1.1.6"
   s.summary      = "NSAttributedString富文本的快捷设置方法集合,以及UITextView、UITextField、UILabel富文本简单优雅的使用"
 
   # This description is used to generate tags and improve search results.
@@ -25,9 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                      "日常iOS开发过程中，少不得需要添加富文本以突出显示，在富文本设置过程中，代码冗长且不好记忆，所以这里以一个简洁的方式实现富文本字符串的使用集合。"
-                      1.因为textField、textView、label三方内容相似，所以整合所有的使用方法到UIView中。
-                      2.刷新界面时保持文本框焦点（键盘不隐藏）的方法
+                      新增appendImage、appendImageByUrl也可以设置段落样式
                    DESC
   s.homepage     = "https://github.com/rztime/RZColorful"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -92,7 +90,17 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "RZColorful", "RZColorfulExample/RZColorful/*.{h,m}"
+  s.source_files  = "RZColorful", "RZColorfulExample/RZColorful/*.h"
+
+  s.subspec 'AttributeCore' do |ss|
+    ss.source_files = "RZColorfulExample/RZColorful/AttributeCore/*.{h,m}"
+    end
+
+  s.subspec 'UICore' do |ss|
+    ss.dependency 'RZColorful/AttributeCore'
+    ss.source_files = "RZColorfulExample/RZColorful/UICore/*.{h,m}"
+
+    end
   # s.exclude_files = "RZColorfulExample/RZColorful"
 
   # s.public_header_files = "Classes/**/*.h"

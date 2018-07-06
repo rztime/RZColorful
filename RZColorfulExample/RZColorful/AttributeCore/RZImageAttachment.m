@@ -7,21 +7,18 @@
 //
 
 #import "RZImageAttachment.h"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation RZImageAttachment
 
 - (RZImageAttachment *(^)(CGRect bounds))bounds {
     __weak typeof(self)weakSelf = self;
     return ^id (CGRect bounds) {
-        weakSelf.bounds = bounds;
+        weakSelf.imageBounds = bounds;
         return self;
     };
 }
-
-- (void)setBounds:(CGRect)bounds {
-    _imageBounds = bounds;
-}
-
 
 /**
  将bounds数据转换成html格式的语句
@@ -42,4 +39,20 @@
     return html;
 }
 
+/**
+ 段落样式，具体设置请看 RZParagraphStyle.h
+ 
+ @return <#return value description#>
+ */
+- (RZParagraphStyle *)paragraphStyle {
+    if (!_paragraphStyle) {
+        _paragraphStyle = [[RZParagraphStyle alloc] init];
+    }
+    return _paragraphStyle;
+}
+
+- (RZParagraphStyle *)rz_paragraphStyle {
+    return _paragraphStyle;
+}
+#pragma clang diagnostic pop
 @end

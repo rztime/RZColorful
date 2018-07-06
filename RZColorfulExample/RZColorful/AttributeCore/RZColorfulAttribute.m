@@ -33,19 +33,13 @@
 - (RZColorfulAttribute * (^) (UIColor *)) textColor {
     __weak typeof(self) weakSelf = self;
     return ^id(UIColor *textColor) {
-        weakSelf.textColor = textColor;
+        if (!textColor) {
+            textColor = [UIColor new];
+        }
+        [weakSelf.colorfuls setObject:textColor forKey:NSForegroundColorAttributeName];
         return self;
     };
 }
-
-- (void)setTextColor:(UIColor *)textColor {
-    UIColor *_textColor = textColor.copy;
-    if (_textColor == nil) {
-        _textColor = [UIColor clearColor];
-    }
-    [_colorfuls setObject:_textColor forKey:NSForegroundColorAttributeName];
-}
-
 
 /**
  设置字体
@@ -53,18 +47,13 @@
 - (RZColorfulAttribute *(^)(UIFont *font))font {
     __weak typeof(self) weakSelf = self;
     return ^id(UIFont *font) {
-        weakSelf.font = font;
+        if (!font) {
+            font = [UIFont systemFontOfSize:17];
+        }
+        [weakSelf.colorfuls setObject:font forKey:NSFontAttributeName];
         return self;
     };
 }
-- (void)setFont:(UIFont *)font {
-    UIFont *_font = font.copy;
-    if (_font == nil) {
-        return ;
-    }
-    [_colorfuls setObject:font forKey:NSFontAttributeName];
-}
-
 
 /**
  设置文字背景颜色
@@ -72,17 +61,12 @@
 - (RZColorfulAttribute *(^)(UIColor *backgroundColor))backgroundColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *backgroundColor) {
-        weakSelf.backgroundColor = backgroundColor;
+        if (!backgroundColor) {
+            backgroundColor = [UIColor new];
+        }
+        [weakSelf.colorfuls setObject:backgroundColor forKey:NSBackgroundColorAttributeName];
         return self;
     };
-}
-
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-    UIColor *bgColor = backgroundColor.copy;
-    if (!bgColor) {
-        bgColor = [UIColor clearColor];
-    }
-    [_colorfuls setObject:bgColor forKey:NSBackgroundColorAttributeName];
 }
 
 /**
@@ -91,15 +75,10 @@
 - (RZColorfulAttribute *(^)(NSNumber *ligature))ligature {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *ligature) {
-        weakSelf.ligature = ligature;
+        [weakSelf.colorfuls setObject:ligature forKey:NSLigatureAttributeName];
         return self;
     };
 }
-
-- (void)setLigature:(NSNumber *)ligature {
-    [_colorfuls setObject:ligature forKey:NSLigatureAttributeName];
-}
-
 
 /**
  字间距 >0 加宽  < 0减小间距
@@ -107,12 +86,9 @@
 - (RZColorfulAttribute *(^)(NSNumber *wordSpace))wordSpace {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *wordSpace) {
-        weakSelf.wordSpace = wordSpace;
+        [weakSelf.colorfuls setObject:wordSpace forKey:NSKernAttributeName];
         return self;
     };
-}
-- (void)setWordSpace:(NSNumber *)wordSpace {
-    [_colorfuls setObject:wordSpace forKey:NSKernAttributeName];
 }
 
 /**
@@ -121,12 +97,9 @@
 - (RZColorfulAttribute *(^)(RZLineStyle strikeThrough))strikeThrough {
     __weak typeof(self)weakSelf = self;
     return ^id (RZLineStyle strikeThrough) {
-        weakSelf.strikeThrough = strikeThrough;
+        [weakSelf.colorfuls setObject:@(strikeThrough) forKey:NSStrikethroughStyleAttributeName];
         return self;
     };
-}
-- (void)setStrikeThrough:(RZLineStyle)strikeThrough {
-    [_colorfuls setObject:@(strikeThrough) forKey:NSStrikethroughStyleAttributeName];
 }
 
 /**
@@ -135,19 +108,13 @@
 - (RZColorfulAttribute *(^)(UIColor *strikeThroughColor))strikeThroughColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *strikeThroughColor) {
-        weakSelf.strikeThroughColor = strikeThroughColor;
+        if (!strikeThroughColor) {
+            strikeThroughColor = [UIColor clearColor];
+        }
+        [weakSelf.colorfuls setObject:strikeThroughColor forKey:NSStrikethroughColorAttributeName];
         return self;
     };
 }
-
-- (void)setStrikeThroughColor:(UIColor *)strikeThroughColor {
-    UIColor *_color = strikeThroughColor.copy;
-    if (!_color) {
-        _color = [UIColor clearColor];
-    }
-    [_colorfuls setObject:_color forKey:NSStrikethroughColorAttributeName];
-}
-
 
 /**
  下划线样式
@@ -155,13 +122,9 @@
 - (RZColorfulAttribute *(^)(RZLineStyle underLineStyle))underLineStyle {
     __weak typeof(self)weakSelf = self;
     return ^id (RZLineStyle underLineStyle) {
-        weakSelf.underLineStyle = underLineStyle;
+        [weakSelf.colorfuls setObject:@(underLineStyle) forKey:NSUnderlineStyleAttributeName];
         return self;
     };
-}
-
-- (void)setUnderLineStyle:(RZLineStyle)underLineStyle {
-    [_colorfuls setObject:@(underLineStyle) forKey:NSUnderlineStyleAttributeName];
 }
 
 /**
@@ -170,13 +133,12 @@
 - (RZColorfulAttribute *(^)(UIColor *underLineColor))underLineColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *underLineColor) {
-        weakSelf.underLineColor = underLineColor;
+        if (!underLineColor) {
+            underLineColor = [UIColor new];
+        }
+        [weakSelf.colorfuls setObject:underLineColor forKey:NSUnderlineColorAttributeName];
         return self;
     };
-}
-
-- (void)setUnderLineColor:(UIColor *)underLineColor {
-    [_colorfuls setObject:underLineColor forKey:NSUnderlineColorAttributeName];
 }
 
 /**
@@ -185,31 +147,23 @@
 - (RZColorfulAttribute *(^)(UIColor *strokeColor))strokeColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *strokeColor) {
-        weakSelf.strokeColor = strokeColor;
+        if (!strokeColor) {
+            strokeColor = [UIColor new];
+        }
+        [weakSelf.colorfuls setObject:strokeColor forKey:NSStrokeColorAttributeName];
         return self;
     };
 }
 
-- (void)setStrokeColor:(UIColor *)strokeColor {
-    UIColor *_color = strokeColor.copy;
-    if (!_color) {
-        _color = [UIColor clearColor];
-    }
-    [_colorfuls setObject:_color forKey:NSStrokeColorAttributeName];
-}
 /**
  描边的笔画宽度 为3时，空心
  */
 - (RZColorfulAttribute *(^)(NSNumber *strokeWidth))strokeWidth {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *strokeWidth) {
-        weakSelf.strokeWidth = strokeWidth;
+        [weakSelf.colorfuls setObject:strokeWidth forKey:NSStrokeWidthAttributeName];
         return self;
     };
-}
-
-- (void)setStrokeWidth:(NSNumber *)strokeWidth {
-    [_colorfuls setObject:strokeWidth forKey:NSStrokeWidthAttributeName];
 }
 
 /**
@@ -218,13 +172,9 @@
 - (RZColorfulAttribute *(^)(NSNumber *verticalGlyphForm))verticalGlyphForm {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *verticalGlyphForm) {
-        weakSelf.verticalGlyphForm = verticalGlyphForm;
+        [weakSelf.colorfuls setObject:verticalGlyphForm forKey:NSVerticalGlyphFormAttributeName];
         return self;
     };
-}
-
-- (void)setVerticalGlyphForm:(NSNumber *)verticalGlyphForm {
-    [_colorfuls setObject:verticalGlyphForm forKey:NSVerticalGlyphFormAttributeName];
 }
 
 /**
@@ -233,12 +183,9 @@
 - (RZColorfulAttribute *(^)(NSNumber *italic))italic {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *italic) {
-        weakSelf.italic = italic;
+        [weakSelf.colorfuls setObject:italic forKey:NSObliquenessAttributeName];
         return self;
     };
-}
-- (void)setItalic:(NSNumber *)italic {
-    [_colorfuls setObject:italic forKey:NSObliquenessAttributeName];
 }
 
 /**
@@ -247,12 +194,9 @@
 - (RZColorfulAttribute *(^)(NSNumber *expansion))expansion {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *expansion) {
-        weakSelf.expansion = expansion;
+        [weakSelf.colorfuls setObject:expansion forKey:NSExpansionAttributeName];
         return self;
     };
-}
-- (void)setExpansion:(NSNumber *)expansion {
-    [_colorfuls setObject:expansion forKey:NSExpansionAttributeName];
 }
 
 /**
@@ -261,17 +205,12 @@
 - (RZColorfulAttribute *(^)(NSURL *url))url {
     __weak typeof(self)weakSelf = self;
     return ^id (NSURL *url) {
-        weakSelf.url = url;
+        if (!url || url.absoluteString.length == 0) {
+            url = [NSURL URLWithString:@""];
+        }
+        [weakSelf.colorfuls setObject:url forKey:NSLinkAttributeName];
         return self;
     };
-}
-
-- (void)setUrl:(NSURL *)url {
-    NSURL *_url = url.copy;
-    if (!_url || _url.absoluteString.length == 0) {
-        _url = [NSURL URLWithString:@""];
-    }
-    [_colorfuls setObject:_url forKey:NSLinkAttributeName];
 }
 
 // 阴影
