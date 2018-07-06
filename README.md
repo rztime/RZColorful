@@ -116,7 +116,7 @@ pod ‘RZColorful’
 ```
 效果如下
 <p align="center" >
-<img src="image_2.jpg" title="日常列表中常用展示方法">
+<img src="image_2.png" title="日常列表中常用展示方法">
 </p>
 
 通过url加载图片
