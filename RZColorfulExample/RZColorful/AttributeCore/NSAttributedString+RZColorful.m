@@ -89,7 +89,14 @@
     [self enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
         if ([value isKindOfClass:[NSTextAttachment class]]) {
             NSTextAttachment *imageMent = value;
-            [arrays addObject:imageMent.image];
+            if (imageMent.image) {
+                [arrays addObject:imageMent.image];
+            } else if(imageMent.fileWrapper.regularFileContents) {
+                UIImage *image = [UIImage imageWithData:imageMent.fileWrapper.regularFileContents];
+                if (image) {
+                    [arrays addObject:image];
+                }
+            }
         }
     }];
     return arrays.copy;
