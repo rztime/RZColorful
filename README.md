@@ -12,6 +12,8 @@ NSAttributedString 富文本方法 (图文混排、多样式文本)
 
 ## 关于RZColorful
 * 支持UILabel、UITextView、UITextField的attributedText的设置。
+* 支持获取NSAttributedString中的图片
+* 支持 HTML 与 NSAttributedString互换（支持图片）
 * 包含的属性快捷设置：
     * 段落样式
     * 阴影
