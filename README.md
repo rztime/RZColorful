@@ -1,6 +1,7 @@
 # RZColorful
 NSAttributedString 富文本方法 (图文混排、多样式文本)
 
+swift版本[RZColorfulSwift](https://github.com/rztime/RZColorfulSwift)
 
 * NSAttributedString 的多样化设置(文字字体、颜色、阴影、段落样式、url、下划线，以及图文混排等等)
 * 添加UITextField、UITextView、UILabel的attributedText的富文本设置。
@@ -12,6 +13,8 @@ NSAttributedString 富文本方法 (图文混排、多样式文本)
 
 ## 关于RZColorful
 * 支持UILabel、UITextView、UITextField的attributedText的设置。
+* 支持获取NSAttributedString中的图片
+* 支持 HTML 与 NSAttributedString互换（支持图片）
 * 包含的属性快捷设置：
     * 段落样式
     * 阴影
@@ -23,6 +26,8 @@ NSAttributedString 富文本方法 (图文混排、多样式文本)
     * 描边，及其颜色
     * 斜体字
     * 拉伸
+    * 上下标
+    * 书写方向（从左到右，从右到左）
     * 通过html源码加载富文本
     * 通过url添加图片到富文本
 

@@ -26,6 +26,11 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
     RZLineStyleDouble = NSUnderlineStyleDouble  // 细双实线
 };
 
+typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
+    RZWDLeftToRight,   // 从左到右
+    RZWDRightToLeft,   // 从右到左
+};
+
 @interface RZColorfulAttribute : NSObject
 
 @property (nonatomic, assign, readonly) BOOL hadShadow;
@@ -117,6 +122,16 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  扩张，即拉伸文字 >0 拉伸 <0压缩
  */
 - (RZColorfulAttribute *(^)(NSNumber *expansion))expansion;
+
+/**
+ 基准偏移 为正:上偏移（上标） 为负：下偏移（下标）
+ */
+- (RZColorfulAttribute *(^)(NSNumber *baselineOffset))baselineOffset;
+
+/**
+ 书写方向
+ */
+- (RZColorfulAttribute *(^)(RZWriteDirection rzwriteDirection))writingDirection;
 
 @end
 

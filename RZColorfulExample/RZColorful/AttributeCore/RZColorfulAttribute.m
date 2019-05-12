@@ -201,7 +201,44 @@
         return weakSelf;
     };
 }
+/**
+ 上下标
+ */
+- (RZColorfulAttribute *(^)(NSNumber *baselineOffset))baselineOffset {
+    __weak typeof(self)weakSelf = self;
+    return ^id (NSNumber *baselineOffset) {
+        weakSelf.colorfuls[NSBaselineOffsetAttributeName] = baselineOffset;
+        return weakSelf;
+    };
+}
 
+
+/**
+ 书写方向
+ */
+- (RZColorfulAttribute *(^)(RZWriteDirection rzwriteDirection))writingDirection {
+    __weak typeof(self)weakSelf = self;
+    return ^id (RZWriteDirection rzwriteDirection) {
+        id value;
+        if (rzwriteDirection == RZWDLeftToRight) {
+            if (@available(iOS 9.0, *)) {
+                value = @[@(NSWritingDirectionLeftToRight | NSWritingDirectionOverride)];
+            } else {
+                // Fallback on earlier versions
+                value = @[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionOverride)];
+            }
+        } else {
+            if (@available(iOS 9.0, *)) {
+                value = @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)];
+            } else {
+                // Fallback on earlier versions
+                value = @[@(NSWritingDirectionRightToLeft | NSTextWritingDirectionOverride)];
+            }
+        }
+        weakSelf.colorfuls[NSWritingDirectionAttributeName] = value;
+        return weakSelf;
+    };
+}
 /**
  给文本添加链接，并且可点击跳转浏览器打开
  */
