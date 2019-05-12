@@ -10,13 +10,48 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
+@interface RZImageAttachment ()
+
+/** 设置段落样式  */
+@property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
+/** 阴影 */
+@property (nonatomic, strong) RZShadow *shadow;
+
+@property (nonatomic, strong) NSURL *URL;
+@end
+
 @implementation RZImageAttachment
+
+- (NSDictionary *)code {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    if (_hadParagraphStyle) {
+        dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
+    }
+    if (_hadShadow) {
+        dict[NSShadowAttributeName] = [_shadow code];
+    }
+    if (_URL) {
+        dict[NSLinkAttributeName] = _URL;
+    }
+    return dict;
+}
 
 - (RZImageAttachment *(^)(CGRect bounds))bounds {
     __weak typeof(self)weakSelf = self;
     return ^id (CGRect bounds) {
         weakSelf.imageBounds = bounds;
-        return self;
+        return weakSelf;
+    };
+}
+
+/**
+ 设置点击
+ */
+- (RZImageAttachment *(^)(NSURL *url))url {
+    __weak typeof(self)weakSelf = self;
+    return ^id (NSURL *url) {
+        weakSelf.URL = url;
+        return weakSelf;
     };
 }
 
@@ -47,12 +82,19 @@
 - (RZParagraphStyle *)paragraphStyle {
     if (!_paragraphStyle) {
         _paragraphStyle = [[RZParagraphStyle alloc] init];
+        _paragraphStyle.imageAttach = self;
+        _hadParagraphStyle = YES;
     }
     return _paragraphStyle;
 }
 
-- (RZParagraphStyle *)rz_paragraphStyle {
-    return _paragraphStyle;
+- (RZShadow *)shadow {
+    if (!_shadow) {
+        _shadow = [[RZShadow alloc] init];
+        _shadow.imageAttach = self;
+        _hadShadow = YES;
+    }
+    return _shadow;
 }
 #pragma clang diagnostic pop
 @end

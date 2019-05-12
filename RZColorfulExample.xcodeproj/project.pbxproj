@@ -98,12 +98,12 @@
 		7622B0EB201B7765001D33CF /* AttributeCore */ = {
 			isa = PBXGroup;
 			children = (
-				B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */,
-				B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */,
 				B223E2F01F2B907000FBD4E1 /* RZShadow.h */,
 				B223E2F11F2B907000FBD4E1 /* RZShadow.m */,
 				B2E3B2501F2F740A0075460E /* RZParagraphStyle.h */,
 				B2E3B2511F2F740A0075460E /* RZParagraphStyle.m */,
+				B279DCD41F2B7A3700688E73 /* RZImageAttachment.h */,
+				B279DCD51F2B7A3700688E73 /* RZImageAttachment.m */,
 				B2B7FBC41F279EAB00643C63 /* RZColorfulAttribute.h */,
 				B2B7FBC51F279EAB00643C63 /* RZColorfulAttribute.m */,
 				B2B7FBC61F279EAB00643C63 /* RZColorfulConferrer.h */,

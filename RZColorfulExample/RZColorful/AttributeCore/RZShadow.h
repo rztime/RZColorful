@@ -11,25 +11,31 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @class RZColorfulAttribute;
+@class RZImageAttachment;
 
 #define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
 
 @interface RZShadow : NSObject
 
-@property (nonatomic, strong) RZColorfulAttribute *colorfulsAttr RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+@property (nonatomic, weak) RZColorfulAttribute *colorfulsAttr RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+@property (nonatomic, weak) RZImageAttachment *imageAttach RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
 
-@property (nonatomic, strong) NSShadow *shadow RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+- (NSShadow *)code;
 
-
-/**
- 连接词，如果阴影属性设置完了，还想继续设置其他text的属性，请使用and，with，或者end，之后可以继续设置其他属性
-
- @return <#return value description#>
- */
+/** 连接词 text、htmlText可使用*/
 - (RZColorfulAttribute *)and;
+/** 连接词 text、htmlText可使用 */
 - (RZColorfulAttribute *)with;
+/** 连接词 text、htmlText可使用 */
 - (RZColorfulAttribute *)end;
+
+/** 连接词 appendImage、appendImageByUrl可使用*/
+- (RZImageAttachment *)andAttach;
+/** 连接词 appendImage、appendImageByUrl可使用*/
+- (RZImageAttachment *)withAttach;
+/** 连接词 appendImage、appendImageByUrl可使用*/
+- (RZImageAttachment *)endAttach;
 
 
 /**

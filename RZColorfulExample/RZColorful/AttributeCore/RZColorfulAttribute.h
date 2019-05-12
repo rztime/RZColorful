@@ -28,14 +28,11 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
 
 @interface RZColorfulAttribute : NSObject
 
-/**
- 三属性请勿操作
- */
-@property (nonatomic, strong, readonly) NSMutableDictionary *colorfuls RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
-@property (nonatomic, strong) NSShadow *rzShadow RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
+@property (nonatomic, assign, readonly) BOOL hadShadow;
+@property (nonatomic, assign, readonly) BOOL hadParagraphStyle;
+- (NSDictionary *)code;
 
-@property (nonatomic, strong) NSMutableParagraphStyle *rzParagraph RZWARNING("该属性不可使用，设置富文本属性参照类中block方法内容");
-
+#pragma mark - 文本属性设置内容
 
 #pragma mark - 连接词
 /**
@@ -121,6 +118,25 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  */
 - (RZColorfulAttribute *(^)(NSNumber *expansion))expansion;
 
+@end
+
+#pragma mark - 富文本 url，仅UITextViewd点击有效
+@interface RZColorfulAttribute (UITextView)
+/**
+ 给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效
+ 设置url属性，要实现点击，需实现UITextView的delegate的url点击事件
+ */
+- (RZColorfulAttribute *(^)(NSURL *url))url;
+@end
+
+
+@interface RZColorfulAttribute (Other)
+#pragma mark - 设置文本段落样式
+/**
+ 段落样式，具体设置请看 RZParagraphStyle.h
+ @return <#return value description#>
+ */
+- (RZParagraphStyle *)paragraphStyle;
 
 #pragma mark -阴影设置
 /**
@@ -128,30 +144,8 @@ typedef NS_ENUM(NSInteger, RZLineStyle) {
  如阴影颜色confer.text(@"text").shadow.color(color);
  如果需要继续添加text的属性，请使用and\with\end相连
  如confer.text(@"text").shadow.color(color).and.textColor(tColor)...
-
+ 
  @return <#return value description#>
  */
 - (RZShadow *)shadow;
-
-
-
-@end
-
-#pragma mark - 富文本 url，仅UITextViewd点击有效
-@interface RZColorfulAttribute (UITextView)
-
-/**
- 给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效
- */
-- (RZColorfulAttribute *(^)(NSURL *url))url;
-
-@end
-
-#pragma mark - 设置文本段落样式
-@interface RZColorfulAttribute (ParagraphStyle)
-/**
- 段落样式，具体设置请看 RZParagraphStyle.h
- @return <#return value description#>
- */
-- (RZParagraphStyle *)paragraphStyle;
 @end

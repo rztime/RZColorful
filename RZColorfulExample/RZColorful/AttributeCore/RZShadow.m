@@ -9,6 +9,12 @@
 #import "RZShadow.h"
 #import "RZColorfulAttribute.h"
 
+@interface RZShadow ()
+
+@property (nonatomic, strong) NSShadow *shadow;
+
+@end
+
 @implementation RZShadow
 
 #pragma clang diagnostic push
@@ -25,10 +31,23 @@
     return _colorfulsAttr;
 }
 
+- (RZImageAttachment *)andAttach {
+    return _imageAttach;
+}
+- (RZImageAttachment *)withAttach {
+    return _imageAttach;
+}
+- (RZImageAttachment *)endAttach {
+    return _imageAttach;
+}
+
+- (NSShadow *)code {
+    return _shadow;
+}
+
 - (NSShadow *)shadow {
     if (!_shadow) {
         _shadow = [[NSShadow alloc] init];
-        _colorfulsAttr.rzShadow = _shadow;
     }
     return _shadow;
 }
@@ -37,7 +56,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGSize offset) {
         weakSelf.shadow.shadowOffset = offset;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -45,7 +64,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat radius) {
         weakSelf.shadow.shadowBlurRadius = radius;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -53,7 +72,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *color) {
         weakSelf.shadow.shadowColor = color;
-        return self;
+        return weakSelf;
     };
 }
 #pragma clang diagnostic pop

@@ -37,17 +37,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ 添加html格式的内容(网页源码)，会通过将源码转换成普通文本内容
+ */
+- (RZColorfulAttribute *(^)(NSString * _Nullable htmlText))htmlText;
+
+
+/**
  添加图片，为使图片与前后排文字对齐，可设置其bounds的size高度和文字大小一样。且origin.y适当的取负值，即可对齐
  设置图片bounds时,origin.x 设置无效
  */
 - (RZImageAttachment *(^)(UIImage * _Nullable appendImage))appendImage;
-
-
-/**
- 添加html格式的内容(网页源码)，会通过将源码转换成普通文本内容
- */
-- (void (^)(NSString *htmlText))htmlText;
-
 
 /**
  通过url添加图片
@@ -59,12 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (RZParagraphStyle * _Nullable)paragraphStyle;
 
-
 /**
  设置统一阴影对象 , 请勿使用and等连接词
   在text中设置了阴影样式，则text的阴影样式优先级高于统一阴影样式
  @return <#return value description#>
  */
 - (RZShadow * _Nullable)shadow;
+
 @end
 NS_ASSUME_NONNULL_END

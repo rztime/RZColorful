@@ -9,6 +9,12 @@
 #import "RZParagraphStyle.h"
 #import "RZColorfulAttribute.h"
 
+@interface RZParagraphStyle ()
+
+@property (nonatomic, strong) NSMutableParagraphStyle *paragraph;
+
+@end
+
 @implementation RZParagraphStyle
 
 #pragma clang diagnostic push
@@ -25,10 +31,27 @@
     return _colorfulsAttr;
 }
 
+/**
+ 连接词 如果阴影设置完毕，还想继续设置其他图片附件的信息，请使用andAttach，withAttach，endAttach，之后可以连接设置其他属性
+ 
+ @return <#return value description#>
+ */
+- (RZImageAttachment *)andAttach {
+    return _imageAttach;
+}
+- (RZImageAttachment *)withAttach {
+    return _imageAttach;
+}
+- (RZImageAttachment *)endAttach {
+    return _imageAttach;
+}
+- (NSMutableParagraphStyle *)code {
+    return _paragraph;
+}
+
 - (NSMutableParagraphStyle *)paragraph {
     if (!_paragraph) {
-        _paragraph = [[NSMutableParagraphStyle alloc] init];
-        _colorfulsAttr.rzParagraph = _paragraph;
+        _paragraph = [[NSMutableParagraphStyle alloc] init]; 
     }
     return _paragraph;
 }
@@ -37,7 +60,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat lineSpacing) {
         weakSelf.paragraph.lineSpacing = lineSpacing;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -45,7 +68,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat paragraphSpacing) {
         weakSelf.paragraph.paragraphSpacing = paragraphSpacing;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -53,7 +76,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (NSTextAlignment alignment) {
         weakSelf.paragraph.alignment = alignment;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -61,7 +84,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat firstLineHeadIndent) {
         weakSelf.paragraph.firstLineHeadIndent = firstLineHeadIndent;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -69,7 +92,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat headIndent) {
         weakSelf.paragraph.headIndent = headIndent;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -77,7 +100,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat tailIndent) {
         weakSelf.paragraph.tailIndent = tailIndent;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -85,7 +108,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (NSLineBreakMode lineBreakMode) {
         weakSelf.paragraph.lineBreakMode = lineBreakMode;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -93,7 +116,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat minimumLineHeight) {
         weakSelf.paragraph.minimumLineHeight = minimumLineHeight;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -101,7 +124,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat maximumLineHeight) {
         weakSelf.paragraph.maximumLineHeight = maximumLineHeight;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -109,7 +132,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (NSWritingDirection baseWritingDirection) {
         weakSelf.paragraph.baseWritingDirection = baseWritingDirection;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -117,7 +140,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat lineHeightMultiple) {
         weakSelf.paragraph.lineHeightMultiple = lineHeightMultiple;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -125,7 +148,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat paragraphSpacingBefore) {
         weakSelf.paragraph.paragraphSpacingBefore = paragraphSpacingBefore;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -133,7 +156,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (float hyphenationFactor) {
         weakSelf.paragraph.hyphenationFactor = hyphenationFactor;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -141,7 +164,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (CGFloat defaultTabInterval) {
         weakSelf.paragraph.defaultTabInterval = defaultTabInterval;
-        return self;
+        return weakSelf;
     };
 }
 
@@ -149,7 +172,7 @@
     __weak typeof(self)weakSelf = self;
     return ^id (BOOL allowsDefaultTighteningForTruncation) {
         weakSelf.paragraph.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation;
-        return self;
+        return weakSelf;
     };
 }
 

@@ -62,12 +62,8 @@
  @return <#return value description#>
  */
 - (CGSize)sizeWithCondition:(CGSize)size {
-    UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    tempLabel.numberOfLines = 0;
-    tempLabel.attributedText = self;
-    [tempLabel sizeToFit];
-    CGSize tempSize = tempLabel.frame.size;
-    return tempSize;
+    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+    return rect.size;
 }
 
 

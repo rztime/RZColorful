@@ -8,6 +8,14 @@
 
 #import "RZColorfulAttribute.h"
 
+@interface RZColorfulAttribute ()
+
+@property (nonatomic, strong) NSMutableDictionary *colorfuls;
+@property (nonatomic, strong) RZShadow *shadow;
+@property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
+
+@end
+
 @implementation RZColorfulAttribute
 
 #pragma clang diagnostic push
@@ -27,17 +35,24 @@
     return self;
 }
 
+- (NSDictionary *)code {
+    if (_hadShadow) {
+        [self.colorfuls setObject:[_shadow code] forKey:NSShadowAttributeName];
+    }
+    if (_hadParagraphStyle) {
+        [self.colorfuls setObject:[_paragraphStyle code] forKey:NSParagraphStyleAttributeName];
+    }
+    return _colorfuls.copy;
+}
+
 /**
  设置文本颜色
  */
 - (RZColorfulAttribute * (^) (UIColor *)) textColor {
     __weak typeof(self) weakSelf = self;
     return ^id(UIColor *textColor) {
-        if (!textColor) {
-            textColor = [UIColor new];
-        }
-        [weakSelf.colorfuls setObject:textColor forKey:NSForegroundColorAttributeName];
-        return self;
+        weakSelf.colorfuls[NSForegroundColorAttributeName] = textColor;
+        return weakSelf;
     };
 }
 
@@ -50,7 +65,7 @@
         if (!font) {
             font = [UIFont systemFontOfSize:17];
         }
-        [weakSelf.colorfuls setObject:font forKey:NSFontAttributeName];
+        weakSelf.colorfuls[NSFontAttributeName] = font;
         return self;
     };
 }
@@ -61,11 +76,8 @@
 - (RZColorfulAttribute *(^)(UIColor *backgroundColor))backgroundColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *backgroundColor) {
-        if (!backgroundColor) {
-            backgroundColor = [UIColor new];
-        }
-        [weakSelf.colorfuls setObject:backgroundColor forKey:NSBackgroundColorAttributeName];
-        return self;
+        weakSelf.colorfuls[NSBackgroundColorAttributeName] = backgroundColor;
+        return weakSelf;
     };
 }
 
@@ -75,8 +87,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *ligature))ligature {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *ligature) {
-        [weakSelf.colorfuls setObject:ligature forKey:NSLigatureAttributeName];
-        return self;
+        weakSelf.colorfuls[NSLigatureAttributeName] = ligature;
+        return weakSelf;
     };
 }
 
@@ -86,8 +98,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *wordSpace))wordSpace {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *wordSpace) {
-        [weakSelf.colorfuls setObject:wordSpace forKey:NSKernAttributeName];
-        return self;
+        weakSelf.colorfuls[NSKernAttributeName] = wordSpace;
+        return weakSelf;
     };
 }
 
@@ -97,8 +109,8 @@
 - (RZColorfulAttribute *(^)(RZLineStyle strikeThrough))strikeThrough {
     __weak typeof(self)weakSelf = self;
     return ^id (RZLineStyle strikeThrough) {
-        [weakSelf.colorfuls setObject:@(strikeThrough) forKey:NSStrikethroughStyleAttributeName];
-        return self;
+        weakSelf.colorfuls[NSStrikethroughStyleAttributeName] = @(strikeThrough);
+        return weakSelf;
     };
 }
 
@@ -108,11 +120,8 @@
 - (RZColorfulAttribute *(^)(UIColor *strikeThroughColor))strikeThroughColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *strikeThroughColor) {
-        if (!strikeThroughColor) {
-            strikeThroughColor = [UIColor clearColor];
-        }
-        [weakSelf.colorfuls setObject:strikeThroughColor forKey:NSStrikethroughColorAttributeName];
-        return self;
+        weakSelf.colorfuls[NSStrikethroughColorAttributeName] = strikeThroughColor;
+        return weakSelf;
     };
 }
 
@@ -122,8 +131,8 @@
 - (RZColorfulAttribute *(^)(RZLineStyle underLineStyle))underLineStyle {
     __weak typeof(self)weakSelf = self;
     return ^id (RZLineStyle underLineStyle) {
-        [weakSelf.colorfuls setObject:@(underLineStyle) forKey:NSUnderlineStyleAttributeName];
-        return self;
+        weakSelf.colorfuls[NSUnderlineStyleAttributeName] = @(underLineStyle);
+        return weakSelf;
     };
 }
 
@@ -133,11 +142,8 @@
 - (RZColorfulAttribute *(^)(UIColor *underLineColor))underLineColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *underLineColor) {
-        if (!underLineColor) {
-            underLineColor = [UIColor new];
-        }
-        [weakSelf.colorfuls setObject:underLineColor forKey:NSUnderlineColorAttributeName];
-        return self;
+        weakSelf.colorfuls[NSUnderlineColorAttributeName] = underLineColor;
+        return weakSelf;
     };
 }
 
@@ -147,11 +153,8 @@
 - (RZColorfulAttribute *(^)(UIColor *strokeColor))strokeColor {
     __weak typeof(self)weakSelf = self;
     return ^id (UIColor *strokeColor) {
-        if (!strokeColor) {
-            strokeColor = [UIColor new];
-        }
-        [weakSelf.colorfuls setObject:strokeColor forKey:NSStrokeColorAttributeName];
-        return self;
+        weakSelf.colorfuls[NSStrokeColorAttributeName] = strokeColor;
+        return weakSelf;
     };
 }
 
@@ -161,8 +164,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *strokeWidth))strokeWidth {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *strokeWidth) {
-        [weakSelf.colorfuls setObject:strokeWidth forKey:NSStrokeWidthAttributeName];
-        return self;
+        weakSelf.colorfuls[NSStrokeWidthAttributeName] = strokeWidth;
+        return weakSelf;
     };
 }
 
@@ -172,8 +175,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *verticalGlyphForm))verticalGlyphForm {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *verticalGlyphForm) {
-        [weakSelf.colorfuls setObject:verticalGlyphForm forKey:NSVerticalGlyphFormAttributeName];
-        return self;
+        weakSelf.colorfuls[NSVerticalGlyphFormAttributeName] = verticalGlyphForm;
+        return weakSelf;
     };
 }
 
@@ -183,8 +186,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *italic))italic {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *italic) {
-        [weakSelf.colorfuls setObject:italic forKey:NSObliquenessAttributeName];
-        return self;
+        weakSelf.colorfuls[NSObliquenessAttributeName] = italic;
+        return weakSelf;
     };
 }
 
@@ -194,8 +197,8 @@
 - (RZColorfulAttribute *(^)(NSNumber *expansion))expansion {
     __weak typeof(self)weakSelf = self;
     return ^id (NSNumber *expansion) {
-        [weakSelf.colorfuls setObject:expansion forKey:NSExpansionAttributeName];
-        return self;
+        weakSelf.colorfuls[NSExpansionAttributeName] = expansion;
+        return weakSelf;
     };
 }
 
@@ -204,19 +207,19 @@
  */
 - (RZColorfulAttribute *(^)(NSURL *url))url {
     __weak typeof(self)weakSelf = self;
-    return ^id (NSURL *url) {
-        if (!url || url.absoluteString.length == 0) {
-            url = [NSURL URLWithString:@""];
-        }
-        [weakSelf.colorfuls setObject:url forKey:NSLinkAttributeName];
-        return self;
+    return ^id (NSURL *url) { 
+        weakSelf.colorfuls[NSLinkAttributeName] = url;
+        return weakSelf;
     };
 }
 
 // 阴影
 - (RZShadow *)shadow {
-    RZShadow * _shadow = [[RZShadow alloc]init];
-    _shadow.colorfulsAttr = self;
+    if (!_shadow) {
+        _shadow = [[RZShadow alloc] init];
+        _shadow.colorfulsAttr = self;
+        _hadShadow = YES;
+    }
     return _shadow;
 }
 
@@ -227,9 +230,12 @@
  @return <#return value description#>
  */
 - (RZParagraphStyle *)paragraphStyle {
-    RZParagraphStyle *_paragraph = [[RZParagraphStyle alloc]init];
-    _paragraph.colorfulsAttr = self;
-    return _paragraph;
+    if (!_paragraphStyle) {
+        _paragraphStyle = [[RZParagraphStyle alloc]init];
+        _paragraphStyle.colorfulsAttr = self;
+        _hadParagraphStyle = YES;
+    }
+    return _paragraphStyle;
 }
 #pragma clang diagnostic pop
 @end

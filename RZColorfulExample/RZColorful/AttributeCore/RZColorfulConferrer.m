@@ -8,16 +8,61 @@
 
 #import "RZColorfulConferrer.h"
 #import "NSAttributedString+RZColorful.h"
+#import <CoreGraphics/CGBase.h>
 
 #define rzColorPlainText        @"rzColorPlainText"  // 普通文本
 #define rzColorImageText        @"rzColorImageText"  // 图片文本
 #define rzColorHTMLText         @"rzColorHTMLText"    // 网页文本
 #define rzColorImageUrlText     @"rzColorImageUrlText"  // 只有url的图片
 
+typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
+    RZColorfulAttributeBoxTypePlainText,
+    RZColorfulAttributeBoxTypeImage,
+    RZColorfulAttributeBoxTypeHTMLText,
+    RZColorfulAttributeBoxTypeImageURL,
+};
+
+@interface RZColorfulAttributeBox : NSObject
+
+@property (nonatomic, assign) RZColorfulAttributeBoxType type;
+@property (nonatomic, copy)   NSString *text;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) RZImageAttachment *attach;
+@property (nonatomic, strong) RZColorfulAttribute *attribute;
+
+@end
+
+@implementation RZColorfulAttributeBox
+
+@end
+
+RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType type) {
+    if (content == nil) {
+        return nil;
+    }
+    if ([content isKindOfClass:[NSString class]]) {
+        if ([content length] == 0) {
+            return nil;
+        }
+    }
+    RZColorfulAttributeBox *box = [RZColorfulAttributeBox new];
+    box.type = type;
+    if (type == RZColorfulAttributeBoxTypePlainText || type == RZColorfulAttributeBoxTypeHTMLText) {
+        box.attribute = [[RZColorfulAttribute alloc] init];
+    } else {
+        box.attach = [[RZImageAttachment alloc] init];
+    }
+    if ([content isKindOfClass:[NSString class]]) {
+        box.text = content;
+    } else if ([content isKindOfClass:[UIImage class]]) {
+        box.image = content;
+    }
+    return box;
+}
+
 @interface RZColorfulConferrer()
 
-@property (nonatomic, strong) NSMutableArray *texts;
-@property (nonatomic, strong) NSMutableArray *colorfuls;
+@property (nonatomic, strong) NSMutableArray *contents;
 @property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) RZShadow       *shadow;
 @end
@@ -29,128 +74,98 @@
 
 - (NSAttributedString *)confer {
      NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
-
-    for (int i = 0; i < _texts.count; i++) {
-        id text = _texts[i];
-        id colorful = _colorfuls[i];
-        NSString *key = [[(NSDictionary *)text allKeys] firstObject];
-        id value = [text objectForKey:key];
-        if ([key isEqualToString:rzColorPlainText]) {  // 普通文本
-            if ([value length] == 0) {
-                continue;
+    for (RZColorfulAttributeBox *box in self.contents) {
+        switch (box.type) {
+            case RZColorfulAttributeBoxTypePlainText: {
+                NSMutableDictionary *attr = [box.attribute code].mutableCopy;
+                if (_shadow && !box.attribute.hadShadow) {
+                    [attr setObject:[_shadow code] forKey:NSShadowAttributeName];
+                }
+                if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
+                    [attr setObject:[_paragraphStyle code] forKey:NSParagraphStyleAttributeName];
+                }
+                NSAttributedString *text = [[NSAttributedString alloc] initWithString:box.text attributes:attr];
+                [string appendAttributedString:text];
+                break;
             }
-            RZColorfulAttribute * colorfulTmp = (RZColorfulAttribute *)colorful;
-            if (colorfulTmp.rzShadow) {
-                [colorfulTmp.colorfuls setObject:colorfulTmp.rzShadow forKey:NSShadowAttributeName];
-            } else if (_shadow) {
-                [colorfulTmp.colorfuls setObject:_shadow.shadow forKey:NSShadowAttributeName];
+            case RZColorfulAttributeBoxTypeImage: {
+                NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
+                attchment.image = box.image;
+                attchment.bounds = box.attach.imageBounds;
+                NSMutableAttributedString *imageString = [NSMutableAttributedString attributedStringWithAttachment:attchment].mutableCopy;
+                NSMutableDictionary *dict = [box.attach code].mutableCopy;
+                if (_paragraphStyle && !box.attach.hadParagraphStyle) {
+                    dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
+                }
+                if (_shadow && !box.attach.hadShadow) {
+                    dict[NSShadowAttributeName] = [_shadow code];
+                }
+                [imageString addAttributes:dict range:NSMakeRange(0, imageString.length)];
+                [string appendAttributedString:imageString];
+                break;
             }
-
-            if (colorfulTmp.rzParagraph) {
-                [colorfulTmp.colorfuls setObject:colorfulTmp.rzParagraph forKey:NSParagraphStyleAttributeName];
-            } else if(_paragraphStyle){
-                [colorfulTmp.colorfuls setObject:_paragraphStyle.paragraph forKey:NSParagraphStyleAttributeName];
+            case RZColorfulAttributeBoxTypeHTMLText: {
+                NSMutableAttributedString *html = [NSAttributedString htmlString:box.text].mutableCopy;
+                NSMutableDictionary *attr = [box.attribute code].mutableCopy;
+                if (_shadow && !box.attribute.hadShadow) {
+                    attr[NSShadowAttributeName] = [_shadow code];
+                }
+                if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
+                    attr[NSParagraphStyleAttributeName] = [_paragraphStyle code];   
+                }
+                [html addAttributes:attr range:NSMakeRange(0, html.length)];
+                [string appendAttributedString:html];
+                break;
             }
-
-            NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:value attributes:colorfulTmp.colorfuls];
-            [string appendAttributedString:attrText];
-        } else if ([key isEqualToString:rzColorImageText]) { // 图片文本
-            if (!value) {
-                continue;
+            case RZColorfulAttributeBoxTypeImageURL: {
+                NSString *html = [box.attach toHTMLStringWithImageUrl:box.text];
+                NSMutableAttributedString *imageString = [NSAttributedString htmlString:html].mutableCopy;
+                NSMutableDictionary *dict = [box.attach code].mutableCopy;
+                if (_paragraphStyle && !box.attach.hadParagraphStyle) {
+                    dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
+                }
+                if (_shadow && !box.attach.hadShadow) {
+                    dict[NSShadowAttributeName] = [_shadow code];
+                }
+                [imageString addAttributes:dict range:NSMakeRange(0, imageString.length)];
+                [string appendAttributedString:imageString];
+                break;
             }
-            NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
-            attchment.image = value;
-            attchment.bounds = ((RZImageAttachment *)colorful).imageBounds;
-            NSMutableAttributedString *imageString = [NSMutableAttributedString attributedStringWithAttachment:attchment].mutableCopy;
-            
-            RZParagraphStyle *style = [(RZImageAttachment *)colorful rz_paragraphStyle];
-            if (style) {
-                [imageString addAttributes:@{NSParagraphStyleAttributeName:style.paragraph} range:NSMakeRange(0, imageString.length)];
-            } else if(_paragraphStyle){
-                [imageString addAttributes:@{NSParagraphStyleAttributeName:_paragraphStyle.paragraph} range:NSMakeRange(0, imageString.length)];
-            }
-            
-            [string appendAttributedString:imageString];
-        } else if ([key isEqualToString:rzColorHTMLText]) { // 网页文本
-            if ([value length] == 0) {
-                continue;
-            }
-            [string appendAttributedString:[NSAttributedString htmlString:value]];
-        } else if ([key isEqualToString:rzColorImageUrlText]) {  // 通过url添加图片
-            if ([value length] == 0) {
-                continue;
-            }
-            NSString *html = [((RZImageAttachment *)colorful) toHTMLStringWithImageUrl:value];
-            NSMutableAttributedString *imageString = [NSAttributedString htmlString:html].mutableCopy;
-            
-            RZParagraphStyle *style = [(RZImageAttachment *)colorful rz_paragraphStyle];
-            if (style) {
-                [imageString addAttributes:@{NSParagraphStyleAttributeName:style.paragraph} range:NSMakeRange(0, imageString.length)];
-            } else if(_paragraphStyle){
-                [imageString addAttributes:@{NSParagraphStyleAttributeName:_paragraphStyle.paragraph} range:NSMakeRange(0, imageString.length)];
-            }
-            [string appendAttributedString:imageString];
+            default:
+                break;
         }
     }
-    [self.texts removeAllObjects];
-    [self.colorfuls removeAllObjects];
-
     return string.copy;
 }
 
 - (RZColorfulAttribute *(^)(NSString *text))text{
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *text) {
-        weakSelf.text = text;
-        RZColorfulAttribute *colorful = [[RZColorfulAttribute alloc]init];
-        [weakSelf.colorfuls addObject:colorful];
-        return colorful;
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(text, RZColorfulAttributeBoxTypePlainText);
+        [weakSelf.contents addObject:box];
+        return box.attribute;
     };
-}
-
-- (void)setText:(NSString *)text {
-    NSString *_text = text.copy;
-    if (!_text || _text.length == 0) {
-        _text = @"";
-    }
-    [self.texts addObject:@{rzColorPlainText: _text}];
 }
 
 /**
  添加html格式的内容
  */
-- (void (^)(NSString *htmlText))htmlText {
+- (RZColorfulAttribute *(^)(NSString *htmlText))htmlText {
     __weak typeof(self) weakSelf = self;
-    return ^void (NSString *htmlText) {
-        weakSelf.htmlText = htmlText;
-        [weakSelf.colorfuls addObject:@{rzColorHTMLText:@"htmlText"}];
-        return ;
+    return ^id (NSString *htmlText) {
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(htmlText, RZColorfulAttributeBoxTypeHTMLText);
+        [weakSelf.contents addObject:box];
+        return box.attribute;
     };
-}
-- (void)setHtmlText:(NSString *)htmlText {
-    NSString *html = htmlText.copy;
-    if (!html || html.length == 0) {
-        html = @"";
-    }
-    [self.texts addObject:@{rzColorHTMLText:html}];
 }
 
 - (RZImageAttachment *(^)(UIImage *appendImage))appendImage {
     __weak typeof(self) weakSelf = self;
     return ^id (UIImage *appendImage){
-        weakSelf.appendImage = appendImage;
-        RZImageAttachment *imageAttachement = [[RZImageAttachment alloc]init];
-        [weakSelf.colorfuls addObject:imageAttachement];
-        return imageAttachement;
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(appendImage, RZColorfulAttributeBoxTypeImage);
+        [weakSelf.contents addObject:box];
+        return box.attach;
     };
-}
-
-- (void)setAppendImage:(UIImage *)appendImage {
-    UIImage *image = appendImage.copy;
-    if (!image) {
-        image = [UIImage new];
-    }
-    [self.texts addObject:@{rzColorImageText: image}];
 }
 
 /**
@@ -159,18 +174,10 @@
 - (RZImageAttachment *(^)(NSString * _Nullable imageUrl))appendImageByUrl {
     __weak typeof(self) weakSelf = self;
     return ^id (NSString *imageUrl){
-        weakSelf.appendImageByUrl = imageUrl;
-        RZImageAttachment *imageAttachement = [[RZImageAttachment alloc]init];
-        [weakSelf.colorfuls addObject:imageAttachement];
-        return imageAttachement;
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(imageUrl, RZColorfulAttributeBoxTypeImageURL);
+        [weakSelf.contents addObject:box];
+        return box.attach;
     };
-}
-
-- (void)setAppendImageByUrl:(NSString *)imageUrl {
-    if (imageUrl.length == 0) {
-        imageUrl = @"";
-    }
-    [self.texts addObject:@{rzColorImageUrlText: imageUrl}];
 }
 
 /**
@@ -196,20 +203,16 @@
     return _shadow;
 }
 
-- (NSMutableArray *)texts {
-    if (!_texts) {
-        _texts = [NSMutableArray new];
+- (NSMutableArray *)contents {
+    if (!_contents) {
+        _contents = [NSMutableArray new];
     }
-    return _texts;
+    return _contents;
 }
-
-- (NSMutableArray *)colorfuls {
-    if (!_colorfuls) {
-        _colorfuls = [NSMutableArray new];
-    }
-    return _colorfuls;
-}
-
 #pragma clang diagnostic pop
+
+- (void)dealloc {
+    NSLog(@"被释放调了");
+}
 
 @end
