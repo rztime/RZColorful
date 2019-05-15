@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RZColorful"
-  s.version      = "1.1.9"
+  s.version      = "1.2.0"
   s.summary      = "NSAttributedString富文本的快捷设置方法集合,以及UITextView、UITextField、UILabel富文本简单优雅的使用"
 
   # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                      新增上下标、书写方向
+                      新增文本、图片的URL事件
                    DESC
   s.homepage     = "https://github.com/rztime/RZColorful"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"

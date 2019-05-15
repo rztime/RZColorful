@@ -3,6 +3,8 @@ NSAttributedString 富文本方法 (图文混排、多样式文本)
 
 swift版本[RZColorfulSwift](https://github.com/rztime/RZColorfulSwift)
 
+UITextView实现的富文本编辑器[RZRichTextView](https://github.com/rztime/RZRichTextView)
+
 * NSAttributedString 的多样化设置(文字字体、颜色、阴影、段落样式、url、下划线，以及图文混排等等)
 * 添加UITextField、UITextView、UILabel的attributedText的富文本设置。
 * 扩展：添加一个刷新界面时保持文本框焦点的方法 [demo查看](https://github.com/rztime/ContinueFirsterResponder)
@@ -46,18 +48,28 @@ pod ‘RZColorful’
 * 主要的功能：
     * RZColorfulConferrer 
         * text                                -- 添加文本
-        * appendImage                -- 添加图片
         * htmlText                         -- 添加html源码
+        * appendImage                -- 添加图片 
         * appendImageByUrl        -- 添加图片（通过图片的URL添加）
         * paragraphStyle              -- 全局的段落样式
         * shadow                          -- 全局的阴影样式
         
-    * 其中 text、appendImage、appendImageByUrl支持单独设置paragraphStyle、shadow（设置完之后使用and、with等可继续连接设置），此时将覆盖全局的样式，
-
     * RZColorfulAttribute           -- 设置文本的所有的属性
     * RZImageAttachment         -- 设置图片的所有的属性
     
+### 图示说明
+
+<p align="center" >
+    <img src="line.png" title="支持的功能结构">
+</p>
+
+### 讲解
+
+*  `RZColorfulConferrer` 中 `paragraphStyle` 和 `shadow` 属于全局的设置，在block中任何位置都可设置
+* 文字和图片都可设置`paragraphStyle` 和 `shadow`，对齐方式是`paragraphStyle` 的`alignment`，设置后，当前行文字图片的全局样式将被此覆盖，即全局样式无效，不影响其他行。
+
     
+
 ### 基本的简单使用方法
 ```objc
     [cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
@@ -121,7 +133,7 @@ pod ‘RZColorful’
 ```
 效果如下
 <p align="center" >
-<img src="image_2.png" title="日常列表中常用展示方法">
+    <img src="image_2.png" title="日常列表中常用展示方法">
 </p>
 
 通过url加载图片
@@ -141,11 +153,11 @@ pod ‘RZColorful’
 ```
 
 # 备注：
-    * 多种属性使用名请参考对应的文件。
-    * UILabel、UITextFile是同样的使用方法。
-    * 在UILabel、UITextFiled上url点击方法无效。
-    * 在UITextView中若要添加url且可点击方法，请先设置其editable = NO,并实现代理。
-
+* 多种属性使用名请参考对应的文件。
+* UILabel、UITextFile是同样的使用方法。
+* 在UILabel、UITextFiled上url点击方法无效。
+* 在UITextView中若要设置文本和图片的点击事件（即对文本和图片设置附带URL的属性），请先设置其editable = NO, 并实现代理。
+    * 设置了URL属性的文本，内部自带蓝色和下划线，若要去掉，可设置 `textView.linkTextAttributes = @{};`
 
 ```objc
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
