@@ -37,14 +37,6 @@ typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
 @end
 
 RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType type) {
-    if (content == nil) {
-        return nil;
-    }
-    if ([content isKindOfClass:[NSString class]]) {
-        if ([content length] == 0) {
-            return nil;
-        }
-    }
     RZColorfulAttributeBox *box = [RZColorfulAttributeBox new];
     box.type = type;
     if (type == RZColorfulAttributeBoxTypePlainText || type == RZColorfulAttributeBoxTypeHTMLText) {
@@ -141,10 +133,11 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 - (RZColorfulAttribute *(^)(NSString *text))text{
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *text) {
-        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(text, RZColorfulAttributeBoxTypePlainText);
-        if (box) {
-            [weakSelf.contents addObject:box];
+        if (!text) {
+            text = @"";
         }
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(text, RZColorfulAttributeBoxTypePlainText);
+        [weakSelf.contents addObject:box];
         return box.attribute;
     };
 }
@@ -155,10 +148,11 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 - (RZColorfulAttribute *(^)(NSString *htmlText))htmlText {
     __weak typeof(self) weakSelf = self;
     return ^id (NSString *htmlText) {
-        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(htmlText, RZColorfulAttributeBoxTypeHTMLText);
-        if (box) {
-            [weakSelf.contents addObject:box];
+        if (!htmlText) {
+            htmlText = @"";
         }
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(htmlText, RZColorfulAttributeBoxTypeHTMLText);
+        [weakSelf.contents addObject:box];
         return box.attribute;
     };
 }
@@ -166,10 +160,11 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 - (RZImageAttachment *(^)(UIImage *appendImage))appendImage {
     __weak typeof(self) weakSelf = self;
     return ^id (UIImage *appendImage){
-        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(appendImage, RZColorfulAttributeBoxTypeImage);
-        if (box) {
-            [weakSelf.contents addObject:box];
+        if (!appendImage) {
+            appendImage = [[UIImage alloc] init];
         }
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(appendImage, RZColorfulAttributeBoxTypeImage);
+        [weakSelf.contents addObject:box];
         return box.attach;
     };
 }
@@ -180,10 +175,11 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 - (RZImageAttachment *(^)(NSString * _Nullable imageUrl))appendImageByUrl {
     __weak typeof(self) weakSelf = self;
     return ^id (NSString *imageUrl){
+        if (!imageUrl) {
+            imageUrl = @"";
+        }
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(imageUrl, RZColorfulAttributeBoxTypeImageURL);
-        if (box) {
-            [weakSelf.contents addObject:box];
-        } 
+        [weakSelf.contents addObject:box];
         return box.attach;
     };
 }
