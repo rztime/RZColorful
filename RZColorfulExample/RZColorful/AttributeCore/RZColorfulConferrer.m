@@ -142,7 +142,9 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *text) {
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(text, RZColorfulAttributeBoxTypePlainText);
-        [weakSelf.contents addObject:box];
+        if (box) {
+            [weakSelf.contents addObject:box];
+        }
         return box.attribute;
     };
 }
@@ -154,7 +156,9 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     __weak typeof(self) weakSelf = self;
     return ^id (NSString *htmlText) {
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(htmlText, RZColorfulAttributeBoxTypeHTMLText);
-        [weakSelf.contents addObject:box];
+        if (box) {
+            [weakSelf.contents addObject:box];
+        }
         return box.attribute;
     };
 }
@@ -163,7 +167,9 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     __weak typeof(self) weakSelf = self;
     return ^id (UIImage *appendImage){
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(appendImage, RZColorfulAttributeBoxTypeImage);
-        [weakSelf.contents addObject:box];
+        if (box) {
+            [weakSelf.contents addObject:box];
+        }
         return box.attach;
     };
 }
@@ -175,7 +181,9 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     __weak typeof(self) weakSelf = self;
     return ^id (NSString *imageUrl){
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(imageUrl, RZColorfulAttributeBoxTypeImageURL);
-        [weakSelf.contents addObject:box];
+        if (box) {
+            [weakSelf.contents addObject:box];
+        } 
         return box.attach;
     };
 }
