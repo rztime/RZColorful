@@ -210,9 +210,4 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     return _contents;
 }
 #pragma clang diagnostic pop
-
-- (void)dealloc {
-    NSLog(@"被释放调了");
-}
-
 @end

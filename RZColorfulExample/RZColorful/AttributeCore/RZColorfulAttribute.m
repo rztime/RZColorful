@@ -66,7 +66,7 @@
             font = [UIFont systemFontOfSize:17];
         }
         weakSelf.colorfuls[NSFontAttributeName] = font;
-        return self;
+        return weakSelf;
     };
 }
 
