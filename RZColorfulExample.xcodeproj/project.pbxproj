@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0638F86023409A3800C52627 /* RZTapActionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0638F85F23409A3800C52627 /* RZTapActionHelper.m */; };
 		769C753A20EF0A3D00084730 /* UILabel+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753920EF0A3D00084730 /* UILabel+RZColorful.m */; };
 		769C753D20EF0AFB00084730 /* UITextView+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753C20EF0AFB00084730 /* UITextView+RZColorful.m */; };
 		769C754020EF0B7600084730 /* UITextField+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753F20EF0B7600084730 /* UITextField+RZColorful.m */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0638F85E23409A3800C52627 /* RZTapActionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTapActionHelper.h; sourceTree = "<group>"; };
+		0638F85F23409A3800C52627 /* RZTapActionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTapActionHelper.m; sourceTree = "<group>"; };
 		769C753820EF0A3D00084730 /* UILabel+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+RZColorful.h"; sourceTree = "<group>"; };
 		769C753920EF0A3D00084730 /* UILabel+RZColorful.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RZColorful.m"; sourceTree = "<group>"; };
 		769C753B20EF0AFB00084730 /* UITextView+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+RZColorful.h"; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 		7622B0EA201B7657001D33CF /* UICore */ = {
 			isa = PBXGroup;
 			children = (
+				0638F85E23409A3800C52627 /* RZTapActionHelper.h */,
+				0638F85F23409A3800C52627 /* RZTapActionHelper.m */,
 				B290B43C1FBDAF7C0035850C /* UITextField+SelectedRange.h */,
 				B290B43D1FBDAF7C0035850C /* UITextField+SelectedRange.m */,
 				B290B4351FBDA2B90035850C /* UIView+RZContinueFirstResponder.h */,
@@ -242,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0638F86023409A3800C52627 /* RZTapActionHelper.m in Sources */,
 				B290B4361FBDA2BA0035850C /* UIView+RZContinueFirstResponder.m in Sources */,
 				B2B7FBB31F279E8300643C63 /* ViewController.m in Sources */,
 				B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */,

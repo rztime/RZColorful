@@ -53,5 +53,7 @@
  @return HTML标签语言
  */
 - (NSString *)rz_codingToCompleteHtml;
+
+@property (nonatomic, copy) NSArray <NSDictionary *> *tapActions;
 @end
 

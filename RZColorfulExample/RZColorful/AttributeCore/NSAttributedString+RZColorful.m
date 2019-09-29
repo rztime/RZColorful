@@ -7,6 +7,7 @@
 //
 
 #import "NSAttributedString+RZColorful.h"
+#import <objc/runtime.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -19,7 +20,9 @@
     }
     RZColorfulConferrer *conferrer = [[RZColorfulConferrer alloc]init];
     attribute(conferrer);
-    return [conferrer confer].copy;
+    NSAttributedString *attr = [conferrer confer];
+    attr.tapActions = conferrer.tapActions;
+    return attr;
 }
 
 - (NSAttributedString *)attributedStringByAppend:(NSAttributedString *)attributedString {
@@ -136,6 +139,14 @@
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"pt;" withString:@"px;"];
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"pt}" withString:@"px}"];
     return htmlString;
+}
+
+- (void)setTapActions:(NSArray<NSDictionary *> *)tapActions {
+    objc_setAssociatedObject(self, @"rzTapActions", tapActions, OBJC_ASSOCIATION_COPY);
+}
+
+- (NSArray<NSDictionary *> *)tapActions {
+    return objc_getAssociatedObject(self, @"rzTapActions");
 }
 @end
 

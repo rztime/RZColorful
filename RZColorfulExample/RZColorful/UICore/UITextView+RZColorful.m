@@ -8,6 +8,14 @@
 
 #import "UITextView+RZColorful.h"
 #import "NSAttributedString+RZColorful.h"
+#import "RZTapActionHelper.h"
+#import <objc/runtime.h>
+
+@interface UITextView ()
+
+@property (nonatomic, strong) RZTapActionHelper *helper;
+
+@end
 
 @implementation UITextView (RZColorful)
 
@@ -69,6 +77,15 @@
     if (conferrerColorful.string.length == 0) {
         return ;
     }
+    if (conferrerColorful.tapActions.count > 0) {
+        if (!self.helper) {
+            RZTapActionHelper *helper = [[RZTapActionHelper alloc] init];
+            helper.textView = self;
+            helper.tagert = self.delegate;
+            self.helper = helper;
+        }
+        [self.helper.tapActions addObjectsFromArray:conferrerColorful.tapActions];
+    }
     if (loc > [self getEndLocation]) {
         loc = [self getEndLocation];
     }
@@ -93,4 +110,11 @@
     return self.selectedRange.location;;
 }
 
+- (void)setHelper:(RZTapActionHelper *)helper {
+    objc_setAssociatedObject(self, @"rzweakHelper", helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (RZTapActionHelper *)helper {
+    return objc_getAssociatedObject(self, @"rzweakHelper");
+}
 @end

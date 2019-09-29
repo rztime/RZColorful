@@ -35,6 +35,9 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
 
 @property (nonatomic, assign, readonly) BOOL hadShadow;
 @property (nonatomic, assign, readonly) BOOL hadParagraphStyle;
+
+@property (nonatomic, copy) NSDictionary *tapActionDict;
+
 - (NSDictionary *)code;
 
 #pragma mark - 文本属性设置内容
@@ -141,7 +144,18 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
  给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效
  设置url属性，要实现点击，需实现UITextView的delegate的url点击事件
  */
-- (RZColorfulAttribute *(^)(NSURL *url))url;
+- (RZColorfulAttribute *(^)(NSURL *url))url RZWARNING("如果有实现点击事件， 可以替换成tapAction:handle:");
+
+
+/**
+ 给属性文本添加点击事件
+
+ @param actionId 用于区别点击事件的id
+ @param tapAction 点击之后的回调，点击事件本身是依靠UITextView的delegate，所以内部会将delegate替换掉
+ @return 可联系调用
+ */
+- (RZColorfulAttribute *)tapAction:(NSString *)actionId handle:(void(^)(id actionId))tapAction;
+
 @end
 
 

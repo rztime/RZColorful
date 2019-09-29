@@ -8,6 +8,8 @@
 
 #import "RZColorfulAttribute.h"
 
+#define RZTapActionId   @"RZTapActionId"
+#define RZTapActionFunc @"RZTapActionFunc"
 @interface RZColorfulAttribute ()
 
 @property (nonatomic, strong) NSMutableDictionary *colorfuls;
@@ -248,6 +250,22 @@
         weakSelf.colorfuls[NSLinkAttributeName] = url;
         return weakSelf;
     };
+}
+
+/**
+ 给属性文本添加点击事件
+ 
+ @param actionId 用于区别点击事件的id
+ @param tapAction 点击之后的回调，点击事件本身是依靠UITextView的delegate，所以内部会将delegate替换掉
+ @return 可联系调用
+ */
+- (RZColorfulAttribute *)tapAction:(NSString *)actionId handle:(void(^)(id actionId))tapAction {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    dict[RZTapActionId] = actionId;
+    dict[RZTapActionFunc] = tapAction;
+    self.tapActionDict = dict.copy;
+    self.colorfuls[NSLinkAttributeName] = actionId;
+    return self;
 }
 
 // 阴影
