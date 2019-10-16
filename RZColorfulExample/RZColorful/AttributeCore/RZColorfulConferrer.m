@@ -58,7 +58,8 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 @property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) RZShadow       *shadow;
 
-@property (nonatomic, strong) NSMutableArray <NSDictionary *> *tapActionArray;
+
+
 @end
 
 @implementation RZColorfulConferrer
@@ -66,23 +67,12 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-- (NSMutableArray<NSDictionary *> *)tapActionArray {
-    if (!_tapActionArray) {
-        _tapActionArray = [NSMutableArray new];
-    }
-    return _tapActionArray;
-}
-- (NSArray *)tapActions {
-    return self.tapActionArray.copy;
-}
-
 - (NSAttributedString *)confer {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
     for (RZColorfulAttributeBox *box in self.contents) {
-        if (box.attribute.tapActionDict.allKeys > 0) {
-            [self.tapActionArray addObject:box.attribute.tapActionDict];
-        }
-        
+        if (!self.hadTapAction) {
+            self.hadTapAction = box.attribute.hadTapAction || box.attach.hadTapAction;
+        } 
         switch (box.type) {
             case RZColorfulAttributeBoxTypePlainText: {
                 NSMutableDictionary *attr = [box.attribute code].mutableCopy;
@@ -121,6 +111,7 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
                 if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
                     attr[NSParagraphStyleAttributeName] = [_paragraphStyle code];   
                 }
+                self.hadTapAction = YES;
                 [html addAttributes:attr range:NSMakeRange(0, html.length)];
                 [string appendAttributedString:html];
                 break;

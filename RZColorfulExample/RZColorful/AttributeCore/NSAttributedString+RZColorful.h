@@ -54,6 +54,7 @@
  */
 - (NSString *)rz_codingToCompleteHtml;
 
-@property (nonatomic, copy) NSArray <NSDictionary *> *tapActions;
+@property (nonatomic, assign) BOOL hadTapAction;
+
 @end
 

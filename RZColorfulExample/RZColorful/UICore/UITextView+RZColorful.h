@@ -44,5 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void )rz_colorfulConferInsetToLocation:(NSUInteger)location append:(void (^)(RZColorfulConferrer * _Nonnull confer))attribute;
 
+/**
+ 点击textView里的可以点击的字符串，
+ tapObj：为tapId或者NSURL
+ */
+@property (nonatomic, copy) void(^rzDidTapTextView)(id __nullable tapObj);
+
 @end
 NS_ASSUME_NONNULL_END

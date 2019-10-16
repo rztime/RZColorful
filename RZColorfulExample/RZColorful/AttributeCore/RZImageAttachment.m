@@ -7,8 +7,14 @@
 //
 
 #import "RZImageAttachment.h"
+#import "NSAttributedString+RZColorful.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored"-Wunused-variable"
+
+#define RZTapActionId   @"RZTapActionId"
+#define RZTapActionFunc @"RZTapActionFunc"
 
 @interface RZImageAttachment ()
 
@@ -17,7 +23,8 @@
 /** 阴影 */
 @property (nonatomic, strong) RZShadow *shadow;
 
-@property (nonatomic, strong) NSURL *URL;
+@property (nonatomic, copy) id URL;
+
 @end
 
 @implementation RZImageAttachment
@@ -54,7 +61,61 @@
         return weakSelf;
     };
 }
-
+/*
+ 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
+ */
+- (RZImageAttachment *(^)(NSString *tapId))tapAction {
+    __weak typeof(self) weakSelf = self;
+    return ^id(NSString *tapId) {
+        weakSelf.URL = tapId;
+        weakSelf.hadTapAction = YES;
+        return weakSelf;
+    };
+}
+/**
+ 水平对齐方式
+ align 上，中，下
+ refer 对齐的参考系 （前后的字体）
+ */
+- (RZImageAttachment *(^)(CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font))size {
+    __weak typeof(self)weakSelf = self;
+    return ^id (CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font) {
+        CGFloat y = 0;
+        CGFloat fontHeight = font.ascender - font.descender;
+        switch (align) {
+            case RZHorizontalAlignTop: {
+                y = -(size.height - fontHeight) + font.descender;
+                break;
+            }
+            case RZHorizontalAlignCenter: {
+                y = -(size.height - fontHeight)/2.f + font.descender;
+                break;
+            }
+            case RZHorizontalAlignBottom: {
+                y = font.descender;
+                break;
+            }
+            default:
+                break;
+        }
+        weakSelf.imageBounds = CGRectMake(0, y, size.width, size.height);
+        return weakSelf;
+    };
+}
+/**
+ y轴偏移量，在某些情况下，在对齐之后需要做上下偏移时，用此方法，请在设置size之后或者bounds之后使用
+ */
+- (RZImageAttachment *(^)(CGFloat yOffset))yOffset {
+    __weak typeof(self) weakSelf = self;
+    return ^id (CGFloat yOffset) {
+        weakSelf.imageBounds = ({
+            CGRect bounds = weakSelf.imageBounds;
+            bounds.origin.y -= yOffset;
+            bounds;
+        });
+        return weakSelf;
+    };
+}
 /**
  将bounds数据转换成html格式的语句
  

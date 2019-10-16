@@ -174,3 +174,7 @@ pod ‘RZColorful’
 
 ## 最后
 * 在使用过程中，如果您发现有什么问题，欢迎向我反馈，谢谢
+
+
+## 更新日志
+[更新日志](https://github.com/rztime/RZColorful/blob/master/UpdateLog.md)

@@ -252,20 +252,16 @@
     };
 }
 
-/**
- 给属性文本添加点击事件
- 
- @param actionId 用于区别点击事件的id
- @param tapAction 点击之后的回调，点击事件本身是依靠UITextView的delegate，所以内部会将delegate替换掉
- @return 可联系调用
+/*
+ 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
  */
-- (RZColorfulAttribute *)tapAction:(NSString *)actionId handle:(void(^)(id actionId))tapAction {
-    NSMutableDictionary *dict = [NSMutableDictionary new];
-    dict[RZTapActionId] = actionId;
-    dict[RZTapActionFunc] = tapAction;
-    self.tapActionDict = dict.copy;
-    self.colorfuls[NSLinkAttributeName] = actionId;
-    return self;
+- (RZColorfulAttribute *(^)(NSString *tapId))tapAction {
+    __weak typeof(self) weakSelf = self;
+    return ^id(NSString *tapId) {
+        weakSelf.colorfuls[NSLinkAttributeName] = tapId;
+        weakSelf.hadTapAction = YES;
+        return weakSelf;
+    };
 }
 
 // 阴影

@@ -7,6 +7,7 @@
 //
 
 #import "RZTapActionHelper.h"
+#import "UITextView+RZColorful.h"
 @interface RZTapActionHelper ()<UITextViewDelegate>
 
 @end
@@ -16,13 +17,6 @@
     _tagert = tagert;
     
     self.textView.delegate = self;
-}
-
-- (NSMutableArray *)tapActions {
-    if (!_tapActions) {
-        _tapActions = [NSMutableArray new];
-    }
-    return _tapActions;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
@@ -102,24 +96,13 @@
 }
 
 - (void)didTapActionWithId:(NSURL *)tapActioId {
-    NSString *tapId;
-    if ([tapActioId isKindOfClass:[NSString class]]) {
-        tapId = (NSString *)tapActioId;
-    } else if ([tapActioId isKindOfClass:[NSURL class]]) {
-        tapId = tapActioId.absoluteString;
+    if (self.textView.rzDidTapTextView) {
+        self.textView.rzDidTapTextView(tapActioId);
     }
-    [self.tapActions enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj[@"RZTapActionId"] isEqualToString:tapId]) {
-            void (^action) (id tapId) = obj[@"RZTapActionFunc"];
-            if (action) {
-                action(tapId);
-            }
-        }
-    }];
 }
 
 - (void)dealloc {
-    [self.tapActions removeAllObjects];
+    NSLog(@"销毁");
 }
 
 @end

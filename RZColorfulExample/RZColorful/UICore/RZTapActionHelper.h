@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id tagert;
 
-/** <#bref#> */
-@property (nonatomic, strong) NSMutableArray <NSDictionary *> *tapActions;
-
 @end
 
 NS_ASSUME_NONNULL_END

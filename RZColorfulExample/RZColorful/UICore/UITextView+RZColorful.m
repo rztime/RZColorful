@@ -77,14 +77,13 @@
     if (conferrerColorful.string.length == 0) {
         return ;
     }
-    if (conferrerColorful.tapActions.count > 0) {
+    if (conferrerColorful.hadTapAction) {
         if (!self.helper) {
             RZTapActionHelper *helper = [[RZTapActionHelper alloc] init];
             helper.textView = self;
             helper.tagert = self.delegate;
             self.helper = helper;
         }
-        [self.helper.tapActions addObjectsFromArray:conferrerColorful.tapActions];
     }
     if (loc > [self getEndLocation]) {
         loc = [self getEndLocation];
@@ -116,5 +115,12 @@
 
 - (RZTapActionHelper *)helper {
     return objc_getAssociatedObject(self, @"rzweakHelper");
+}
+
+- (void)setRzDidTapTextView:(void (^)(id __nullable))rzDidTapTextView {
+    objc_setAssociatedObject(self, @"rzDidTapTextView", rzDidTapTextView, OBJC_ASSOCIATION_COPY);
+}
+- (void (^)(id __nullable))rzDidTapTextView {
+    return objc_getAssociatedObject(self, @"rzDidTapTextView");
 }
 @end

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "RZColorful.h"
-
+#import <CoreText/CoreText.h>
 #define rzFont(font) [UIFont systemFontOfSize:font]
 #define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define GRAY(c) RGBA(c, c, c, 1)
@@ -32,7 +32,7 @@
     textView.delegate = self;
     textView.frame = CGRectMake(10, 100, self.view.frame.size.width - 20, 528);
     textView.editable = NO;
-    textView.scrollEnabled = NO;
+    textView.scrollEnabled = YES;
     textView.layer.borderWidth = 1;
     textView.layer.borderColor = [UIColor redColor].CGColor;
     textView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -55,7 +55,7 @@
 //        confer.text(@"在代码中，text() 和 htmlText()都可以直接传入string字符串\n\n");
 //        confer.text(@"如果是html富文本标签内容，需要使用htmlText()\n");
 //        confer.htmlText(htmlstring);
-//        
+//
 #pragma mark - 文字属性 包含文字属性、段落属性、阴影属性，连接使用and等,
 //        confer.text(@"\n\n");
 //        confer.text(@"文字的属性连接使用, 使用and连接回到 text()/htmlText(),将可继续连接其他的属性").font(rzFont(20)).textColor([UIColor blueColor]).paragraphStyle.lineSpacing(20).and.shadow.color([UIColor redColor]).and.paragraphStyle.paragraphSpacing(20);
@@ -66,22 +66,36 @@
 //        confer.appendImage([UIImage imageNamed:@"test.jpg"]).paragraphStyle.alignment(NSTextAlignmentCenter).andAttach.bounds(CGRectMake(0, 0, 50, 50));
 //        confer.text(@"\n");
 //        confer.text(@"在appendImage中使用andAttach连接词回到appendImage()来\n").font(rzFont(20));
-//        confer.appendImageByUrl(@"http://pic28.photophoto.cn/20130830/0005018667531249_b.jpg").bounds(CGRectMake(0, 0, 50, 50)).paragraphStyle.alignment(NSTextAlignmentRight);
+//        confer.appendImageByUrl(@"http://pic28.photophoto.cn/20130830/0005018667531249_b.jpg");
         
 //        confer.text(@"点击事件").font(rzFont(18))setAction:^(id actionId) {
 //
 //        };
-        [confer.text(@"点击事件1").font(rzFont(18)) tapAction:@"111" handle:^(id actionId) {
-            NSLog(@"%@     11111111111实现了", actionId);
-        }];
-        confer.text(@"\n");
-        [confer.text(@"点击事件2").font(rzFont(18)) tapAction:@"222" handle:^(id actionId) {
-            NSLog(@"%@     2222222实现了", actionId);
-        }];
-        confer.text(@"\n");
-        [confer.text(@"点击事件3").font(rzFont(18)) tapAction:@"333" handle:nil].textColor(RGBA(255, 0, 0, 1));
+//        confer.text(@"点击事件1").font(rzFont(30)).tapAction(@"1").textColor(UIColor.orangeColor);
+//        confer.text(@"\n");
+//        [confer.text(@"点击事件2").font(rzFont(18)) tapAction:@"222" handle:^(id actionId) {
+//            NSLog(@"%@ 实现了", actionId);
+//        }];
+//        confer.text(@"\n");
+
+//        [confer.appendImageByUrl(@"http://pic28.photophoto.cn/20130830/0005018667531249_b.jpg").bounds(CGRectMake(0, 0, 50, 50)).paragraphStyle.alignment(NSTextAlignmentRight).andAttach tapAction:@"444" handle:^(id actionId) {
+//            NSLog(@"%@     444444444实现了", actionId);
+//        }];
+//        confer.text(@"\n").paragraphStyle.paragraphSpacingBefore(20);;
+//        confer.appendImage([UIImage imageNamed:@"image"]).size(CGSizeMake(120, 120), RZHorizontalAlignTop, rzFont(20));
+//        confer.text(@"哈哈哈hpfaaaaaa \n").font(rzFont(20));
+//        confer.text(@"\n");
+//        confer.appendImage([UIImage imageNamed:@"image"]).size(CGSizeMake(12, 12), RZHorizontalAlignCenter, rzFont(16));
+//        confer.text(@"aaaapf\n").font(rzFont(16));
+//        confer.text(@"\n");
+//        confer.appendImage([UIImage imageNamed:@"image"]).size(CGSizeMake(32, 32), RZHorizontalAlignBottom, rzFont(16)).tapAction(@"22222222").yOffset(10);
+//        confer.text(@"哈哈哈艾弗森\n").font(rzFont(16));
     }];
     textView.linkTextAttributes = @{};
+    textView.rzDidTapTextView = ^(id  _Nullable tapObj) {
+        //tapObj :可以是tapaction里的 tapId， 也可能是htmlstring里的NSURL
+        NSLog(@"点击了：%@", tapObj);
+    };
 }
 
 
@@ -93,6 +107,10 @@
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
     NSLog(@"URL:%@", URL);
     return NO;
+}
+
+- (void)dealloc {
+    NSLog(@"deallock  viewController");
 }
 
 - (void)toNextVc {

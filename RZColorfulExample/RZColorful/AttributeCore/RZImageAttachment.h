@@ -13,12 +13,21 @@
 
 #define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
+typedef NS_ENUM(NSInteger, RZImageAttachmentHorizontalAlign) {
+    RZHorizontalAlignBottom = 0,
+    RZHorizontalAlignCenter = 1,
+    RZHorizontalAlignTop = 2,
+};
+
 @interface RZImageAttachment : NSObject
 
 @property (nonatomic, assign) CGRect imageBounds RZWARNING("该属性不可使用，请使用bounds(CGRectMake(...))方法");
 
 @property (nonatomic, assign, readonly) BOOL hadParagraphStyle;
 @property (nonatomic, assign, readonly) BOOL hadShadow;
+
+@property (nonatomic, assign) BOOL hadTapAction;
+
 - (NSDictionary *)code;
 
 /**
@@ -45,5 +54,23 @@
 - (RZImageAttachment *(^)(CGRect bounds))bounds;
 
 /** 给图片添加链接，要实现点击，需实现UITextView的delegate的url点击事件 */
-- (RZImageAttachment *(^)(NSURL *url))url;
+- (RZImageAttachment *(^)(NSURL *url))url RZWARNING("如果有实现点击事件， 可以替换成tapAction");
+
+/*
+ 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
+ */
+- (RZImageAttachment * (^)(NSString *tapId))tapAction;
+/**
+ 水平对齐方式
+ align 上，中，下
+ refer 对齐的参考系 （前后的字体）
+ */
+- (RZImageAttachment *(^)(CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font))size;
+
+/**
+ y轴偏移量，在某些情况下，在对齐之后需要做上下偏移时，用此方法，请在设置size之后或者bounds之后使用
+ > 0 时，向下移动位置
+ < 0 时，向上移动位置
+ */
+- (RZImageAttachment *(^)(CGFloat yOffset))yOffset;
 @end

@@ -21,7 +21,7 @@
     RZColorfulConferrer *conferrer = [[RZColorfulConferrer alloc]init];
     attribute(conferrer);
     NSAttributedString *attr = [conferrer confer];
-    attr.tapActions = conferrer.tapActions;
+    attr.hadTapAction = conferrer.hadTapAction;
     return attr;
 }
 
@@ -141,12 +141,12 @@
     return htmlString;
 }
 
-- (void)setTapActions:(NSArray<NSDictionary *> *)tapActions {
-    objc_setAssociatedObject(self, @"rzTapActions", tapActions, OBJC_ASSOCIATION_COPY);
+- (void)setHadTapAction:(BOOL)hadTapAction {
+    objc_setAssociatedObject(self, @"hadTapAction", @(hadTapAction), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (NSArray<NSDictionary *> *)tapActions {
-    return objc_getAssociatedObject(self, @"rzTapActions");
+- (BOOL)hadTapAction {
+    return [objc_getAssociatedObject(self, @"hadTapAction") boolValue];
 }
 @end
 
