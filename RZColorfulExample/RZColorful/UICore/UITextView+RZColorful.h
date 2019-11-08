@@ -47,8 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  点击textView里的可以点击的字符串，
  tapObj：为tapId或者NSURL
+  return: NO: 不跳转到浏览器， YES：跳转到浏览器
  */
-@property (nonatomic, copy) void(^rzDidTapTextView)(id __nullable tapObj);
+@property (nonatomic, copy) BOOL(^rzDidTapTextView)(id __nullable tapObj);
 
 @end
 NS_ASSUME_NONNULL_END

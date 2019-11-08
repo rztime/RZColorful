@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "RZColorfulConferrer.h"
 
+@class RZAttributedStringInfo;
+
 @interface NSAttributedString (RZColorful)
 /**
  快捷创建富文本
@@ -54,7 +56,25 @@
  */
 - (NSString *)rz_codingToCompleteHtml;
 
+/**
+ 获取attrName对应的NSAttributedString
+ */
+- (NSArray <RZAttributedStringInfo *> *)rz_attributedStringByAttributeName:(NSAttributedStringKey)attrName;
+
 @property (nonatomic, assign) BOOL hadTapAction;
+
+@end
+
+// 要获取的attrName对应的信息
+@interface RZAttributedStringInfo : NSObject
+/** 对应的attributedString */
+@property (nonatomic, strong) NSMutableAttributedString *attributedString;
+/** 所在的range */
+@property (nonatomic, assign) NSRange range;
+/** 对应可以的值 */
+@property (nonatomic, strong) id value;
+/** 所要查询的attrName */
+@property (nonatomic, copy) NSAttributedStringKey attrName;
 
 @end
 

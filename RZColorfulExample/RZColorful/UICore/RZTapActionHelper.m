@@ -62,14 +62,15 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction NS_AVAILABLE_IOS(10_0) {
-    [self didTapActionWithId:URL];
+    BOOL result = [self didTapActionWithId:URL];
+    BOOL result2 = YES;
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)]) {
-        return [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
+        result2 = [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:interaction];
     }
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)]) {
-        return [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange];
+        result2 = [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange];
     }
-    return YES;
+    return result && result2;
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction NS_AVAILABLE_IOS(10_0) {
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:interaction:)]) {
@@ -79,14 +80,15 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange NS_DEPRECATED_IOS(7_0, 10_0, "Use textView:shouldInteractWithURL:inRange:forInteractionType: instead") {
-    [self didTapActionWithId:URL];
+    BOOL result = [self didTapActionWithId:URL];
+    BOOL result2 = YES;
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:interaction:)]) {
-        return [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:UITextItemInteractionInvokeDefaultAction];
+        result2 = [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange interaction:UITextItemInteractionInvokeDefaultAction];
     }
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithURL:inRange:)]) {
-        return [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange];
+        result2 = [_tagert textView:textView shouldInteractWithURL:URL inRange:characterRange];
     }
-    return YES;
+    return result && result2;
 }
 - (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange NS_DEPRECATED_IOS(7_0, 10_0, "Use textView:shouldInteractWithTextAttachment:inRange:forInteractionType: instead") {
     if (_tagert && [_tagert respondsToSelector:@selector(textView:shouldInteractWithTextAttachment:inRange:)]) {
@@ -95,10 +97,11 @@
     return YES;
 }
 
-- (void)didTapActionWithId:(NSURL *)tapActioId {
+- (BOOL)didTapActionWithId:(NSURL *)tapActioId {
     if (self.textView.rzDidTapTextView) {
-        self.textView.rzDidTapTextView(tapActioId);
+        return self.textView.rzDidTapTextView(tapActioId);
     }
+    return YES;
 }
 
 - (void)dealloc {

@@ -1,3 +1,9 @@
+1.2.5更新日志
+1.修复在html转换成富文本时，当NSLinkAttributeName对应的URL未包含http（https）时，iOS系统自动为其添加的“applewebdata://BF307C6C-5A2C-4F76-B3A0-6FD67E66CF82/”，导致所对应的url或tapId错误的bug
+2.在UITextView的rzDidTapTextView回调中新增返回值，以控制其是否跳转浏览器
+
+
+
 1.2.4更新日志
 
 1.新增图片的size设置方式 并可参照前后文本字体进行对齐，并在某些情况下做y轴偏移 （对齐中文效果较好，英文会有偏差）

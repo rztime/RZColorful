@@ -117,10 +117,10 @@
     return objc_getAssociatedObject(self, @"rzweakHelper");
 }
 
-- (void)setRzDidTapTextView:(void (^)(id __nullable))rzDidTapTextView {
+- (void)setRzDidTapTextView:(BOOL(^)(id __nullable))rzDidTapTextView {
     objc_setAssociatedObject(self, @"rzDidTapTextView", rzDidTapTextView, OBJC_ASSOCIATION_COPY);
 }
-- (void (^)(id __nullable))rzDidTapTextView {
+- (BOOL(^)(id __nullable))rzDidTapTextView {
     return objc_getAssociatedObject(self, @"rzDidTapTextView");
 }
 @end

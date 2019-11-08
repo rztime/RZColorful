@@ -25,8 +25,7 @@
     self.title = @"富文本的简单使用";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"测试" style:0 target:self action:@selector(toNextVc)];
-    
-    
+        
     UITextView *textView = [[UITextView alloc] init];
     [self.view addSubview:textView];
     textView.delegate = self;
@@ -92,9 +91,10 @@
 //        confer.text(@"哈哈哈艾弗森\n").font(rzFont(16));
     }];
     textView.linkTextAttributes = @{};
-    textView.rzDidTapTextView = ^(id  _Nullable tapObj) {
+    textView.rzDidTapTextView = ^BOOL(id  _Nullable tapObj) {
         //tapObj :可以是tapaction里的 tapId， 也可能是htmlstring里的NSURL
         NSLog(@"点击了：%@", tapObj);
+        return NO;
     };
 }
 

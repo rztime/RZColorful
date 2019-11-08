@@ -71,11 +71,33 @@
 
 // 将html转换成 NSAttributedString
 + (NSAttributedString *)htmlString:(NSString *)html {
+    if (!html) {
+        return [NSAttributedString new];
+    }
     NSDictionary *options = @{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType};
     NSError *error;
-    NSAttributedString *htmlString = [[NSAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding] options:options documentAttributes:nil error:&error];
+    NSMutableAttributedString *htmlString = [[NSAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding] options:options documentAttributes:nil error:&error].mutableCopy;
     if (!error) {
-        return htmlString;
+        // 修复URL在未设置http时，会自动添加如 “applewebdata://BF307C6C-5A2C-4F76-B3A0-6FD67E66CF82/”
+        NSArray <RZAttributedStringInfo *> *fixURL = [htmlString rz_attributedStringByAttributeName:NSLinkAttributeName];
+        [fixURL enumerateObjectsUsingBlock:^(RZAttributedStringInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSURL *url = obj.value;
+            if ([url isKindOfClass:[NSString class]]) {
+                url = [NSURL URLWithString:((NSString *)url)];
+            }
+            if ([url isKindOfClass:[NSURL class]]) {
+                if ([url.scheme isEqualToString:@"applewebdata"]) {
+                      NSString *tempUrl = url.absoluteString;
+                      NSString *originUrl = [tempUrl stringByReplacingOccurrencesOfString:@"^(?:applewebdata://[0-9A-Z-]*/?)" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, tempUrl.length)];
+                      if (originUrl.length > 0) {
+                          url = [NSURL URLWithString:originUrl];
+                          [obj.attributedString setAttributes:@{NSLinkAttributeName:url} range:NSMakeRange(0, obj.attributedString.length)];
+                          [htmlString replaceCharactersInRange:obj.range withAttributedString:obj.attributedString];
+                      }
+                } 
+            }
+        }];
+        return htmlString.copy;
     } else {
         NSLog(@"__%s__\n 富文本html转换有误:\n%@", __FUNCTION__, error);
         return [NSAttributedString new];
@@ -141,6 +163,25 @@
     return htmlString;
 }
 
+- (NSArray <RZAttributedStringInfo *> *)rz_attributedStringByAttributeName:(NSAttributedStringKey)attrName {
+    if (self.length == 0) {
+        return nil;
+    }
+    NSMutableArray *attris = [NSMutableArray new];
+    __weak typeof (self) weakSelf = self;
+    [self enumerateAttribute:attrName inRange:NSMakeRange(0, self.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if (value) {
+            RZAttributedStringInfo *info = [RZAttributedStringInfo new];
+            info.attributedString = [weakSelf attributedSubstringFromRange:range].mutableCopy;
+            info.range = range;
+            info.value = value;
+            info.attrName = attrName;
+            [attris addObject:info];
+        }
+    }];
+    return attris;
+}
+
 - (void)setHadTapAction:(BOOL)hadTapAction {
     objc_setAssociatedObject(self, @"hadTapAction", @(hadTapAction), OBJC_ASSOCIATION_ASSIGN);
 }
@@ -148,6 +189,10 @@
 - (BOOL)hadTapAction {
     return [objc_getAssociatedObject(self, @"hadTapAction") boolValue];
 }
+@end
+
+@implementation RZAttributedStringInfo
+
 @end
 
 #pragma clang diagnostic pop
