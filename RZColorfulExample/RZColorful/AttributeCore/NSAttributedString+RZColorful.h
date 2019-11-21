@@ -11,6 +11,12 @@
 
 @class RZAttributedStringInfo;
 
+typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
+    RZAttributedStringAppendConditionLess  = -1,   // 比 小
+    RZAttributedStringAppendConditionEqual = 0,  // 相等
+    RZAttributedStringAppendConditionMore  = 1,   // 比 大
+};
+
 @interface NSAttributedString (RZColorful)
 /**
  快捷创建富文本
@@ -19,6 +25,9 @@
  @return <#return value description#>
  */
 + (NSAttributedString *)rz_colorfulConfer:(void(^)(RZColorfulConferrer *confer))attribute;
+
+// 是否有点击事件 （是否存在NSLink）
+@property (nonatomic, assign) BOOL hadTapAction;
 /**
  固定宽度，计算高
 
@@ -61,8 +70,16 @@
  */
 - (NSArray <RZAttributedStringInfo *> *)rz_attributedStringByAttributeName:(NSAttributedStringKey)attrName;
 
-@property (nonatomic, assign) BOOL hadTapAction;
+/// 绘制在rect范围内时， 获取每一行的文本信息，
+/// @param rect 绘制范围
+- (NSArray <RZAttributedStringInfo *> *)rz_linesIfDrawInRect:(CGRect)rect;
 
+/// 将attr追加到当前文本上 ，只有在rect上绘制，小于（等于或大于）line时，才将attr追加到self之后 ,如果将attr追加上去之后，行数大于line，则会对self的字符串截取
+/// @param attr 要追加的文本
+/// @param condition 满足的条件
+/// @param line 行数
+/// @param rect 要绘制的rect
+- (NSAttributedString *)rz_appendAttributedString:(NSAttributedString *)attr when:(RZAttributedStringAppendCondition)condition line:(NSInteger)line inRect:(CGRect)rect;
 @end
 
 // 要获取的attrName对应的信息

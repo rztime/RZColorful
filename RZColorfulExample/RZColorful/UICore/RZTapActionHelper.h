@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) UITextView *textView;
 
-@property (nonatomic, weak) id tagert;
-
 @end
 
 NS_ASSUME_NONNULL_END

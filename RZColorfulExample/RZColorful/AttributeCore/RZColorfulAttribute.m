@@ -7,6 +7,7 @@
 //
 
 #import "RZColorfulAttribute.h"
+#import "NSString+RZCode.h"
 
 #define RZTapActionId   @"RZTapActionId"
 #define RZTapActionFunc @"RZTapActionFunc"
@@ -258,8 +259,7 @@
 - (RZColorfulAttribute *(^)(NSString *tapId))tapAction {
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *tapId) {
-        weakSelf.colorfuls[NSLinkAttributeName] = tapId;
-        weakSelf.hadTapAction = YES;
+        weakSelf.colorfuls[NSLinkAttributeName] = tapId.rz_encodedString;
         return weakSelf;
     };
 }

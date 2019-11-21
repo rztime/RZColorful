@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RZColorfulConferrer.h"
+#import "NSString+RZCode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  点击textView里的可以点击的字符串，
  tapObj：为tapId或者NSURL
   return: NO: 不跳转到浏览器， YES：跳转到浏览器
+ 如果tapAction()或url()中包含了有中文,URL将会进行编码，所以请将tapObj，rz_decodedString解码
  */
 @property (nonatomic, copy) BOOL(^rzDidTapTextView)(id __nullable tapObj);
 

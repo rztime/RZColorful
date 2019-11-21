@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0610E4E92384D6D40014017C /* NSString+RZCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0610E4E82384D6D40014017C /* NSString+RZCode.m */; };
+		0610E4EC238526480014017C /* RZRichAttributedInitDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0610E4EB238526480014017C /* RZRichAttributedInitDemoViewController.m */; };
 		0638F86023409A3800C52627 /* RZTapActionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0638F85F23409A3800C52627 /* RZTapActionHelper.m */; };
+		06CAB32E23852DE000697FEF /* RZAttributedStringDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CAB32D23852DE000697FEF /* RZAttributedStringDemoVC.m */; };
+		06CAB3312385337A00697FEF /* RZTextViewDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CAB3302385337A00697FEF /* RZTextViewDemoVC.m */; };
+		3E91864C81880A3536C9B95C /* Pods_RZColorfulExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1FE505D1939E21A9D7DDA3 /* Pods_RZColorfulExample.framework */; };
 		769C753A20EF0A3D00084730 /* UILabel+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753920EF0A3D00084730 /* UILabel+RZColorful.m */; };
 		769C753D20EF0AFB00084730 /* UITextView+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753C20EF0AFB00084730 /* UITextView+RZColorful.m */; };
 		769C754020EF0B7600084730 /* UITextField+RZColorful.m in Sources */ = {isa = PBXBuildFile; fileRef = 769C753F20EF0B7600084730 /* UITextField+RZColorful.m */; };
@@ -30,14 +35,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0610E4E72384D6D40014017C /* NSString+RZCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+RZCode.h"; sourceTree = "<group>"; };
+		0610E4E82384D6D40014017C /* NSString+RZCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RZCode.m"; sourceTree = "<group>"; };
+		0610E4EA238526480014017C /* RZRichAttributedInitDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZRichAttributedInitDemoViewController.h; sourceTree = "<group>"; };
+		0610E4EB238526480014017C /* RZRichAttributedInitDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZRichAttributedInitDemoViewController.m; sourceTree = "<group>"; };
 		0638F85E23409A3800C52627 /* RZTapActionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTapActionHelper.h; sourceTree = "<group>"; };
 		0638F85F23409A3800C52627 /* RZTapActionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTapActionHelper.m; sourceTree = "<group>"; };
+		06CAB32C23852DE000697FEF /* RZAttributedStringDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZAttributedStringDemoVC.h; sourceTree = "<group>"; };
+		06CAB32D23852DE000697FEF /* RZAttributedStringDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAttributedStringDemoVC.m; sourceTree = "<group>"; };
+		06CAB32F2385337A00697FEF /* RZTextViewDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTextViewDemoVC.h; sourceTree = "<group>"; };
+		06CAB3302385337A00697FEF /* RZTextViewDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZTextViewDemoVC.m; sourceTree = "<group>"; };
+		6D3D5BF8FEF9802DB54C8532 /* Pods-RZColorfulExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorfulExample.release.xcconfig"; path = "Target Support Files/Pods-RZColorfulExample/Pods-RZColorfulExample.release.xcconfig"; sourceTree = "<group>"; };
+		71ADFF6578244D3252C65FF5 /* Pods-RZColorfulExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorfulExample.debug.xcconfig"; path = "Target Support Files/Pods-RZColorfulExample/Pods-RZColorfulExample.debug.xcconfig"; sourceTree = "<group>"; };
 		769C753820EF0A3D00084730 /* UILabel+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+RZColorful.h"; sourceTree = "<group>"; };
 		769C753920EF0A3D00084730 /* UILabel+RZColorful.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RZColorful.m"; sourceTree = "<group>"; };
 		769C753B20EF0AFB00084730 /* UITextView+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+RZColorful.h"; sourceTree = "<group>"; };
 		769C753C20EF0AFB00084730 /* UITextView+RZColorful.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+RZColorful.m"; sourceTree = "<group>"; };
 		769C753E20EF0B7600084730 /* UITextField+RZColorful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+RZColorful.h"; sourceTree = "<group>"; };
 		769C753F20EF0B7600084730 /* UITextField+RZColorful.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RZColorful.m"; sourceTree = "<group>"; };
+		9A1FE505D1939E21A9D7DDA3 /* Pods_RZColorfulExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RZColorfulExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B223E2F01F2B907000FBD4E1 /* RZShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZShadow.h; sourceTree = "<group>"; };
 		B223E2F11F2B907000FBD4E1 /* RZShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZShadow.m; sourceTree = "<group>"; };
 		B279DCD31F28D88A00688E73 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -75,12 +91,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E91864C81880A3536C9B95C /* Pods_RZColorfulExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06733E442383D00600EDDD9C /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				0610E4EA238526480014017C /* RZRichAttributedInitDemoViewController.h */,
+				0610E4EB238526480014017C /* RZRichAttributedInitDemoViewController.m */,
+				06CAB32C23852DE000697FEF /* RZAttributedStringDemoVC.h */,
+				06CAB32D23852DE000697FEF /* RZAttributedStringDemoVC.m */,
+				06CAB32F2385337A00697FEF /* RZTextViewDemoVC.h */,
+				06CAB3302385337A00697FEF /* RZTextViewDemoVC.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		7622B0EA201B7657001D33CF /* UICore */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +145,19 @@
 				B2B7FBC71F279EAB00643C63 /* RZColorfulConferrer.m */,
 				B290B4271FBC18640035850C /* NSAttributedString+RZColorful.h */,
 				B290B4281FBC18640035850C /* NSAttributedString+RZColorful.m */,
+				0610E4E72384D6D40014017C /* NSString+RZCode.h */,
+				0610E4E82384D6D40014017C /* NSString+RZCode.m */,
 			);
 			path = AttributeCore;
+			sourceTree = "<group>";
+		};
+		7714C76B3F86DFEA9B1330E5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71ADFF6578244D3252C65FF5 /* Pods-RZColorfulExample.debug.xcconfig */,
+				6D3D5BF8FEF9802DB54C8532 /* Pods-RZColorfulExample.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		B2B7FB9F1F279E8300643C63 = {
@@ -124,6 +165,8 @@
 			children = (
 				B2B7FBAA1F279E8300643C63 /* RZColorfulExample */,
 				B2B7FBA91F279E8300643C63 /* Products */,
+				7714C76B3F86DFEA9B1330E5 /* Pods */,
+				FA501D0F12E69E0FF1648E17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,9 +188,10 @@
 				B2B7FBAF1F279E8300643C63 /* AppDelegate.m */,
 				B2B7FBB11F279E8300643C63 /* ViewController.h */,
 				B2B7FBB21F279E8300643C63 /* ViewController.m */,
-				B2B7FBB41F279E8300643C63 /* Main.storyboard */,
+				06733E442383D00600EDDD9C /* Demo */,
 				B2B7FBB71F279E8300643C63 /* Assets.xcassets */,
 				B2B7FBB91F279E8300643C63 /* LaunchScreen.storyboard */,
+				B2B7FBB41F279E8300643C63 /* Main.storyboard */,
 				B2B7FBBC1F279E8300643C63 /* Info.plist */,
 				B2B7FBAB1F279E8300643C63 /* Supporting Files */,
 				B279DCD31F28D88A00688E73 /* common.h */,
@@ -173,6 +217,14 @@
 			path = RZColorful;
 			sourceTree = "<group>";
 		};
+		FA501D0F12E69E0FF1648E17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A1FE505D1939E21A9D7DDA3 /* Pods_RZColorfulExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,9 +232,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2B7FBBF1F279E8300643C63 /* Build configuration list for PBXNativeTarget "RZColorfulExample" */;
 			buildPhases = (
+				8EFF1EBBF41AFDC9D9E69AC2 /* [CP] Check Pods Manifest.lock */,
 				B2B7FBA41F279E8300643C63 /* Sources */,
 				B2B7FBA51F279E8300643C63 /* Frameworks */,
 				B2B7FBA61F279E8300643C63 /* Resources */,
+				6794B3C3481BAE1C4B820A27 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -214,6 +268,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -242,6 +297,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6794B3C3481BAE1C4B820A27 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RZColorfulExample/Pods-RZColorfulExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RZColorfulExample/Pods-RZColorfulExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8EFF1EBBF41AFDC9D9E69AC2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RZColorfulExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B2B7FBA41F279E8300643C63 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -250,9 +348,11 @@
 				0638F86023409A3800C52627 /* RZTapActionHelper.m in Sources */,
 				B290B4361FBDA2BA0035850C /* UIView+RZContinueFirstResponder.m in Sources */,
 				B2B7FBB31F279E8300643C63 /* ViewController.m in Sources */,
+				06CAB3312385337A00697FEF /* RZTextViewDemoVC.m in Sources */,
 				B279DCD61F2B7A3700688E73 /* RZImageAttachment.m in Sources */,
 				B2E3B2521F2F740A0075460E /* RZParagraphStyle.m in Sources */,
 				B223E2F21F2B907000FBD4E1 /* RZShadow.m in Sources */,
+				06CAB32E23852DE000697FEF /* RZAttributedStringDemoVC.m in Sources */,
 				B290B4291FBC18640035850C /* NSAttributedString+RZColorful.m in Sources */,
 				769C753A20EF0A3D00084730 /* UILabel+RZColorful.m in Sources */,
 				769C754020EF0B7600084730 /* UITextField+RZColorful.m in Sources */,
@@ -260,6 +360,8 @@
 				B2B7FBB01F279E8300643C63 /* AppDelegate.m in Sources */,
 				B2B7FBCE1F279EAB00643C63 /* RZColorfulAttribute.m in Sources */,
 				B2B7FBAD1F279E8300643C63 /* main.m in Sources */,
+				0610E4EC238526480014017C /* RZRichAttributedInitDemoViewController.m in Sources */,
+				0610E4E92384D6D40014017C /* NSString+RZCode.m in Sources */,
 				B290B43E1FBDAF7C0035850C /* UITextField+SelectedRange.m in Sources */,
 				B2B7FBCF1F279EAB00643C63 /* RZColorfulConferrer.m in Sources */,
 			);
@@ -381,6 +483,7 @@
 		};
 		B2B7FBC01F279E8300643C63 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71ADFF6578244D3252C65FF5 /* Pods-RZColorfulExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LBSWTUGGNB;
@@ -395,6 +498,7 @@
 		};
 		B2B7FBC11F279E8300643C63 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D3D5BF8FEF9802DB54C8532 /* Pods-RZColorfulExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = LBSWTUGGNB;

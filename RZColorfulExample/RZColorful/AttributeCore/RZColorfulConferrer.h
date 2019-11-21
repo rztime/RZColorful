@@ -27,8 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString *)confer RZWARNING("请勿使用及修改此方法, 具体设置请参照RZColorfulConferrer的其他属性");
 
-@property (nonatomic, assign) BOOL hadTapAction RZWARNING("请勿使用此方法及修改方法");
-
 /**
  普通文本内容 要设置其属性，使用"."语法直接连接属性，属性参考RZColorfulAttribute.h
  如: confer.text(@"内容").textColor([UIColor redColor]).font(FONT(16)); 即设置 “内容”显示为红色,16号字体

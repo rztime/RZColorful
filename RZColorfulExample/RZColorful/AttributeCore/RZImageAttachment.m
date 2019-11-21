@@ -8,6 +8,7 @@
 
 #import "RZImageAttachment.h"
 #import "NSAttributedString+RZColorful.h"
+#import "NSString+RZCode.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -67,8 +68,7 @@
 - (RZImageAttachment *(^)(NSString *tapId))tapAction {
     __weak typeof(self) weakSelf = self;
     return ^id(NSString *tapId) {
-        weakSelf.URL = tapId;
-        weakSelf.hadTapAction = YES;
+        weakSelf.URL = tapId.rz_encodedString;
         return weakSelf;
     };
 }

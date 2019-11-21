@@ -70,9 +70,6 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 - (NSAttributedString *)confer {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
     for (RZColorfulAttributeBox *box in self.contents) {
-        if (!self.hadTapAction) {
-            self.hadTapAction = box.attribute.hadTapAction || box.attach.hadTapAction;
-        } 
         switch (box.type) {
             case RZColorfulAttributeBoxTypePlainText: {
                 NSMutableDictionary *attr = [box.attribute code].mutableCopy;
@@ -111,7 +108,6 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
                 if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
                     attr[NSParagraphStyleAttributeName] = [_paragraphStyle code];   
                 }
-                self.hadTapAction = YES;
                 [html addAttributes:attr range:NSMakeRange(0, html.length)];
                 [string appendAttributedString:html];
                 break;

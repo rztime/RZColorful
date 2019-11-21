@@ -36,8 +36,6 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
 @property (nonatomic, assign, readonly) BOOL hadShadow;
 @property (nonatomic, assign, readonly) BOOL hadParagraphStyle;
 
-@property (nonatomic, assign) BOOL hadTapAction;
-
 - (NSDictionary *)code;
 
 #pragma mark - 文本属性设置内容

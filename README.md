@@ -56,7 +56,8 @@ pod ‘RZColorful’
         
     * RZColorfulAttribute           -- 设置文本的所有的属性
     * RZImageAttachment         -- 设置图片的所有的属性
-    
+    * 新增可折叠、展开的RZFoldLabel，   RZFoldLabel
+
 ### 图示说明
 
 <p align="center" >
@@ -160,6 +161,18 @@ pod ‘RZColorful’
     * 设置了URL属性的文本，内部自带蓝色和下划线，若要去掉，可设置 `textView.linkTextAttributes = @{};`
 
 ```objc
+// 实现下列方法 （二选一、或都可以实现，当都返回YES时，可能会打开safari浏览器）
+textView.rzDidTapTextView = ^BOOL(id  _Nullable tapObj) {
+    NSString *url = tapObj;
+    if ([tapObj isKindOfClass:[NSURL class]]) {
+        url = [(NSURL *)tapObj absoluteString];
+    }
+    url = url.rz_decodedString;
+            
+    NSLog(@"rzDidTapTextView：tapObj:%@  \n如果url中包含了有中文,URL将会进行编码，所以请rz_decodedString解码之后查看:%@", tapObj, url);
+    return NO;
+};
+
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     NSLog(@"URL:%@", URL);
     // return NO;则不跳转，这里可以做一些基本判断在执行是否跳转浏览器打开url

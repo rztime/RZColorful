@@ -8,15 +8,18 @@
 
 #import "RZTapActionHelper.h"
 #import "UITextView+RZColorful.h"
+
 @interface RZTapActionHelper ()<UITextViewDelegate>
+
+@property (nonatomic, weak) id tagert;
 
 @end
 @implementation RZTapActionHelper
 
-- (void)setTagert:(id)tagert {
-    _tagert = tagert;
-    
-    self.textView.delegate = self;
+- (void)setTextView:(UITextView *)textView {
+    _textView = textView;
+    _tagert = textView.delegate;
+    _textView.delegate = self;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
@@ -105,7 +108,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"销毁");
+    _textView.delegate = _tagert;
 }
 
 @end

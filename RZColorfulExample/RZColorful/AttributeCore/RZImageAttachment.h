@@ -26,8 +26,6 @@ typedef NS_ENUM(NSInteger, RZImageAttachmentHorizontalAlign) {
 @property (nonatomic, assign, readonly) BOOL hadParagraphStyle;
 @property (nonatomic, assign, readonly) BOOL hadShadow;
 
-@property (nonatomic, assign) BOOL hadTapAction;
-
 - (NSDictionary *)code;
 
 /**
