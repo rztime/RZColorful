@@ -56,7 +56,6 @@ pod ‘RZColorful’
         
     * RZColorfulAttribute           -- 设置文本的所有的属性
     * RZImageAttachment         -- 设置图片的所有的属性
-    * 新增可折叠、展开的RZFoldLabel，   RZFoldLabel
 
 ### 图示说明
 
