@@ -12,14 +12,26 @@
 @interface RZShadow ()
 
 @property (nonatomic, strong) NSShadow *shadow;
+@property (nonatomic, weak) RZColorfulAttribute *colorfulsAttr;
+@property (nonatomic, weak) RZImageAttachment *imageAttach;
 
 @end
 
 @implementation RZShadow
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (instancetype)initWithAttr:(RZColorfulAttribute *)attr {
+    if (self = [super init]) {
+        self.colorfulsAttr = attr;
+    }
+    return self;
+}
 
+- (instancetype)initWithAttach:(RZImageAttachment *)attach {
+    if (self = [super init]) {
+        self.imageAttach = attach;
+    }
+    return self;
+}
 
 - (RZColorfulAttribute *)and {
     return _colorfulsAttr;
@@ -52,28 +64,24 @@
     return _shadow;
 }
 
-- (RZShadow *(^)(CGSize offSet))offset {
-    __weak typeof(self)weakSelf = self;
+- (RZShadow *(^)(CGSize))offset {
     return ^id (CGSize offset) {
-        weakSelf.shadow.shadowOffset = offset;
-        return weakSelf;
+        self.shadow.shadowOffset = offset;
+        return self;
     };
 }
 
-- (RZShadow *(^)(CGFloat radius))radius {
-    __weak typeof(self)weakSelf = self;
+- (RZShadow *(^)(CGFloat))radius {
     return ^id (CGFloat radius) {
-        weakSelf.shadow.shadowBlurRadius = radius;
-        return weakSelf;
+        self.shadow.shadowBlurRadius = radius;
+        return self;
     };
 }
 
-- (RZShadow *(^)(UIColor *color))color {
-    __weak typeof(self)weakSelf = self;
+- (RZShadow *(^)(UIColor *))color {
     return ^id (UIColor *color) {
-        weakSelf.shadow.shadowColor = color;
-        return weakSelf;
+        self.shadow.shadowColor = color;
+        return self;
     };
 }
-#pragma clang diagnostic pop
 @end

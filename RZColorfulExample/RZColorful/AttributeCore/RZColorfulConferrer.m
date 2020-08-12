@@ -57,9 +57,7 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 @property (nonatomic, strong) NSMutableArray *contents;
 @property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) RZShadow       *shadow;
-
-
-
+ 
 @end
 
 @implementation RZColorfulConferrer
@@ -133,14 +131,13 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     return string.copy;
 }
 
-- (RZColorfulAttribute *(^)(NSString *text))text{
-    __weak typeof(self) weakSelf = self;
+- (RZColorfulAttribute *(^)(NSString *))text{
     return ^id(NSString *text) {
         if (!text) {
             text = @"";
         }
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(text, RZColorfulAttributeBoxTypePlainText);
-        [weakSelf.contents addObject:box];
+        [self.contents addObject:box];
         return box.attribute;
     };
 }
@@ -148,45 +145,50 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 /**
  添加html格式的内容
  */
-- (RZColorfulAttribute *(^)(NSString *htmlText))htmlText {
-    __weak typeof(self) weakSelf = self;
+- (RZColorfulAttribute *(^)(NSString *))htmlText {
     return ^id (NSString *htmlText) {
         if (!htmlText) {
             htmlText = @"";
         }
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(htmlText, RZColorfulAttributeBoxTypeHTMLText);
-        [weakSelf.contents addObject:box];
+        [self.contents addObject:box];
         return box.attribute;
     };
 }
 
-- (RZImageAttachment *(^)(UIImage *appendImage))appendImage {
-    __weak typeof(self) weakSelf = self;
-    return ^id (UIImage *appendImage){
-        if (!appendImage) {
-            appendImage = [[UIImage alloc] init];
+- (RZImageAttachment *(^)(UIImage *))appendImage {
+    return ^id (UIImage *image){
+        return self.image(image);
+    };
+}
+- (RZImageAttachment *(^)(UIImage *))image {
+    return ^id (UIImage *image){
+        if (!image) {
+            image = [[UIImage alloc] init];
         }
-        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(appendImage, RZColorfulAttributeBoxTypeImage);
-        [weakSelf.contents addObject:box];
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(image, RZColorfulAttributeBoxTypeImage);
+        [self.contents addObject:box];
         return box.attach;
     };
 }
-
 /**
  通过url添加图片
  */
-- (RZImageAttachment *(^)(NSString * _Nullable imageUrl))appendImageByUrl {
-    __weak typeof(self) weakSelf = self;
+- (RZImageAttachment *(^)(NSString * _Nullable))appendImageByUrl {
+    return ^id (NSString *imageUrl){
+        return self.imageByUrl(imageUrl);
+    };
+}
+- (RZImageAttachment *(^)(NSString * _Nullable))imageByUrl {
     return ^id (NSString *imageUrl){
         if (!imageUrl) {
             imageUrl = @"";
         }
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(imageUrl, RZColorfulAttributeBoxTypeImageURL);
-        [weakSelf.contents addObject:box];
+        [self.contents addObject:box];
         return box.attach;
     };
 }
-
 /**
  设置当前控件对象统一段落样式
  */

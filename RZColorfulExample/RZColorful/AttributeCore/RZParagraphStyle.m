@@ -12,15 +12,27 @@
 @interface RZParagraphStyle ()
 
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraph;
+@property (nonatomic, weak) RZColorfulAttribute *colorfulsAttr;
+@property (nonatomic, weak) RZImageAttachment *imageAttach;
 
 @end
 
 @implementation RZParagraphStyle
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (instancetype)initWithAttr:(RZColorfulAttribute *)attr {
+    if (self = [super init]) {
+        self.colorfulsAttr = attr;
+    }
+    return self;
+}
 
-
+- (instancetype)initWithAttach:(RZImageAttachment *)attach {
+    if (self = [super init]) {
+        self.imageAttach = attach;
+    }
+    return self;
+}
+ 
 - (RZColorfulAttribute *)and {
     return _colorfulsAttr;
 }
@@ -56,126 +68,109 @@
     return _paragraph;
 }
 
-- (RZParagraphStyle *(^)(CGFloat lineSpacing))lineSpacing {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))lineSpacing {
     return ^id (CGFloat lineSpacing) {
-        weakSelf.paragraph.lineSpacing = lineSpacing;
-        return weakSelf;
+        self.paragraph.lineSpacing = lineSpacing;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat paragraphSpacing))paragraphSpacing {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))paragraphSpacing {
     return ^id (CGFloat paragraphSpacing) {
-        weakSelf.paragraph.paragraphSpacing = paragraphSpacing;
-        return weakSelf;
+        self.paragraph.paragraphSpacing = paragraphSpacing;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(NSTextAlignment alignment))alignment {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(NSTextAlignment))alignment {
     return ^id (NSTextAlignment alignment) {
-        weakSelf.paragraph.alignment = alignment;
-        return weakSelf;
+        self.paragraph.alignment = alignment;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat firstLineHeadIndent))firstLineHeadIndent {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))firstLineHeadIndent {
     return ^id (CGFloat firstLineHeadIndent) {
-        weakSelf.paragraph.firstLineHeadIndent = firstLineHeadIndent;
-        return weakSelf;
+        self.paragraph.firstLineHeadIndent = firstLineHeadIndent;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat headIndent))headIndent {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))headIndent {
     return ^id (CGFloat headIndent) {
-        weakSelf.paragraph.headIndent = headIndent;
-        return weakSelf;
+        self.paragraph.headIndent = headIndent;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat tailIndent))tailIndent {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))tailIndent {
     return ^id (CGFloat tailIndent) {
-        weakSelf.paragraph.tailIndent = tailIndent;
-        return weakSelf;
+        self.paragraph.tailIndent = tailIndent;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(NSLineBreakMode lineBreakMode))lineBreakMode {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(NSLineBreakMode))lineBreakMode {
     return ^id (NSLineBreakMode lineBreakMode) {
-        weakSelf.paragraph.lineBreakMode = lineBreakMode;
-        return weakSelf;
+        self.paragraph.lineBreakMode = lineBreakMode;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat minimumLineHeight))minimumLineHeight {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))minimumLineHeight {
     return ^id (CGFloat minimumLineHeight) {
-        weakSelf.paragraph.minimumLineHeight = minimumLineHeight;
-        return weakSelf;
+        self.paragraph.minimumLineHeight = minimumLineHeight;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat maximumLineHeight))maximumLineHeight {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))maximumLineHeight {
     return ^id (CGFloat maximumLineHeight) {
-        weakSelf.paragraph.maximumLineHeight = maximumLineHeight;
-        return weakSelf;
+        self.paragraph.maximumLineHeight = maximumLineHeight;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(NSWritingDirection baseWritingDirection))baseWritingDirection {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(NSWritingDirection))baseWritingDirection {
     return ^id (NSWritingDirection baseWritingDirection) {
-        weakSelf.paragraph.baseWritingDirection = baseWritingDirection;
-        return weakSelf;
+        self.paragraph.baseWritingDirection = baseWritingDirection;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat lineHeightMultiple))lineHeightMultiple {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))lineHeightMultiple {
     return ^id (CGFloat lineHeightMultiple) {
-        weakSelf.paragraph.lineHeightMultiple = lineHeightMultiple;
-        return weakSelf;
+        self.paragraph.lineHeightMultiple = lineHeightMultiple;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat paragraphSpacingBefore))paragraphSpacingBefore {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))paragraphSpacingBefore {
     return ^id (CGFloat paragraphSpacingBefore) {
-        weakSelf.paragraph.paragraphSpacingBefore = paragraphSpacingBefore;
-        return weakSelf;
+        self.paragraph.paragraphSpacingBefore = paragraphSpacingBefore;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(float hyphenationFactor))hyphenationFactor {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(float))hyphenationFactor {
     return ^id (float hyphenationFactor) {
-        weakSelf.paragraph.hyphenationFactor = hyphenationFactor;
-        return weakSelf;
+        self.paragraph.hyphenationFactor = hyphenationFactor;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(CGFloat defaultTabInterval))defaultTabInterval {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(CGFloat))defaultTabInterval {
     return ^id (CGFloat defaultTabInterval) {
-        weakSelf.paragraph.defaultTabInterval = defaultTabInterval;
-        return weakSelf;
+        self.paragraph.defaultTabInterval = defaultTabInterval;
+        return self;
     };
 }
 
-- (RZParagraphStyle *(^)(BOOL allowsDefaultTighteningForTruncation))allowsDefaultTighteningForTruncation {
-    __weak typeof(self)weakSelf = self;
+- (RZParagraphStyle *(^)(BOOL))allowsDefaultTighteningForTruncation {
     return ^id (BOOL allowsDefaultTighteningForTruncation) {
-        weakSelf.paragraph.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation;
-        return weakSelf;
+        self.paragraph.allowsDefaultTighteningForTruncation = allowsDefaultTighteningForTruncation;
+        return self;
     };
 }
-
-#pragma clang diagnostic pop
 
 @end

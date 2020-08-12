@@ -13,10 +13,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored"-Wunused-variable"
-
-#define RZTapActionId   @"RZTapActionId"
-#define RZTapActionFunc @"RZTapActionFunc"
-
+  
 @interface RZImageAttachment ()
 
 /** 设置段落样式  */
@@ -45,10 +42,9 @@
 }
 
 - (RZImageAttachment *(^)(CGRect bounds))bounds {
-    __weak typeof(self)weakSelf = self;
     return ^id (CGRect bounds) {
-        weakSelf.imageBounds = bounds;
-        return weakSelf;
+        self.imageBounds = bounds;
+        return self;
     };
 }
 
@@ -56,20 +52,18 @@
  设置点击
  */
 - (RZImageAttachment *(^)(NSURL *url))url {
-    __weak typeof(self)weakSelf = self;
     return ^id (NSURL *url) {
-        weakSelf.URL = url;
-        return weakSelf;
+        self.URL = url;
+        return self;
     };
 }
 /*
  给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
  */
 - (RZImageAttachment *(^)(NSString *tapId))tapAction {
-    __weak typeof(self) weakSelf = self;
     return ^id(NSString *tapId) {
-        weakSelf.URL = tapId.rz_encodedString;
-        return weakSelf;
+        self.URL = tapId.rz_encodedString;
+        return self;
     };
 }
 /**
@@ -78,7 +72,6 @@
  refer 对齐的参考系 （前后的字体）
  */
 - (RZImageAttachment *(^)(CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font))size {
-    __weak typeof(self)weakSelf = self;
     return ^id (CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font) {
         CGFloat y = 0;
         CGFloat fontHeight = font.ascender - font.descender;
@@ -98,22 +91,21 @@
             default:
                 break;
         }
-        weakSelf.imageBounds = CGRectMake(0, y, size.width, size.height);
-        return weakSelf;
+        self.imageBounds = CGRectMake(0, y, size.width, size.height);
+        return self;
     };
 }
 /**
  y轴偏移量，在某些情况下，在对齐之后需要做上下偏移时，用此方法，请在设置size之后或者bounds之后使用
  */
 - (RZImageAttachment *(^)(CGFloat yOffset))yOffset {
-    __weak typeof(self) weakSelf = self;
     return ^id (CGFloat yOffset) {
-        weakSelf.imageBounds = ({
-            CGRect bounds = weakSelf.imageBounds;
+        self.imageBounds = ({
+            CGRect bounds = self.imageBounds;
             bounds.origin.y -= yOffset;
             bounds;
         });
-        return weakSelf;
+        return self;
     };
 }
 /**
@@ -142,8 +134,7 @@
  */
 - (RZParagraphStyle *)paragraphStyle {
     if (!_paragraphStyle) {
-        _paragraphStyle = [[RZParagraphStyle alloc] init];
-        _paragraphStyle.imageAttach = self;
+        _paragraphStyle = [[RZParagraphStyle alloc] initWithAttach:self];
         _hadParagraphStyle = YES;
     }
     return _paragraphStyle;
@@ -151,8 +142,7 @@
 
 - (RZShadow *)shadow {
     if (!_shadow) {
-        _shadow = [[RZShadow alloc] init];
-        _shadow.imageAttach = self;
+        _shadow = [[RZShadow alloc] initWithAttach:self];
         _hadShadow = YES;
     }
     return _shadow;

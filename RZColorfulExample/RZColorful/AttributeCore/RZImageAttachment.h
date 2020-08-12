@@ -35,28 +35,20 @@ typedef NS_ENUM(NSInteger, RZImageAttachmentHorizontalAlign) {
 
 #pragma mark - 可以设置的属性
 
-/**
- 段落样式
- */
+/** 段落样式 */
 - (RZParagraphStyle *)paragraphStyle;
-
-/**
- 阴影
- */
+/** 阴影 */
 - (RZShadow *)shadow;
 /**
   设置图片bounds时,origin.x 设置无效 size.width height 可以设置与前后排文字字体大小一样，且适当调整origin.y为负值，可以让图片文本对齐
  如果是通过url设置bounds时，宽设置为0：则宽按照高度自动等比显示，高设置为0亦如此
- 
  */
 - (RZImageAttachment *(^)(CGRect bounds))bounds;
 
 /** 给图片添加链接，要实现点击，需实现UITextView的delegate的url点击事件 */
 - (RZImageAttachment *(^)(NSURL *url))url RZWARNING("如果有实现点击事件， 可以替换成tapAction");
 
-/*
- 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
- */
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView */
 - (RZImageAttachment * (^)(NSString *tapId))tapAction;
 /**
  水平对齐方式

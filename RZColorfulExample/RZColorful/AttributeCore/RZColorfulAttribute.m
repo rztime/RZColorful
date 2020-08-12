@@ -8,9 +8,7 @@
 
 #import "RZColorfulAttribute.h"
 #import "NSString+RZCode.h"
-
-#define RZTapActionId   @"RZTapActionId"
-#define RZTapActionFunc @"RZTapActionFunc"
+ 
 @interface RZColorfulAttribute ()
 
 @property (nonatomic, strong) NSMutableDictionary *colorfuls;
@@ -30,14 +28,12 @@
     }
     return self;
 }
-
 - (RZColorfulAttribute *)and {
     return self;
 }
 - (RZColorfulAttribute *)with {
     return self;
 }
-
 - (NSDictionary *)code {
     if (_hadShadow) {
         [self.colorfuls setObject:[_shadow code] forKey:NSShadowAttributeName];
@@ -47,243 +43,179 @@
     }
     return _colorfuls.copy;
 }
-
-/**
- 设置文本颜色
- */
+/** 设置文本颜色 */
 - (RZColorfulAttribute * (^) (UIColor *)) textColor {
-    __weak typeof(self) weakSelf = self;
     return ^id(UIColor *textColor) {
-        weakSelf.colorfuls[NSForegroundColorAttributeName] = textColor;
-        return weakSelf;
+        self.colorfuls[NSForegroundColorAttributeName] = textColor;
+        return self;
     };
 }
-
-/**
- 设置字体
- */
-- (RZColorfulAttribute *(^)(UIFont *font))font {
-    __weak typeof(self) weakSelf = self;
+/** 设置字体 */
+- (RZColorfulAttribute *(^)(UIFont *))font {
     return ^id(UIFont *font) {
-        if (!font) {
-            font = [UIFont systemFontOfSize:17];
-        }
-        weakSelf.colorfuls[NSFontAttributeName] = font;
-        return weakSelf;
+        self.colorfuls[NSFontAttributeName] = font;
+        return self;
     };
 }
-
-/**
- 设置文字背景颜色
- */
-- (RZColorfulAttribute *(^)(UIColor *backgroundColor))backgroundColor {
-    __weak typeof(self)weakSelf = self;
+/** 设置文字背景颜色 */
+- (RZColorfulAttribute *(^)(UIColor *))backgroundColor {
     return ^id (UIColor *backgroundColor) {
-        weakSelf.colorfuls[NSBackgroundColorAttributeName] = backgroundColor;
-        return weakSelf;
+        self.colorfuls[NSBackgroundColorAttributeName] = backgroundColor;
+        return self;
     };
 }
-
-/**
- 设置连体字，value = 0,没有连体， =1，有连体
- */
-- (RZColorfulAttribute *(^)(NSNumber *ligature))ligature {
-    __weak typeof(self)weakSelf = self;
+/** 设置连体字，value = 0,没有连体， =1，有连体 */
+- (RZColorfulAttribute *(^)(NSNumber *))ligature {
     return ^id (NSNumber *ligature) {
-        weakSelf.colorfuls[NSLigatureAttributeName] = ligature;
-        return weakSelf;
+        self.colorfuls[NSLigatureAttributeName] = ligature;
+        return self;
     };
 }
-
-/**
- 字间距 >0 加宽  < 0减小间距
- */
-- (RZColorfulAttribute *(^)(NSNumber *wordSpace))wordSpace {
-    __weak typeof(self)weakSelf = self;
+/** 字间距 >0 加宽  < 0减小间距 */
+- (RZColorfulAttribute *(^)(NSNumber *))wordSpace {
     return ^id (NSNumber *wordSpace) {
-        weakSelf.colorfuls[NSKernAttributeName] = wordSpace;
-        return weakSelf;
+        self.colorfuls[NSKernAttributeName] = wordSpace;
+        return self;
     };
 }
-
-/**
- 删除线
- */
-- (RZColorfulAttribute *(^)(RZLineStyle strikeThrough))strikeThrough {
-    __weak typeof(self)weakSelf = self;
+/** 删除线 */
+- (RZColorfulAttribute *(^)(RZLineStyle))strikeThrough {
     return ^id (RZLineStyle strikeThrough) {
-        weakSelf.colorfuls[NSStrikethroughStyleAttributeName] = @(strikeThrough);
-        return weakSelf;
+        self.colorfuls[NSStrikethroughStyleAttributeName] = @(strikeThrough);
+        return self;
     };
 }
-
-/**
- 删除线颜色
- */
-- (RZColorfulAttribute *(^)(UIColor *strikeThroughColor))strikeThroughColor {
-    __weak typeof(self)weakSelf = self;
+/**  删除线颜色 */
+- (RZColorfulAttribute *(^)(UIColor *))strikeThroughColor {
     return ^id (UIColor *strikeThroughColor) {
-        weakSelf.colorfuls[NSStrikethroughColorAttributeName] = strikeThroughColor;
-        return weakSelf;
+        self.colorfuls[NSStrikethroughColorAttributeName] = strikeThroughColor;
+        return self;
     };
 }
-
-/**
- 下划线样式
- */
-- (RZColorfulAttribute *(^)(RZLineStyle underLineStyle))underLineStyle {
-    __weak typeof(self)weakSelf = self;
+/** 下划线样式 */
+- (RZColorfulAttribute *(^)(RZLineStyle))underLineStyle {
     return ^id (RZLineStyle underLineStyle) {
-        weakSelf.colorfuls[NSUnderlineStyleAttributeName] = @(underLineStyle);
-        return weakSelf;
+        self.colorfuls[NSUnderlineStyleAttributeName] = @(underLineStyle);
+        return self;
     };
 }
-
-/**
- 下划线颜色
- */
-- (RZColorfulAttribute *(^)(UIColor *underLineColor))underLineColor {
-    __weak typeof(self)weakSelf = self;
+/** 下划线颜色  */
+- (RZColorfulAttribute *(^)(UIColor *))underLineColor {
     return ^id (UIColor *underLineColor) {
-        weakSelf.colorfuls[NSUnderlineColorAttributeName] = underLineColor;
-        return weakSelf;
+        self.colorfuls[NSUnderlineColorAttributeName] = underLineColor;
+        return self;
     };
 }
-
-/**
- 描边的颜色
- */
-- (RZColorfulAttribute *(^)(UIColor *strokeColor))strokeColor {
-    __weak typeof(self)weakSelf = self;
+/** 描边的颜色 */
+- (RZColorfulAttribute *(^)(UIColor *))strokeColor {
     return ^id (UIColor *strokeColor) {
-        weakSelf.colorfuls[NSStrokeColorAttributeName] = strokeColor;
-        return weakSelf;
+        self.colorfuls[NSStrokeColorAttributeName] = strokeColor;
+        return self;
     };
 }
-
-/**
- 描边的笔画宽度 为3时，空心
- */
-- (RZColorfulAttribute *(^)(NSNumber *strokeWidth))strokeWidth {
-    __weak typeof(self)weakSelf = self;
+/** 描边的笔画宽度 为3时，空心 */
+- (RZColorfulAttribute *(^)(NSNumber *))strokeWidth {
     return ^id (NSNumber *strokeWidth) {
-        weakSelf.colorfuls[NSStrokeWidthAttributeName] = strokeWidth;
-        return weakSelf;
+        self.colorfuls[NSStrokeWidthAttributeName] = strokeWidth;
+        return self;
     };
 }
-
-/**
- 横竖排版 0：横版 1：竖版
- */
-- (RZColorfulAttribute *(^)(NSNumber *verticalGlyphForm))verticalGlyphForm {
-    __weak typeof(self)weakSelf = self;
+/** 横竖排版 0：横版 1：竖版 */
+- (RZColorfulAttribute *(^)(NSNumber *))verticalGlyphForm {
     return ^id (NSNumber *verticalGlyphForm) {
-        weakSelf.colorfuls[NSVerticalGlyphFormAttributeName] = verticalGlyphForm;
-        return weakSelf;
+        self.colorfuls[NSVerticalGlyphFormAttributeName] = verticalGlyphForm;
+        return self;
     };
 }
-
-/**
- 斜体字
- */
-- (RZColorfulAttribute *(^)(NSNumber *italic))italic {
-    __weak typeof(self)weakSelf = self;
+/** 斜体字  */
+- (RZColorfulAttribute *(^)(NSNumber *))italic {
     return ^id (NSNumber *italic) {
-        weakSelf.colorfuls[NSObliquenessAttributeName] = italic;
-        return weakSelf;
+        self.colorfuls[NSObliquenessAttributeName] = italic;
+        return self;
     };
 }
-
-/**
- 扩张，即拉伸文字 >0 拉伸 <0压缩
- */
-- (RZColorfulAttribute *(^)(NSNumber *expansion))expansion {
-    __weak typeof(self)weakSelf = self;
+/** 扩张，即拉伸文字 >0 拉伸 <0压缩 */
+- (RZColorfulAttribute *(^)(NSNumber *))expansion {
     return ^id (NSNumber *expansion) {
-        weakSelf.colorfuls[NSExpansionAttributeName] = expansion;
-        return weakSelf;
+        self.colorfuls[NSExpansionAttributeName] = expansion;
+        return self;
     };
 }
-/**
- 上下标
- */
-- (RZColorfulAttribute *(^)(NSNumber *baselineOffset))baselineOffset {
-    __weak typeof(self)weakSelf = self;
+/** 上下标 */
+- (RZColorfulAttribute *(^)(NSNumber *))baselineOffset {
     return ^id (NSNumber *baselineOffset) {
-        weakSelf.colorfuls[NSBaselineOffsetAttributeName] = baselineOffset;
-        return weakSelf;
+        self.colorfuls[NSBaselineOffsetAttributeName] = baselineOffset;
+        return self;
     };
 }
-
-
-/**
- 书写方向
- */
-- (RZColorfulAttribute *(^)(RZWriteDirection rzwriteDirection))writingDirection {
-    __weak typeof(self)weakSelf = self;
+/** 书写方向 */
+- (RZColorfulAttribute *(^)(RZWriteDirection))writingDirection {
     return ^id (RZWriteDirection rzwriteDirection) {
-        id value;
-        if (rzwriteDirection == RZWDLeftToRight) {
-            if (@available(iOS 9.0, *)) {
-                value = @[@(NSWritingDirectionLeftToRight | NSWritingDirectionOverride)];
-            } else {
-                // Fallback on earlier versions
-                value = @[@(NSWritingDirectionLeftToRight | NSTextWritingDirectionOverride)];
-            }
+        NSInteger O = 0;
+        NSInteger E = 0;
+        if (@available(iOS 9.0, *)) {
+            O = NSWritingDirectionOverride;
+            E = NSWritingDirectionEmbedding;
         } else {
-            if (@available(iOS 9.0, *)) {
-                value = @[@(NSWritingDirectionRightToLeft | NSWritingDirectionOverride)];
-            } else {
-                // Fallback on earlier versions
-                value = @[@(NSWritingDirectionRightToLeft | NSTextWritingDirectionOverride)];
-            }
+            O = NSTextWritingDirectionOverride;
+            E = NSTextWritingDirectionEmbedding; 
         }
-        weakSelf.colorfuls[NSWritingDirectionAttributeName] = value;
-        return weakSelf;
+        id value;
+        switch (rzwriteDirection) {
+            case LRE:{
+                value = @[@(NSWritingDirectionLeftToRight | E)];
+                break;
+            }
+            case LRO:{
+                value = @[@(NSWritingDirectionLeftToRight | O)];
+                break;
+            }
+            case RLE:{
+                value = @[@(NSWritingDirectionRightToLeft | E)];
+                break;
+            }
+            case RLO:{
+                value = @[@(NSWritingDirectionRightToLeft | O)];
+                break;
+            }
+        } 
+        self.colorfuls[NSWritingDirectionAttributeName] = value;
+        return self;
     };
 }
-/**
- 给文本添加链接，并且可点击跳转浏览器打开
- */
-- (RZColorfulAttribute *(^)(NSURL *url))url {
-    __weak typeof(self)weakSelf = self;
-    return ^id (NSURL *url) { 
-        weakSelf.colorfuls[NSLinkAttributeName] = url;
-        return weakSelf;
+/** 特殊效果 */
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextEffectStyle))textEffect {
+    return ^id (NSTextEffectStyle style) {
+        self.colorfuls[NSTextEffectAttributeName] = style;
+        return self;
     };
 }
-
-/*
- 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView
- */
-- (RZColorfulAttribute *(^)(NSString *tapId))tapAction {
-    __weak typeof(self) weakSelf = self;
+/** 给文本添加链接，并且可点击跳转浏览器打开 */
+- (RZColorfulAttribute *(^)(NSURL *))url {
+    return ^id (NSURL *url) {
+        self.colorfuls[NSLinkAttributeName] = url;
+        return self;
+    };
+}
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
+- (RZColorfulAttribute *(^)(NSString *))tapAction {
     return ^id(NSString *tapId) {
-        weakSelf.colorfuls[NSLinkAttributeName] = tapId.rz_encodedString;
-        return weakSelf;
+        self.colorfuls[NSLinkAttributeName] = tapId.rz_encodedString;
+        return self;
     };
 }
-
 // 阴影
 - (RZShadow *)shadow {
-    if (!_shadow) {
-        _shadow = [[RZShadow alloc] init];
-        _shadow.colorfulsAttr = self;
+    if (!_shadow) { 
+        _shadow = [[RZShadow alloc] initWithAttr:self];
         _hadShadow = YES;
     }
     return _shadow;
 }
-
-
-/**
- 段落样式，具体设置请看 RZParagraphStyle.h
-
- @return <#return value description#>
- */
+/** 段落样式，具体设置请看 RZParagraphStyle.h  */
 - (RZParagraphStyle *)paragraphStyle {
     if (!_paragraphStyle) {
-        _paragraphStyle = [[RZParagraphStyle alloc]init];
-        _paragraphStyle.colorfulsAttr = self;
+        _paragraphStyle = [[RZParagraphStyle alloc] initWithAttr:self]; 
         _hadParagraphStyle = YES;
     }
     return _paragraphStyle;

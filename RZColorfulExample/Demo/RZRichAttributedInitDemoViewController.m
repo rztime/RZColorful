@@ -44,7 +44,7 @@
         cell.textLabel.numberOfLines = 0;
         
     }
-    cell.textLabel.attributedText = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer *confer) {
+    cell.textLabel.attributedText = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer *confer) { 
         confer.text(@"富文本的属性很多，包含了如字体颜色、大小、行距、间距、图片、超链接、阴影等等,在配置富文本时，如果只用系统的NSAttributedString来设置，无疑是很复杂麻烦的，所以这里提供简洁的方法以供使用\n\n\n").font([UIFont systemFontOfSize:15]).textColor(UIColor.blackColor);
         confer.text(@"NSAttributedString适用于UILabel,UITextField,UITextView,\n其中\nUITextField 不支持图片\nUILabel 支持图文混排，不支持超链接\nUITextView  支持图文混排，支持超链接\n\n\n").font([UIFont systemFontOfSize:15]).textColor(UIColor.blackColor);
         
@@ -60,7 +60,7 @@
         confer.text(@"\n");
         confer.text(@"字间距").wordSpace(@(3));
         confer.text(@"\n");
-        confer.text(@"删除线及颜色、粗细").strikeThrough(1).strikeThroughColor(UIColor.blueColor);
+        confer.text(@"删除线及颜色、粗细").textEffect(NSTextEffectLetterpressStyle);
         confer.text(@"\n");
         confer.text(@"下划线线及颜色、粗细").strikeThrough(1).strikeThroughColor(UIColor.redColor);
         confer.text(@"\n");
@@ -80,7 +80,7 @@
         confer.text(@"\n");
         confer.text(@"超链接url(UITextView中实现rzDidTapTextView或实现url点击代理此点击才有效)").tapAction(@"http:www.baidu.com");
         confer.text(@"\n");
-        confer.text(@"阴影").shadow.color(UIColor.redColor).radius(3).offset(CGSizeMake(3, 3));
+        confer.text(@"阴影").shadow.color(nil).radius(3).offset(CGSizeMake(3, 3));
         confer.text(@"\n");
         confer.text(@"段落的样式（包含了行距、间距、对齐方式等等）").paragraphStyle.alignment(NSTextAlignmentCenter);
         confer.text(@"\n\n\n");

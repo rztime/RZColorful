@@ -24,7 +24,9 @@
         _dataSource = @[
             @{@"name":@"富文本的初始化", @"class": @"RZRichAttributedInitDemoViewController"},
             @{@"name":@"富文本的一些用法", @"class": @"RZAttributedStringDemoVC"},
-            @{@"name":@"UITextView的图文混排", @"class": @"RZTextViewDemoVC"},  
+            @{@"name":@"UITextView的图文混排", @"class": @"RZTextViewDemoVC"},
+            @{@"name":@"html", @"class": @"HTMLViewController"},
+            
         ].mutableCopy;
     }
     return _dataSource;

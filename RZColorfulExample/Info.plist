@@ -27,6 +27,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>用你的相机</string>
+	<key>NSExceptionAllowsInsecureHttpLoads</key>
+	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>用你的相册</string>
 	<key>UILaunchStoryboardName</key>
