@@ -64,8 +64,7 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
 /** 删除线
  取值为 0 - 7时，效果为单实线，随着值得增加，单实线逐渐变粗，
  取值为 9 - 15时，效果为双实线，取值越大，双实线越粗。
- 替换成 NSUnderlineStyle，（NSUnderlineStyleSingle | NSUnderlineStylePatternDot ）组合使用可以设置虚线、破折号等
- 备注： 转换成html时，仅能转换单条线 缺颜色
+ 替换成 NSUnderlineStyle，(NSUnderlineStyleSingle | NSUnderlineStylePatternDot )组合使用可以设置虚线、破折号等
 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(RZLineStyle))strikeThrough;
 /** 删除线颜色 */
@@ -74,7 +73,6 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
  取值为 0 - 7时，效果为单实线，随着值得增加，单实线逐渐变粗，
  取值为 9 - 15时，效果为双实线，取值越大，双实线越粗。
  替换成 NSUnderlineStyle，（NSUnderlineStyleSingle | NSUnderlineStylePatternDot ）组合使用可以设置虚线、破折号等
- 备注： 转换成html时，仅能转换单条线
  */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(RZLineStyle))underLineStyle;
 /** 下划线颜色 */
@@ -82,18 +80,12 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
 /** 描边的颜色 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIColor * __nullable))strokeColor;
 /** 描边的笔画宽度 为3时，空心  负值填充效果，正值中空效果 */
-//  备注： 转换成html时，缺少宽度 @"-webkit-text-stroke: 1.5px #ff0000"
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))strokeWidth;
 /** 横竖排版 0：横版 1：竖版 (iOS中1竖版无效)*/
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))verticalGlyphForm;
 /** 斜体字 */
-//  备注： 转换成html时，斜体字无效-webkit-transform: skew(-40deg); /* for Chrome||Safari */
-//-ms-transform: skew(-20deg); /* for IE */
-//-moz-transform:skew(-20deg);/* for Firefox */
-//-o-transform:skew(-20deg);/* for Opera */"
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))italic;
 /** 扩张，即拉伸文字 >0 拉伸 <0压缩 */
-//  备注： 转换成html时，拉伸无效 transform: scale(2,1);transform-origin: 0 0;"
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))expansion;
 /** 基准偏移 为正:上偏移（上标） 为负：下偏移（下标） */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))baselineOffset;

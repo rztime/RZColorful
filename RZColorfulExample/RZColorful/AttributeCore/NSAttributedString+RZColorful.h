@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RZColorfulConferrer.h"
+#import "NSAttributedString+RZHtml.h"
 
 @class RZAttributedStringInfo;
 
@@ -45,25 +46,10 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
 // 追加
 - (NSAttributedString *)attributedStringByAppend:(NSAttributedString *)attributedString;
 
-#pragma mark - HTML 富文本互换
-// 将html转换成 NSAttributedString
-+ (NSAttributedString *)htmlString:(NSString *)html;
+#pragma mark - 其他方法
+
 // 获取富文本中的图片 用于上传服务器
 - (NSArray <UIImage *> *)rz_images;
-/**
- 将富文本编码成html标签，如果有图片，用此方法
-
- @param urls 图片的url，url需要先获取图片，然后自行上传到服务器，最后按照【- (NSArray <UIImage *> *)images;】此方法得到的图片顺序排列url
- @return HTML标签
- */
-- (NSString *)rz_codingToHtmlWithImagesURLSIfHad:(NSArray <NSString *> *)urls;
-
-/**
- 将富文本完整的code成html标签，（此方法如果富文本中有图片，则图片将被丢失）  有图片时，请用[rz_codingToHtmlWithImagesURLSIfHad]方法
-
- @return HTML标签语言
- */
-- (NSString *)rz_codingToCompleteHtml;
 
 /**
  获取attrName对应的NSAttributedString

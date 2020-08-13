@@ -11,3 +11,4 @@
 #import "NSAttributedString+RZColorful.h"
 #import "UITextField+SelectedRange.h"
 #import "UIView+RZContinueFirstResponder.h"
+#import "NSAttributedString+RZHtml.h"

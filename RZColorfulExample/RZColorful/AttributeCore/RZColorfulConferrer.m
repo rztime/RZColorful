@@ -8,6 +8,8 @@
 
 #import "RZColorfulConferrer.h"
 #import "NSAttributedString+RZColorful.h"
+#import "NSAttributedString+RZHtml.h"
+
 #import <CoreGraphics/CGBase.h>
 
 #define rzColorPlainText        @"rzColorPlainText"  // 普通文本

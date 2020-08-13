@@ -1,3 +1,8 @@
+##### 1.3.1
+* 将 RZLineStyle 替换为原系统 NSUnderlineStyle ，设置时，可设置单线双线虚线破折号线等等
+* NSAttributedString系统转换为html的方法，有部分标签会无效，所以新增方法，将无效的标签，通过代码注入style，将无效的标签通过css实现了。 看[- (NSString *)rz_codingToCompleteHtmlByWeb](https://github.com/rztime/RZColorful/blob/master/RZColorfulExample/RZColorful/AttributeCore/NSAttributedString+RZHtml.h)
+
+  
 ##### 1.3.0
 * 新增富文本在drawRect之后，获取每一行的文本和Range 
 * 一些其他优化
