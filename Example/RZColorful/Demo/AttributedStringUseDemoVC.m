@@ -27,7 +27,9 @@
         confer.text(@"\n正文使用方法:常规 字体 + 颜色\n\n").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor);
         
         confer.text(@"添加本地图片 ").font([UIFont systemFontOfSize:20]).textColor(UIColor.redColor);
-        confer.image([UIImage imageNamed:@"image"]).size(CGSizeMake(40, 40), RZHorizontalAlignCenter, [UIFont systemFontOfSize:20]);
+        confer.image([UIImage imageNamed:@"image"]).size(CGSizeMake(40, 40), RZHorizontalAlignCenter, [UIFont systemFontOfSize:20]).tapActionByLable(@"2"); // 点击事件
+        confer.text(@"  ");
+        confer.image([UIImage imageNamed:@"image"]).size(CGSizeMake(40, 40), RZHorizontalAlignCenter, [UIFont systemFontOfSize:20]).custom(NSTapActionByLabelAttributeName, @"3"); // 自定义点击事件
         confer.text(@" 图片可对齐文本\n\n").font([UIFont systemFontOfSize:20]).textColor(UIColor.redColor);
         
         confer.text(@"\n正文使用方法:斜体").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).italic(@1);

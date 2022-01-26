@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'RZColorful'
   s.version          = '1.4.0'
-  s.summary          = 'NSAttributedString富文本的快捷设置方法集合,以及UITextView、UITextField、UILabel富文本简单优雅的使用'
+  s.summary          = 'NSAttributedString富文本的快捷设置方法集合,以及UITextView、UITextField、UILabel富文本简单优雅的使用, UILabel支持富文本点击，超行折叠、展开功能'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -28,7 +28,7 @@ NSAttributedString 富文本方法 以及与html互相转换, UILabel的富文�
   s.source           = { :git => 'https://github.com/rztime/RZColorful.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 
   s.source_files = 'RZColorful/Classes/**/*'
   
