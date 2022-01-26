@@ -21,24 +21,27 @@
 /** 阴影 */
 @property (nonatomic, strong) RZShadow *shadow;
 
-@property (nonatomic, copy) id URL;
+@property (nonatomic, strong) NSMutableDictionary *dict;
 
 @end
 
 @implementation RZImageAttachment
 
+- (NSMutableDictionary *)dict {
+    if (!_dict) {
+        _dict = [NSMutableDictionary new];
+    }
+    return _dict;
+}
+
 - (NSDictionary *)code {
-    NSMutableDictionary *dict = [NSMutableDictionary new];
     if (_hadParagraphStyle) {
-        dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
+        self.dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
     }
     if (_hadShadow) {
-        dict[NSShadowAttributeName] = [_shadow code];
+        self.dict[NSShadowAttributeName] = [_shadow code];
     }
-    if (_URL) {
-        dict[NSLinkAttributeName] = _URL;
-    }
-    return dict;
+    return self.dict.copy;
 }
 
 - (RZImageAttachment *(^)(CGRect bounds))bounds {
@@ -53,7 +56,7 @@
  */
 - (RZImageAttachment *(^)(NSURL *url))url {
     return ^id (NSURL *url) {
-        self.URL = url;
+        self.dict[NSLinkAttributeName] = url;
         return self;
     };
 }
@@ -62,7 +65,22 @@
  */
 - (RZImageAttachment *(^)(NSString *tapId))tapAction {
     return ^id(NSString *tapId) {
-        self.URL = tapId.rz_encodedString;
+        self.dict[NSLinkAttributeName] = tapId.rz_encodedString;
+        return self;
+    };
+}
+ 
+/* 给属性文本添加点击事件  只有UILabel可以用，且UILabel需要实现方法 rz_tapAction */
+- (RZImageAttachment *(^)(NSString *tapId))tapActionByLable {
+    return ^id(NSString *tapId) { 
+        self.dict[NSTapActionByLabelAttributeName] = tapId.rz_encodedString;
+        return self;
+    };
+}
+/** 自定义属性和值 */
+- (RZColorfulAttribute * (^)(NSAttributedStringKey key, id value))custom {
+    return ^id(NSAttributedStringKey key, id value) {
+        self.dict[key] = value;
         return self;
     };
 }

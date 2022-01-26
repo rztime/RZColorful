@@ -213,7 +213,7 @@
     };
 }
 
-NSAttributedStringKey const NSTapActionByLabelAttributeName = @"NSTapActionByLabel";
+NSAttributedStringKey const NSTapActionByLabelAttributeName = @"RZTapActionByLabel";
 
 /* 给文本添加点击事件的id, 仅UILabel有效，需要实现label.rz_tapAction方法 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapActionByLable {
