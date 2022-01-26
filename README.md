@@ -1,4 +1,35 @@
 # RZColorful
+
+[![CI Status](https://img.shields.io/travis/rztime/RZColorful.svg?style=flat)](https://travis-ci.org/rztime/RZColorful)
+[![Version](https://img.shields.io/cocoapods/v/RZColorful.svg?style=flat)](https://cocoapods.org/pods/RZColorful)
+[![License](https://img.shields.io/cocoapods/l/RZColorful.svg?style=flat)](https://cocoapods.org/pods/RZColorful)
+[![Platform](https://img.shields.io/cocoapods/p/RZColorful.svg?style=flat)](https://cocoapods.org/pods/RZColorful)
+
+## Example
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Requirements
+
+## Installation
+
+RZColorful is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'RZColorful'
+```
+
+## Author
+
+rztime, rztime@vip.qq.com
+
+## License
+
+RZColorful is available under the MIT license. See the LICENSE file for more info.
+
+
+# RZColorful
 NSAttributedString 富文本方法 (图文混排、多样式文本)
 
 
@@ -38,11 +69,6 @@ UITextView实现的富文本编辑器[RZRichTextView](https://github.com/rztime/
     * 通过url添加图片到富文本
 
 ## How to use
-* 添加代码到项目中
-```objc
-pod ‘RZColorful’
-```
-
 * 请在需要使用的地方加上
 
 ```objc
@@ -51,12 +77,12 @@ pod ‘RZColorful’
 
 * 主要的功能：
     * RZColorfulConferrer 
-        * text                                -- 添加文本
-        * htmlText                         -- 添加html源码
-        * appendImage                -- 添加图片 
-        * appendImageByUrl        -- 添加图片（通过图片的URL添加）
-        * paragraphStyle              -- 全局的段落样式
-        * shadow                          -- 全局的阴影样式
+        * text                              -- 添加文本
+        * htmlText                          -- 添加html源码
+        * image                             -- 添加图片 
+        * imageByUrl                        -- 添加图片（通过图片的URL添加）
+        * paragraphStyle                    -- 全局的段落样式
+        * shadow                            -- 全局的阴影样式
         
     * RZColorfulAttribute           -- 设置文本的所有的属性
     * RZImageAttachment         -- 设置图片的所有的属性
@@ -73,7 +99,6 @@ pod ‘RZColorful’
 * 文字和图片都可设置`paragraphStyle` 和 `shadow`，对齐方式是`paragraphStyle` 的`alignment`，设置后，当前行文字图片的全局样式将被此覆盖，即全局样式无效，不影响其他行。
 
     
-
 ### 基本的简单使用方法
 ```objc
     [cell.textLabel rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
@@ -154,6 +179,31 @@ pod ‘RZColorful’
     NSString *htmlstring=[[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     confer.htmlText(htmlstring);
 }];
+```
+
+给UILabel添加富文本可点击功能  给文本添加tapActionByLable属性
+```objc 
+[_label rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
+    confer.text(@"可点击的：").font([UIFont systemFontOfSize:17]).textColor(UIColor.blackColor);
+    confer.text(@"文本").font([UIFont systemFontOfSize:17]).textColor(UIColor.redColor).tapActionByLable(@"1");
+}];
+[_label rz_tapAction:^(UILabel * _Nonnull label, NSString * _Nonnull tapActionId, NSRange range) {
+    NSLog(@"%@", tapActionId); // print: 1
+}];
+```
+
+给UILabel添加超行之后的折叠、展开功能
+```objc
+UILabel
+
+/// 设置富文本（超过行数后，自动追加“展开” “收起”）
+/// @param attr 原文
+/// @param line 最大显示行数
+/// @param width 最大显示宽度，这个宽度用于计算文本行
+/// @param fold 当前是否折叠
+/// @param allText 超过了行数之后，折叠状态显示的文本 如”展开“  需要给文本设置NSTapActionByLabel属性  (tapActionByLable)
+/// @param foldText 超过行数之后，全部展开状态显示的文本  如”收起“  需要给文本设置NSTapActionByLabel属性 (tapActionByLable)
+- (void)rz_setAttributedString:(NSAttributedString * _Nullable)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *_Nullable)allText showFoldText:(NSAttributedString *_Nullable)foldText;
 ```
 
 # 备注：

@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'RZColorful_Example' do
+  pod 'RZColorful', :path => '../'
+  pod 'Masonry'
+  target 'RZColorful_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end
