@@ -129,4 +129,18 @@
     UITextRange *textRange = [textView textRangeFromPosition:star toPosition:end];
     return [textView firstRectForRange:textRange];
 }
+/// 获取range所在文本的位置,可能涉及多行 NSValue: CGRect
+- (NSArray<NSValue *> *)rz_rectFors:(NSRange)range {
+    UITextView *textView = self;
+    UITextPosition *beginning = textView.beginningOfDocument;
+    UITextPosition *star = [textView positionFromPosition:beginning offset:range.location];
+    UITextPosition *end = [textView positionFromPosition:star offset:range.length];
+    UITextRange *textRange = [textView textRangeFromPosition:star toPosition:end];
+    NSArray<UITextSelectionRect *> *rects = [textView selectionRectsForRange:textRange];
+    NSMutableArray *res = @[].mutableCopy;
+    [rects enumerateObjectsUsingBlock:^(UITextSelectionRect * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [res addObject:@(obj.rect)];
+    }];
+    return res;
+}
 @end

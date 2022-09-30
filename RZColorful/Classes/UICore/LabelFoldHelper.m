@@ -61,7 +61,6 @@
         _textView.showsHorizontalScrollIndicator = false;
         _textView.linkTextAttributes = @{};
         _textView.translatesAutoresizingMaskIntoConstraints = false;
-//        [self addSubview:_textView];
     }
     return _textView;
 }
@@ -96,18 +95,20 @@
         if (value == nil) {
             return;
         }
-
-        CGRect rect = [self.textView rz_rectFor: range];
-        if (CGRectContainsPoint(rect, point)) {
-            if ([value isKindOfClass:[NSString class]]) {
-                res.textLink = [value rz_decodedString];
-            } else if ([value isKindOfClass:[NSURL class]]){
-                res.textLink = [((NSURL *)value).absoluteString rz_decodedString];
+        NSArray *rects = [self.textView rz_rectFors:range];
+        [rects enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect rect = obj.CGRectValue;
+            if (CGRectContainsPoint(rect, point)) {
+                if ([value isKindOfClass:[NSString class]]) {
+                    res.textLink = [value rz_decodedString];
+                } else if ([value isKindOfClass:[NSURL class]]){
+                    res.textLink = [((NSURL *)value).absoluteString rz_decodedString];
+                }
+                res.isInTarget = true;
+                res.range = range;
+                *stop = true;
             }
-            res.isInTarget = true;
-            res.range = range;
-            *stop = true;
-        }
+        }];
     }];
     return res;
 }

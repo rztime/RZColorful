@@ -56,5 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取range所在文本的位置
 - (CGRect)rz_rectFor:(NSRange)range;
 
+/// 获取range所在文本的位置,可能涉及多行 NSValue: CGRect
+- (NSArray<NSValue *> *)rz_rectFors:(NSRange)range;
+
 @end
 NS_ASSUME_NONNULL_END

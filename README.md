@@ -22,7 +22,7 @@ pod 'RZColorful'
 
 ## Author
 
-rztime, rztime@vip.qq.com
+rztime, rztime@vip.qq.com QQ群：580839749
 
 ## License
 
