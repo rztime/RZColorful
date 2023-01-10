@@ -81,6 +81,22 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
 ///   - showFoldText: 如 “收起全文” flod = FALSE，表示已全部展开，将追加在后边
 /// - Returns: 字符串
 - (NSAttributedString * _Nullable)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *_Nullable)allText showFoldText:(NSAttributedString *_Nullable)foldText;
+
+/// 对富文本进行截断处理
+/// - Parameters:
+///   - maxLine: 设置超过多少截断
+///   - width: 显示的最大宽度
+///   - model: 截断方式
+///   - placeHolder: 截断时占位的"..."文字
+- (NSAttributedString * _Nullable)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder;
+@end
+
+@interface NSAttributedString (RZAttr)
+/// 给text 关键字 标记属性（如对关键字进行标红显示）
+- (NSAttributedString *_Nonnull)rz_markText:(NSString *_Nullable)text attribute:(NSDictionary<NSAttributedStringKey, id> *_Nonnull)attribute;
+/// 取self的属性，设置在text上
+- (NSAttributedString *_Nonnull)rz_copyAttributeToText:(NSString *_Nonnull)text;
+
 @end
 
 // 要获取的attrName对应的信息

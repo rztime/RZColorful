@@ -1,3 +1,20 @@
+##### 1.5.0
+
+新增对富文本进行阶段
+```
+    NSAttributedString *newAttr = [attr rz_attributedStringBy:3 maxWidth:300 lineBreakMode:NSLineBreakByTruncatingTail placeHolder:[[NSAttributedString alloc] initWithString:@"..."]];
+```
+
+新增给paragraphStyle里添加行数限制 如：
+```
+/// 只对2中的文本进行行数计算，如果前后有1、3，将不适用
+confer.text("1").
+confer.text("2")?.paragraphStyle?.numberOfLines(3, maxWidth: width).lineBreakMode(.byTruncatingMiddle)
+confer.text("3").
+```
+
+新增NSAttributedString里关键字标记
+
 ##### 1.4.0
 * 新增iOS15的方法
 * 给UILabel添加超行显示 “折叠” “收起” 功能

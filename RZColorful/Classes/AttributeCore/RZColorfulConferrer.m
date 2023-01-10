@@ -32,9 +32,63 @@ typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
 @property (nonatomic, strong) RZImageAttachment *attach;
 @property (nonatomic, strong) RZColorfulAttribute *attribute;
 
+- (NSAttributedString *)package:(RZParagraphStyle *)para shadow:(RZShadow *)shadow;
+
 @end
 
 @implementation RZColorfulAttributeBox
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (NSAttributedString *)package:(RZParagraphStyle *)para shadow:(RZShadow *)shadow {
+    NSMutableDictionary *dict = [self.attribute code].mutableCopy;
+    if (!dict) {
+        dict = NSMutableDictionary.new;
+    }
+    if (shadow && !self.attribute.hadShadow) {
+        [dict setObject:[shadow code].copy forKey:NSShadowAttributeName];
+    }
+    if (para && !self.attribute.hadParagraphStyle) {
+        [dict setObject:[para code].copy forKey:NSParagraphStyleAttributeName];
+    }
+    NSMutableAttributedString *text = NSMutableAttributedString.new;
+    switch (self.type) {
+        case RZColorfulAttributeBoxTypePlainText: {
+            [text appendAttributedString:[[NSAttributedString alloc] initWithString:self.text]];
+            break;
+        }
+        case RZColorfulAttributeBoxTypeImage: {
+            NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
+            attchment.image = self.image;
+            attchment.bounds = self.attach.imageBounds;
+            NSDictionary *c = [self.attach code];
+            if (c) {
+                [dict addEntriesFromDictionary:c];
+            }
+            [text appendAttributedString: [NSAttributedString attributedStringWithAttachment:attchment]];
+            break;
+        }
+        case RZColorfulAttributeBoxTypeHTMLText: {
+            [text appendAttributedString: [NSAttributedString htmlString:self.text]];
+            break;
+        }
+        case RZColorfulAttributeBoxTypeImageURL: {
+            NSString *html = [self.attach toHTMLStringWithImageUrl:self.text];
+            NSAttributedString *imageString = [NSAttributedString htmlString:html].copy;
+            NSDictionary *c = [self.attach code];
+            if (c) {
+                [dict addEntriesFromDictionary:c];
+            }
+            [text appendAttributedString:imageString];
+            break;
+        }
+        default:
+            break;
+    }
+    if (dict != nil) {
+        [text addAttributes:dict range:NSMakeRange(0, text.length)];
+    }
+    return text;
+}
 
 @end
 
@@ -64,71 +118,25 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
 
 @implementation RZColorfulConferrer
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 - (NSAttributedString *)confer {
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
     for (RZColorfulAttributeBox *box in self.contents) {
-        switch (box.type) {
-            case RZColorfulAttributeBoxTypePlainText: {
-                NSMutableDictionary *attr = [box.attribute code].mutableCopy;
-                if (_shadow && !box.attribute.hadShadow) {
-                    [attr setObject:[_shadow code] forKey:NSShadowAttributeName];
+        NSAttributedString *text = [box package:_paragraphStyle shadow:_shadow];
+        RZMutableParagraphStyle *style = [text attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:nil];
+        if ([style isKindOfClass:[RZMutableParagraphStyle class]]) {
+            if (style.numberOfLines > 0 && style.textDrawMaxWidth > 0) {
+                NSAttributedString *placeholder = style.truncateText;
+                if (!placeholder) {
+                    placeholder = [text rz_copyAttributeToText:@"..."];
                 }
-                if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
-                    [attr setObject:[_paragraphStyle code] forKey:NSParagraphStyleAttributeName];
-                }
-                NSAttributedString *text = [[NSAttributedString alloc] initWithString:box.text attributes:attr];
-                [string appendAttributedString:text];
-                break;
+                NSLineBreakMode mode = style.lineBreakMode;
+                style.lineBreakMode = NSLineBreakByWordWrapping;
+                NSAttributedString *temp = [text rz_attributedStringBy:style.numberOfLines maxWidth:style.textDrawMaxWidth lineBreakMode:mode placeHolder:placeholder];
+                [string appendAttributedString:temp];
+                continue;
             }
-            case RZColorfulAttributeBoxTypeImage: {
-                NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
-                attchment.image = box.image;
-                attchment.bounds = box.attach.imageBounds;
-                NSMutableAttributedString *imageString = [NSMutableAttributedString attributedStringWithAttachment:attchment].mutableCopy;
-                NSMutableDictionary *dict = [box.attach code].mutableCopy;
-                if (_paragraphStyle && !box.attach.hadParagraphStyle) {
-                    dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
-                }
-                if (_shadow && !box.attach.hadShadow) {
-                    dict[NSShadowAttributeName] = [_shadow code];
-                }
-                [imageString addAttributes:dict range:NSMakeRange(0, imageString.length)];
-                [string appendAttributedString:imageString];
-                break;
-            }
-            case RZColorfulAttributeBoxTypeHTMLText: {
-                NSMutableAttributedString *html = [NSAttributedString htmlString:box.text].mutableCopy;
-                NSMutableDictionary *attr = [box.attribute code].mutableCopy;
-                if (_shadow && !box.attribute.hadShadow) {
-                    attr[NSShadowAttributeName] = [_shadow code];
-                }
-                if (_paragraphStyle && !box.attribute.hadParagraphStyle) {
-                    attr[NSParagraphStyleAttributeName] = [_paragraphStyle code];   
-                }
-                [html addAttributes:attr range:NSMakeRange(0, html.length)];
-                [string appendAttributedString:html];
-                break;
-            }
-            case RZColorfulAttributeBoxTypeImageURL: {
-                NSString *html = [box.attach toHTMLStringWithImageUrl:box.text];
-                NSMutableAttributedString *imageString = [NSAttributedString htmlString:html].mutableCopy;
-                NSMutableDictionary *dict = [box.attach code].mutableCopy;
-                if (_paragraphStyle && !box.attach.hadParagraphStyle) {
-                    dict[NSParagraphStyleAttributeName] = [_paragraphStyle code];
-                }
-                if (_shadow && !box.attach.hadShadow) {
-                    dict[NSShadowAttributeName] = [_shadow code];
-                }
-                [imageString addAttributes:dict range:NSMakeRange(0, imageString.length)];
-                [string appendAttributedString:imageString];
-                break;
-            }
-            default:
-                break;
         }
+        [string appendAttributedString:text];
     }
     return string.copy;
 }

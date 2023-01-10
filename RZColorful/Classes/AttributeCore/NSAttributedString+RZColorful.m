@@ -192,7 +192,7 @@
 }
 
 - (NSAttributedString *)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *)allText showFoldText:(NSAttributedString *)foldText {
-    if (self.length == 0) {
+    if (self.length == 0 || maxLine == 0) {
         return self;
     }
     if (![self rz_moreThan:maxLine maxWidth:width]) {
@@ -225,6 +225,87 @@
             return tempAttr;
         }
     }
+}
+/// 对富文本进行截断处理
+/// - Parameters:
+///   - maxLine: 设置超过多少截断
+///   - width: 显示的最大宽度
+///   - model: 截断方式
+///   - placeHolder: 截断时占位的"..."文字
+- (NSAttributedString * _Nullable)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder {
+    if (self.length == 0 || maxLine == 0) {
+        return self;
+    }
+    if (![self rz_moreThan:maxLine maxWidth:width]) {
+        return self;
+    }
+
+    NSAttributedString *holder = placeHolder == nil ? [NSAttributedString new] : placeHolder;
+    NSInteger min = 0;
+    NSInteger max = self.length;
+    NSInteger end = 0;
+    while (true) {
+        end = (min + max) / 2;
+        NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(0, end)];
+        NSMutableAttributedString *tempAttr = [[NSMutableAttributedString alloc] initWithAttributedString:sub];
+        switch (model) {
+            case NSLineBreakByWordWrapping: { break; }
+            case NSLineBreakByCharWrapping: { break; }
+            case NSLineBreakByClipping: { break; }
+            case NSLineBreakByTruncatingHead: {
+                [tempAttr insertAttributedString:holder atIndex:0];
+                break;
+            }
+            case NSLineBreakByTruncatingTail: {
+                [tempAttr appendAttributedString:holder];
+                break;
+            }
+            case NSLineBreakByTruncatingMiddle: {
+                [tempAttr insertAttributedString:holder atIndex:(tempAttr.length / 2)];
+                break;
+            }
+            default:
+                break;
+        }
+        BOOL more = [tempAttr rz_moreThan:maxLine maxWidth:width];
+        if (more) {
+            max = end;
+        } else {
+            min = end;
+        }
+        NSInteger tempEnd = (min + max) / 2;
+        if (tempEnd == end) {
+            return tempAttr;
+        }
+    }
+}
+/// 给text 关键字 标记属性（如对关键字进行标红显示）
+- (NSAttributedString *_Nonnull)rz_markText:(NSString *_Nullable)text attribute:(NSDictionary<NSAttributedStringKey, id> *_Nonnull)attribute {
+    if ((text == nil) || (text.length == 0)) {
+        return  self;
+    }
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithAttributedString:self];
+    NSString *t = self.string;
+    NSRange range = NSMakeRange(0, t.length);
+    while (range.length > 0) {
+        NSRange r = [t rangeOfString:text options:NSCaseInsensitiveSearch range:range];
+        if (r.location != NSNotFound) {
+            [attr addAttributes:attribute range:r];
+            NSInteger location = r.location + r.length;
+            range = NSMakeRange(location, (t.length - location));
+        } else {
+            break;
+        }
+    }
+    return attr;
+}
+/// 取self的属性，设置在text上
+- (NSAttributedString *_Nonnull)rz_copyAttributeToText:(NSString *_Nonnull)text {
+    NSDictionary *dict = [self attributesAtIndex:0 effectiveRange:nil];
+    if (!dict) {
+        dict = NSDictionary.new;
+    }
+    return  [[NSAttributedString alloc] initWithString:text attributes:dict];
 }
 
 @end

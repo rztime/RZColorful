@@ -65,6 +65,7 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A19DA097C46AFE01BA828C77 /* Pods-RZColorful_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorful_Example.release.xcconfig"; path = "Target Support Files/Pods-RZColorful_Example/Pods-RZColorful_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B20D9104296D04C90077BDDD /* UpdateLog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = UpdateLog.md; path = ../UpdateLog.md; sourceTree = "<group>"; };
 		B285FE1227A0FC81003F4D73 /* RZFoldLabelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZFoldLabelVC.h; sourceTree = "<group>"; };
 		B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZFoldLabelVC.m; sourceTree = "<group>"; };
 		B285FE1527A12B22003F4D73 /* RZTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTextViewVC.h; sourceTree = "<group>"; };
@@ -190,6 +191,7 @@
 			children = (
 				6BE7EF8D2C3907BFC00F27E1 /* RZColorful.podspec */,
 				CAB0873DA6E2668F4DE41E81 /* README.md */,
+				B20D9104296D04C90077BDDD /* UpdateLog.md */,
 				518F82E5BA104A9F2F98C84E /* LICENSE */,
 			);
 			name = "Podspec Metadata";

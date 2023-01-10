@@ -9,9 +9,25 @@
 #import "RZParagraphStyle.h"
 #import "RZColorfulAttribute.h"
 
+@interface RZMutableParagraphStyle()
+
+@end
+
+@implementation RZMutableParagraphStyle
+
++ (RZMutableParagraphStyle *)copyWith:(RZMutableParagraphStyle *)para {
+    RZMutableParagraphStyle *style = [[RZMutableParagraphStyle alloc] init];
+    [style setParagraphStyle:para];
+    style.numberOfLines = para.numberOfLines;
+    style.textDrawMaxWidth = para.textDrawMaxWidth;
+    style.truncateText = para.truncateText;
+    return style;
+}
+@end
+
 @interface RZParagraphStyle ()
 
-@property (nonatomic, strong) NSMutableParagraphStyle *paragraph;
+@property (nonatomic, strong) RZMutableParagraphStyle *paragraph;
 @property (nonatomic, weak) RZColorfulAttribute *colorfulsAttr;
 @property (nonatomic, weak) RZImageAttachment *imageAttach;
 
@@ -57,13 +73,17 @@
 - (RZImageAttachment *)endAttach {
     return _imageAttach;
 }
-- (NSMutableParagraphStyle *)code {
-    return _paragraph;
+- (RZMutableParagraphStyle *)code {
+    if (_paragraph) {
+        RZMutableParagraphStyle *p = [RZMutableParagraphStyle copyWith:_paragraph];
+        return p;
+    }
+    return nil;
 }
 
-- (NSMutableParagraphStyle *)paragraph {
+- (RZMutableParagraphStyle *)paragraph {
     if (!_paragraph) {
-        _paragraph = [[NSMutableParagraphStyle alloc] init]; 
+        _paragraph = [[RZMutableParagraphStyle alloc] init]; 
     }
     return _paragraph;
 }
@@ -172,5 +192,12 @@
         return self;
     };
 }
-
+- (RZParagraphStyle *(^)(NSInteger numberOfLines, CGFloat maxWidth, NSAttributedString *truncateText))numberOfLines {
+    return ^id (NSInteger numberOfLines, CGFloat maxWidth, NSAttributedString *truncateText) {
+        self.paragraph.numberOfLines = numberOfLines;
+        self.paragraph.textDrawMaxWidth = maxWidth;
+        self.paragraph.truncateText = truncateText;
+        return self;
+    };
+}
 @end

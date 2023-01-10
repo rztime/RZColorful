@@ -22,8 +22,11 @@
     _label.numberOfLines = 0;
     [self.view addSubview:_label];
     _label.frame = self.view.bounds;
+    NSAttributedString *place = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer * _Nullable confer) {
+        confer.text(@"...").font([UIFont systemFontOfSize:18]).textColor(UIColor.redColor);
+    }];
     NSAttributedString *attr = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer * _Nullable confer) {
-        confer.htmlText(@"<span style=\"background-color: red;\">标签富文本</br></span>").font([UIFont systemFontOfSize:16]);
+        confer.htmlText(@"\n\n\n<span style=\"background-color: red;\">标签富文本</br></span>").font([UIFont systemFontOfSize:16]);
         confer.text(@"\n正文使用方法:常规 字体 + 颜色\n\n").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor);
         
         confer.text(@"添加本地图片 ").font([UIFont systemFontOfSize:20]).textColor(UIColor.redColor);
@@ -40,9 +43,9 @@
         confer.text(@"\n文本的点击事件").font([UIFont systemFontOfSize:16]);
         confer.text(@"可点击文本").textColor(UIColor.redColor).font([UIFont systemFontOfSize:16]).tapActionByLable(@"点击的id");
         confer.text(@"\n");
-        confer.text(@"段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置\n段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置\n").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).paragraphStyle.lineSpacing(20).paragraphSpacingBefore(10);
+        confer.text(@"段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置段落样式的方法设置").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).paragraphStyle.lineSpacing(20).paragraphSpacingBefore(10).lineBreakMode(NSLineBreakByTruncatingTail).numberOfLines(4, self.view.bounds.size.width, place);
     }];
-    _label.attributedText = attr;
+    _label.attributedText = [attr rz_markText:@"段落" attribute:@{NSForegroundColorAttributeName: UIColor.redColor}];
     [_label rz_tapAction:^(UILabel * _Nonnull label, NSString * _Nonnull tapActionId, NSRange range) {
         NSLog(@"%@", tapActionId); // print: 点击的id
     }];

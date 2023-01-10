@@ -39,7 +39,8 @@
         [self.colorfuls setObject:[_shadow code] forKey:NSShadowAttributeName];
     }
     if (_hadParagraphStyle) {
-        [self.colorfuls setObject:[_paragraphStyle code] forKey:NSParagraphStyleAttributeName];
+        RZMutableParagraphStyle *style = [RZMutableParagraphStyle copyWith:[_paragraphStyle code]];
+        [self.colorfuls setObject:style forKey:NSParagraphStyleAttributeName];
     }
     return _colorfuls.copy;
 }

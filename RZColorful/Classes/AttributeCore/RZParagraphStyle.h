@@ -16,55 +16,68 @@
 
 #define RZWARNING(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
+@interface RZMutableParagraphStyle : NSMutableParagraphStyle
+/// 行数
+@property (nonatomic, assign) NSUInteger numberOfLines;
+/// 计算时，绘制的文本的最大宽度
+@property (nonatomic, assign) CGFloat textDrawMaxWidth;
+/// 截断时，根据LineBreakMode方式，添加的文本
+@property (nonatomic, strong) NSAttributedString * _Nullable truncateText;
+
++ (RZMutableParagraphStyle *_Nonnull)copyWith:(RZMutableParagraphStyle *_Nonnull)para;
+
+@end
+
 @interface RZParagraphStyle : NSObject
 
+- (instancetype _Nonnull)initWithAttr:(RZColorfulAttribute *_Nonnull)attr;
+- (instancetype _Nonnull)initWithAttach:(RZImageAttachment *_Nonnull)attach;
 
-- (instancetype)initWithAttr:(RZColorfulAttribute *)attr;
-- (instancetype)initWithAttach:(RZImageAttachment *)attach;
-
-- (NSMutableParagraphStyle *)code;
+- (RZMutableParagraphStyle *_Nonnull)code;
 
 /** 连接词 text、htmlText可使用*/
-- (RZColorfulAttribute *)and;
+- (RZColorfulAttribute *_Nonnull)and;
 /** 连接词 text、htmlText可使用 */
-- (RZColorfulAttribute *)with;
+- (RZColorfulAttribute *_Nonnull)with;
 /** 连接词 text、htmlText可使用 */
-- (RZColorfulAttribute *)end;
+- (RZColorfulAttribute *_Nonnull)end;
 
 /** 连接词 image、imageByUrl可使用*/
-- (RZImageAttachment *)andAttach;
+- (RZImageAttachment *_Nonnull)andAttach;
 /** 连接词 image、imageByUrl可使用*/
-- (RZImageAttachment *)withAttach;
+- (RZImageAttachment *_Nonnull)withAttach;
 /** 连接词 image、imageByUrl可使用*/
-- (RZImageAttachment *)endAttach;
+- (RZImageAttachment *_Nonnull)endAttach;
 /** 段落行距 */
-- (RZParagraphStyle *(^)(CGFloat))lineSpacing;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))lineSpacing;
 /** 段落后面的间距 */
-- (RZParagraphStyle *(^)(CGFloat))paragraphSpacing;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))paragraphSpacing;
 /** 文本对齐方式 */
-- (RZParagraphStyle *(^)(NSTextAlignment))alignment;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(NSTextAlignment))alignment;
 /** 首行文本缩进 */
-- (RZParagraphStyle *(^)(CGFloat))firstLineHeadIndent;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))firstLineHeadIndent;
 /** 非首行文本缩进 */
-- (RZParagraphStyle *(^)(CGFloat))headIndent;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))headIndent;
 /** 文本缩进  */
-- (RZParagraphStyle *(^)(CGFloat))tailIndent;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))tailIndent;
 /** 文本折行方式 */
-- (RZParagraphStyle *(^)(NSLineBreakMode))lineBreakMode;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(NSLineBreakMode))lineBreakMode;
 /** 文本最小行距 */
-- (RZParagraphStyle *(^)(CGFloat))minimumLineHeight;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))minimumLineHeight;
 /** 文本最大行距 */
-- (RZParagraphStyle *(^)(CGFloat))maximumLineHeight;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))maximumLineHeight;
 /** 文本写入方式，即显示方式，从左至右，或从右到左 */
-- (RZParagraphStyle *(^)(NSWritingDirection))baseWritingDirection;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(NSWritingDirection))baseWritingDirection;
 /** 设置文本行间距是默认间距的倍数 */
-- (RZParagraphStyle *(^)(CGFloat))lineHeightMultiple;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))lineHeightMultiple;
 /** 段与段之间的间距 */
-- (RZParagraphStyle *(^)(CGFloat))paragraphSpacingBefore;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))paragraphSpacingBefore;
 /** 设置每行的最后单词是否截断，在0.0-1.0之间，默认为0.0，越接近1.0单词被截断的可能性越大， */
-- (RZParagraphStyle *(^)(float))hyphenationFactor;
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(float))hyphenationFactor;
 /** 未知 */
-- (RZParagraphStyle *(^)(CGFloat))defaultTabInterval NS_AVAILABLE(10_0, 7_0);
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(CGFloat))defaultTabInterval NS_AVAILABLE(10_0, 7_0);
 /** 未知 */
-- (RZParagraphStyle *(^)(BOOL))allowsDefaultTighteningForTruncation NS_AVAILABLE(10_11, 9_0);
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(BOOL))allowsDefaultTighteningForTruncation NS_AVAILABLE(10_11, 9_0);
+/** 给段落添加行数限制，搭配NSLineBreakModel，将在段落里添加...占位 */
+- (RZParagraphStyle *_Nonnull(^_Nonnull)(NSInteger numberOfLines, CGFloat maxWidth, NSAttributedString *_Nullable truncateText))numberOfLines;
 @end

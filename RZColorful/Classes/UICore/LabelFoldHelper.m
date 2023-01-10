@@ -44,6 +44,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesAction:)];
         [self addGestureRecognizer:tap];
         [UILabel rz_swizzedSelected];
+        [self setHidden:YES];
     }
     return self;
 }
@@ -71,7 +72,7 @@
 
 - (void)tapGesAction:(UITapGestureRecognizer *)sender {
     CGPoint point = [sender locationInView:self];
-    TapPointRes *res = [self  tapPoint:point];
+    TapPointRes *res = [self tapPoint:point];
     if (res.isInTarget && self.target != nil && self.tapAction) {
         self.tapAction(self.target, res.textLink, res.range);
     }
