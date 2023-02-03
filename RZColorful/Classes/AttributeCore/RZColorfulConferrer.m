@@ -122,6 +122,10 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc]init];
     for (RZColorfulAttributeBox *box in self.contents) {
         NSAttributedString *text = [box package:_paragraphStyle shadow:_shadow];
+        if (text.length == 0) {
+            [string appendAttributedString:text];
+            continue;
+        }
         RZMutableParagraphStyle *style = [text attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:nil];
         if ([style isKindOfClass:[RZMutableParagraphStyle class]]) {
             if (style.numberOfLines > 0 && style.textDrawMaxWidth > 0) {
