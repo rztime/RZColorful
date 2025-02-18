@@ -23,7 +23,7 @@
     [self.view addSubview:_label];
     _label.frame = self.view.bounds;
     NSAttributedString *place = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer * _Nullable confer) {
-        confer.text(@"...").font([UIFont systemFontOfSize:18]).textColor(UIColor.redColor);
+        confer.text(@"...").font([UIFont systemFontOfSize:18]).textColor([UIColor redColor]);
     }];
     NSAttributedString *attr = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer * _Nullable confer) {
         confer.htmlText(@"\n\n\n<span style=\"background-color: red;\">标签富文本</br></span>").font([UIFont systemFontOfSize:16]);
@@ -35,7 +35,7 @@
         confer.image([UIImage imageNamed:@"image"]).size(CGSizeMake(40, 40), RZHorizontalAlignCenter, [UIFont systemFontOfSize:20]).custom(NSTapActionByLabelAttributeName, @"3"); // 自定义点击事件
         confer.text(@" 图片可对齐文本\n\n").font([UIFont systemFontOfSize:20]).textColor(UIColor.redColor);
         
-        confer.text(@"\n正文使用方法:斜体").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).italic(@1);
+        confer.text(@"正文使用方法:斜体").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).italic(@1);
         confer.text(@"\n正文使用方法:删除线").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).strikeThrough(NSUnderlineStyleSingle).strikeThroughColor(UIColor.redColor);
         confer.text(@"\n正文使用方法:下划线").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).underLineStyle(NSUnderlineStyleSingle).underLineColor(UIColor.redColor);
         confer.text(@"\n正文使用方法:描边\n").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor).strokeWidth(@1).strokeColor(UIColor.redColor);

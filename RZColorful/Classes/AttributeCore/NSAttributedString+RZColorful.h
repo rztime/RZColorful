@@ -26,6 +26,10 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
  @return <#return value description#>
  */
 + (NSAttributedString *_Nullable)rz_colorfulConfer:(void(^_Nullable)(RZColorfulConferrer *_Nullable confer))attribute;
+// 追加
+- (NSAttributedString *_Nullable)attributedStringByAppend:(NSAttributedString *_Nullable)attributedString;
+// 获取富文本中的图片 用于上传服务器
+- (NSArray <UIImage *> *_Nullable)rz_images;
 /**
  固定宽度，计算高
 
@@ -40,14 +44,8 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
  @return <#return value description#>
  */
 - (CGSize)sizeWithConditionHeight:(CGFloat)height;
-// 追加
-- (NSAttributedString *_Nullable)attributedStringByAppend:(NSAttributedString *_Nullable)attributedString;
 
 #pragma mark - 其他方法
-
-// 获取富文本中的图片 用于上传服务器
-- (NSArray <UIImage *> *_Nullable)rz_images;
-
 /**
  获取attrName对应的NSAttributedString
  */
@@ -89,6 +87,16 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
 ///   - model: 截断方式
 ///   - placeHolder: 截断时占位的"..."文字
 - (NSAttributedString * _Nullable)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder;
+/// 头部截断（逆向）从最后一个字反向往前保留最后maxLine行数的文字
+/// - Parameters:
+///   - maxline: 最大行数
+///   - maxWidth: 最大宽度
+///   - lineBreakMode: placeholder插入的方式
+///   - placeHolder: 截断时占位的"..."文字
+///   - 区别于方法（A）的byTruncatingHead：func attributedStringBy(maxline: Int, maxWidth: CGFloat, lineBreakMode: NSLineBreakMode, placeHolder: NSAttributedString?) -> NSAttributedString?
+///   - 方法（A）抛弃前半部分，在最前边插入placeholder
+///   - headxxx抛弃前半部分，然后根据mode再不同位置插入placeholder
+- (NSAttributedString * _Nullable)rz_headTruncatingAttributedStringBy:(NSInteger)maxline  maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder;
 @end
 
 @interface NSAttributedString (RZAttr)

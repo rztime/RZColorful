@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^RZLabelTapAction)(UILabel *_Nonnull label, NSString * _Nonnull tapActionId, NSRange range);
 /// 给label的富文本添加文本点击事件
+/// 注意：NSAttributedString里的每一个字，都需要设置字体，否则无法准确点击位置（内部使用UITextView计算位置，无字体时，默认给的11号字体，会导致位置计算错误）
 /// @param tapAction ，tapActionId 即tapActionByLable里的内容
 - (void)rz_tapAction:(RZLabelTapAction _Nullable)tapAction;
 @end

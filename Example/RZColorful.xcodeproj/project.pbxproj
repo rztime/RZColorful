@@ -24,6 +24,7 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		B26455992D5C49EA00F056AD /* RZTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B26455982D5C49EA00F056AD /* RZTestViewController.m */; };
 		B285FE1427A0FC81003F4D73 /* RZFoldLabelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */; };
 		B285FE1727A12B22003F4D73 /* RZTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B285FE1627A12B22003F4D73 /* RZTextViewVC.m */; };
 		B286D7DE279FFD9000F182BD /* AttributedStringUseDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B286D7DD279FFD9000F182BD /* AttributedStringUseDemoVC.m */; };
@@ -66,6 +67,8 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A19DA097C46AFE01BA828C77 /* Pods-RZColorful_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorful_Example.release.xcconfig"; path = "Target Support Files/Pods-RZColorful_Example/Pods-RZColorful_Example.release.xcconfig"; sourceTree = "<group>"; };
 		B20D9104296D04C90077BDDD /* UpdateLog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = UpdateLog.md; path = ../UpdateLog.md; sourceTree = "<group>"; };
+		B26455972D5C49EA00F056AD /* RZTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTestViewController.h; sourceTree = "<group>"; };
+		B26455982D5C49EA00F056AD /* RZTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZTestViewController.m; sourceTree = "<group>"; };
 		B285FE1227A0FC81003F4D73 /* RZFoldLabelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZFoldLabelVC.h; sourceTree = "<group>"; };
 		B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZFoldLabelVC.m; sourceTree = "<group>"; };
 		B285FE1527A12B22003F4D73 /* RZTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTextViewVC.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */,
 				B285FE1527A12B22003F4D73 /* RZTextViewVC.h */,
 				B285FE1627A12B22003F4D73 /* RZTextViewVC.m */,
+				B26455972D5C49EA00F056AD /* RZTestViewController.h */,
+				B26455982D5C49EA00F056AD /* RZTestViewController.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -251,7 +256,6 @@
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				63B7371C45DBFF818D98C02C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -385,24 +389,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		63B7371C45DBFF818D98C02C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RZColorful_Tests/Pods-RZColorful_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RZColorful_Tests/Pods-RZColorful_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -414,6 +400,7 @@
 				B285FE1427A0FC81003F4D73 /* RZFoldLabelVC.m in Sources */,
 				6003F59E195388D20070C39A /* RZAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* RZViewController.m in Sources */,
+				B26455992D5C49EA00F056AD /* RZTestViewController.m in Sources */,
 				B285FE1727A12B22003F4D73 /* RZTextViewVC.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
@@ -546,6 +533,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RZColorful/RZColorful-Prefix.pch";
 				INFOPLIST_FILE = "RZColorful/RZColorful-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -562,6 +550,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RZColorful/RZColorful-Prefix.pch";
 				INFOPLIST_FILE = "RZColorful/RZColorful-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -587,6 +576,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -608,6 +598,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

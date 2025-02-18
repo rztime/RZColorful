@@ -44,17 +44,17 @@
     }
     return _colorfuls.copy;
 }
-/** 设置文本颜色 */
-- (RZColorfulAttribute * (^) (UIColor *)) textColor {
-    return ^id(UIColor *textColor) {
-        self.colorfuls[NSForegroundColorAttributeName] = textColor;
-        return self;
-    };
-}
 /** 设置字体 */
 - (RZColorfulAttribute *(^)(UIFont *))font {
     return ^id(UIFont *font) {
         self.colorfuls[NSFontAttributeName] = font;
+        return self;
+    };
+}
+/** 设置文本颜色 */
+- (RZColorfulAttribute *(^) (UIColor *)) textColor {
+    return ^id(UIColor *textColor) {
+        self.colorfuls[NSForegroundColorAttributeName] = textColor;
         return self;
     };
 }
@@ -121,10 +121,10 @@
         return self;
     };
 }
-/** 横竖排版 0：横版 1：竖版 */
-- (RZColorfulAttribute *(^)(NSNumber *))verticalGlyphForm {
-    return ^id (NSNumber *verticalGlyphForm) {
-        self.colorfuls[NSVerticalGlyphFormAttributeName] = verticalGlyphForm;
+/** 上下标 */
+- (RZColorfulAttribute *(^)(NSNumber *))baselineOffset {
+    return ^id (NSNumber *baselineOffset) {
+        self.colorfuls[NSBaselineOffsetAttributeName] = baselineOffset;
         return self;
     };
 }
@@ -139,13 +139,6 @@
 - (RZColorfulAttribute *(^)(NSNumber *))expansion {
     return ^id (NSNumber *expansion) {
         self.colorfuls[NSExpansionAttributeName] = expansion;
-        return self;
-    };
-}
-/** 上下标 */
-- (RZColorfulAttribute *(^)(NSNumber *))baselineOffset {
-    return ^id (NSNumber *baselineOffset) {
-        self.colorfuls[NSBaselineOffsetAttributeName] = baselineOffset;
         return self;
     };
 }
@@ -181,6 +174,13 @@
             }
         } 
         self.colorfuls[NSWritingDirectionAttributeName] = value;
+        return self;
+    };
+}
+/** 横竖排版 0：横版 1：竖版 */
+- (RZColorfulAttribute *(^)(NSNumber *))verticalGlyphForm {
+    return ^id (NSNumber *verticalGlyphForm) {
+        self.colorfuls[NSVerticalGlyphFormAttributeName] = verticalGlyphForm;
         return self;
     };
 }
@@ -223,61 +223,96 @@ NSAttributedStringKey const NSTapActionByLabelAttributeName = @"RZTapActionByLab
         return self;
     };
 }
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber *))tracking API_AVAILABLE(ios(14.0)) {
+    return ^id(NSNumber * tracking) {
+        self.colorfuls[NSTrackingAttributeName] = tracking;
+        return self;
+    };
+}
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInlinePresentationIntent))inlinePresentationIntent API_AVAILABLE(ios(15.0)) {
     return ^id(NSInlinePresentationIntent intent) {
         self.colorfuls[NSInlinePresentationIntentAttributeName] = @(intent);
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))alternateDescription API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))alternateDescription API_AVAILABLE(ios(15.0)) {
     return ^id(id alternateDescription) {
         self.colorfuls[NSAlternateDescriptionAttributeName] = alternateDescription;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))imageURL API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSURL * __nullable))imageURL API_AVAILABLE(ios(15.0)) {
     return ^id(id imageURL) {
         self.colorfuls[NSImageURLAttributeName] = imageURL;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))languageIdentifier API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))languageIdentifier API_AVAILABLE(ios(15.0)) {
     return ^id(id languageIdentifier) {
         self.colorfuls[NSLanguageIdentifierAttributeName] = languageIdentifier;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))replacementIndex API_AVAILABLE(ios(15.0)) {
-    return ^id(id replacementIndex) {
-        self.colorfuls[NSReplacementIndexAttributeName] = replacementIndex;
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInteger))replacementIndex API_AVAILABLE(ios(15.0)) {
+    return ^id(NSInteger replacementIndex) {
+        self.colorfuls[NSReplacementIndexAttributeName] = @(replacementIndex);
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))morphology API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSMorphology * __nullable))morphology API_AVAILABLE(ios(15.0)) {
     return ^id(id morphology) {
         self.colorfuls[NSMorphologyAttributeName] = morphology;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))inflectionRule API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInflectionRule * __nullable))inflectionRule API_AVAILABLE(ios(15.0)) {
     return ^id(id inflectionRule) {
         self.colorfuls[NSInflectionRuleAttributeName] = inflectionRule;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))inflectionAlternative API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))inflectionAlternative API_AVAILABLE(ios(15.0)) {
     return ^id(id inflectionAlternative) {
         self.colorfuls[NSInflectionAlternativeAttributeName] = inflectionAlternative;
         return self;
     };
 }
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))presentationIntentAttributeName API_AVAILABLE(ios(15.0)) {
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSPresentationIntent * __nullable))presentationIntentAttributeName API_AVAILABLE(ios(15.0)) {
     return ^id(id presentationIntentAttributeName) {
         self.colorfuls[NSPresentationIntentAttributeName] = presentationIntentAttributeName;
         return self;
     };
 }
-
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSAttributedStringMarkdownSourcePosition * __nullable))markdownSourcePosition API_AVAILABLE(ios(16.0)) {
+    return ^id(id markdownSourcePosition) {
+        self.colorfuls[NSMarkdownSourcePositionAttributeName] = markdownSourcePosition;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))agreeWithArgument API_AVAILABLE(ios(17.0)) {
+    return ^id(id agreeWithArgument) {
+        self.colorfuls[NSInflectionAgreementArgumentAttributeName] = agreeWithArgument;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))agreeWithConcept API_AVAILABLE(ios(17.0)) {
+    return ^id(id agreeWithConcept) {
+        self.colorfuls[NSInflectionAgreementConceptAttributeName] = agreeWithConcept;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))referentConcept API_AVAILABLE(ios(17.0)) {
+    return ^id(id referentConcept) {
+        self.colorfuls[NSInflectionReferentConceptAttributeName] = referentConcept;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))localizedNumberFormat API_AVAILABLE(ios(18.0)) {
+    return ^id(id localizedNumberFormat) {
+        self.colorfuls[NSLocalizedNumberFormatAttributeName] = localizedNumberFormat;
+        return self;
+    };
+}
 // 阴影
 - (RZShadow *)shadow {
     if (!_shadow) { 

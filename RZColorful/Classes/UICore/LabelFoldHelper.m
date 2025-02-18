@@ -135,7 +135,7 @@
 + (void)rz_swizzedSelected {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSLog(@"------------UILabel drawTextInRect 方法交换 rz_drawTextInRect--------------");
+//        NSLog(@"------------UILabel drawTextInRect 方法交换 rz_drawTextInRect--------------");
         Method origin = class_getInstanceMethod([UILabel class], @selector(drawTextInRect:));
         Method swizee = class_getInstanceMethod([UILabel class], @selector(rz_drawTextInRect:));
         method_exchangeImplementations(origin, swizee);

@@ -30,7 +30,8 @@
     }];
     _items = @[@{@"富文本常规使用": @"AttributedStringUseDemoVC"},
                @{@"显示折叠展开的label": @"RZFoldLabelVC"},
-               @{@"UITextView常规使用": @"RZTextViewVC"},];
+               @{@"UITextView常规使用": @"RZTextViewVC"},
+               @{@"测试": @"RZTestViewController"}];
 }
 
 - (void)didReceiveMemoryWarning

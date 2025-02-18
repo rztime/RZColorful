@@ -192,7 +192,7 @@
 }
 
 - (NSAttributedString *)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *)allText showFoldText:(NSAttributedString *)foldText {
-    if (self.length == 0 || maxLine == 0) {
+    if (self.length == 0 || maxLine == 0 || width == 0) {
         return self;
     }
     if (![self rz_moreThan:maxLine maxWidth:width]) {
@@ -205,26 +205,7 @@
         }
         return attr;
     }
-    NSAttributedString *showAll = allText == nil ? [NSAttributedString new] : allText;
-    NSInteger min = 0;
-    NSInteger max = self.length;
-    NSInteger end = 0;
-    while (true) {
-        end = (min + max) / 2;
-        NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(0, end)];
-        NSMutableAttributedString *tempAttr = [[NSMutableAttributedString alloc] initWithAttributedString:sub];
-        [tempAttr appendAttributedString:showAll];
-        Boolean more = [tempAttr rz_moreThan:maxLine maxWidth:width];
-        if (more) {
-            max = end;
-        } else {
-            min = end;
-        }
-        NSInteger tempEnd = (min + max) / 2;
-        if (tempEnd == end) {
-            return tempAttr;
-        }
-    }
+    return [self rz_attributedStringBy:maxLine maxWidth:width lineBreakMode:NSLineBreakByTruncatingTail placeHolder:allText];
 }
 /// 对富文本进行截断处理
 /// - Parameters:
@@ -233,20 +214,141 @@
 ///   - model: 截断方式
 ///   - placeHolder: 截断时占位的"..."文字
 - (NSAttributedString * _Nullable)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder {
-    if (self.length == 0 || maxLine == 0) {
+    if (self.length == 0 || maxLine == 0 || width == 0) {
         return self;
     }
     if (![self rz_moreThan:maxLine maxWidth:width]) {
         return self;
     }
-
+    NSAttributedString *holder = placeHolder == nil ? [NSAttributedString new] : placeHolder;
+    NSInteger left = 0;
+    NSInteger right = self.length;
+    NSInteger location = 0;
+    NSAttributedString *resultAttr;
+    switch (model) {
+        case NSLineBreakByWordWrapping:
+        case NSLineBreakByCharWrapping:
+        case NSLineBreakByClipping:
+        case NSLineBreakByTruncatingTail:
+            while (left <= right) {
+                location = (left + right) / 2;
+                NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(0, location)];
+                NSMutableAttributedString *temp = sub.mutableCopy;
+                if (model == NSLineBreakByTruncatingTail) {
+                    [temp appendAttributedString:holder];
+                }
+                BOOL more = [temp rz_moreThan:maxLine maxWidth:width];
+                if (more) {
+                    right = location - 1;
+                } else {
+                    left = location + 1;
+                    resultAttr = temp;
+                }
+            }
+            break;
+        case NSLineBreakByTruncatingHead:
+            while (left <= right) {
+                location = (left + right) / 2;
+                NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(location, self.length - location)];
+                NSMutableAttributedString *temp = sub.mutableCopy;
+                [temp insertAttributedString:holder atIndex:0];
+                BOOL more = [temp rz_moreThan:maxLine maxWidth:width];
+                if (more) {
+                    left = location + 1;
+                } else {
+                    right = location - 1;
+                    resultAttr = temp;
+                }
+            }
+            break;
+        case NSLineBreakByTruncatingMiddle: {
+            // 将富文本分为左右两部分，一左一右交替二分查找获取截断位置
+            // 当maxline = 1行时，效果不太理想（有好的方法可以反馈一下）
+            /// 左边
+            NSInteger left_l = 0;
+            NSInteger left_r = self.length / 2;
+            
+            /// 右边
+            NSInteger right_l = self.length / 2;
+            NSInteger right_r = self.length;
+            
+            /// 左右mid
+            NSInteger left_mid = 0;
+            NSInteger right_mid = right_l;
+            
+            /// 每次计算，双数时计算左侧，单数时计算右侧
+            /// 优先截断左侧，当一侧截断位置后未超行，times不变，继续算这一侧，直到这一侧超行之后，在截取另一侧
+            /// 即超行之后，才times+=1，
+            /// 如times=双数，即左侧，当次未超行时times不变，下一次循环依然会截断左侧，直到超行时，才去截断右侧
+            NSInteger times = 0;
+            while (left_l <= left_r || right_l <= right_r) {
+                NSMutableAttributedString *temp = [[NSMutableAttributedString alloc] init];
+                
+                // 交替计算左侧和右侧的中间位置
+                if (times % 2 == 0) { /// 算左侧
+                    left_mid = (left_l + left_r) / 2;
+                } else {
+                    right_mid = (right_l + right_r) / 2;
+                }
+                
+                NSAttributedString *h = [self attributedSubstringFromRange:NSMakeRange(0, left_mid)];
+                NSAttributedString *e = [self attributedSubstringFromRange:NSMakeRange(right_mid, self.length - right_mid)];
+                
+                [temp appendAttributedString:h];
+                [temp appendAttributedString:holder];
+                [temp appendAttributedString:e];
+                
+                if ([temp rz_moreThan:maxLine maxWidth:width]) {
+                    if (times % 2 == 0) { /// 算左侧
+                        left_r = left_mid - 1;
+                    } else {
+                        right_l = right_mid + 1;
+                    }
+                    times += 1;
+                } else {
+                    if (times % 2 == 0) { /// 算左侧
+                        left_l = left_mid + 1;
+                    } else {
+                        right_r = right_mid - 1;
+                    }
+                    
+                    /// 左侧已到临界点，则重置times仅算右侧，同理右侧临界点
+                    if (left_l > left_r) {
+                        times = 1;
+                    } else if (right_l > right_r) {
+                        times = 0;
+                    }
+                    resultAttr = temp;
+                }
+            }
+            break;
+        }
+        default:
+            return self;
+    }
+    return resultAttr;
+}
+/// 头部截断（逆向）从最后一个字反向往前保留最后maxLine行数的文字
+/// - Parameters:
+///   - maxLine: 设置超过多少截断
+///   - width: 显示的最大宽度
+///   - model: 截断方式
+///   - placeHolder: 截断时占位的"..."文字
+- (NSAttributedString * _Nullable)rz_headTruncatingAttributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)model placeHolder:(NSAttributedString *_Nullable)placeHolder {
+    if (self.length == 0 || maxLine == 0 || width == 0) {
+        return self;
+    }
+    if (![self rz_moreThan:maxLine maxWidth:width]) {
+        return self;
+    }
     NSAttributedString *holder = placeHolder == nil ? [NSAttributedString new] : placeHolder;
     NSInteger min = 0;
     NSInteger max = self.length;
-    NSInteger end = 0;
-    while (true) {
-        end = (min + max) / 2;
-        NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(0, end)];
+    NSInteger star = 0;
+    NSAttributedString *resultAttr;
+    while (min <= max) {
+        star = (min + max) / 2;
+        NSAttributedString *sub = [self attributedSubstringFromRange:NSMakeRange(star, self.length - star)];
         NSMutableAttributedString *tempAttr = [[NSMutableAttributedString alloc] initWithAttributedString:sub];
         switch (model) {
             case NSLineBreakByWordWrapping: { break; }
@@ -269,15 +371,13 @@
         }
         BOOL more = [tempAttr rz_moreThan:maxLine maxWidth:width];
         if (more) {
-            max = end;
+            min = star + 1;
         } else {
-            min = end;
-        }
-        NSInteger tempEnd = (min + max) / 2;
-        if (tempEnd == end) {
-            return tempAttr;
+            max = star - 1;
+            resultAttr = tempAttr;
         }
     }
+    return resultAttr;
 }
 /// 给text 关键字 标记属性（如对关键字进行标红显示）
 - (NSAttributedString *_Nonnull)rz_markText:(NSString *_Nullable)text attribute:(NSDictionary<NSAttributedStringKey, id> *_Nonnull)attribute {

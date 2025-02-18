@@ -53,12 +53,12 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 - (RZColorfulAttribute *_Nonnull)with;
 
 #pragma mark - 基本属性设置
+/** 设置字体 */
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIFont *__nullable))font;
 /** 设置文本颜色 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIColor * __nullable))textColor;
 /** 当前文字的所在区域的背景颜色 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIColor *__nullable))backgroundColor;
-/** 设置字体 */
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIFont *__nullable))font;
 /** 设置连体字，value = 0,没有连体， =1，有连体 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber *__nullable))ligature;
 /** 字间距 >0 加宽  < 0减小间距 */
@@ -83,16 +83,16 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(UIColor * __nullable))strokeColor;
 /** 描边的笔画宽度 为3时，空心  负值填充效果，正值中空效果 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))strokeWidth;
-/** 横竖排版 0：横版 1：竖版 (iOS中1竖版无效)*/
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))verticalGlyphForm;
+/** 基准偏移 为正:上偏移（上标） 为负：下偏移（下标） */
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))baselineOffset;
 /** 斜体字 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))italic;
 /** 扩张，即拉伸文字 >0 拉伸 <0压缩 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))expansion;
-/** 基准偏移 为正:上偏移（上标） 为负：下偏移（下标） */
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))baselineOffset;
 /** 书写方向 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(RZWriteDirection))writingDirection;
+/** 横竖排版 0：横版 1：竖版 (iOS中1竖版无效)*/
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))verticalGlyphForm;
 /** 特殊效果 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextEffectStyle __nullable))textEffect;
 /** 自定义属性和值 */
@@ -104,7 +104,7 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 /* 给文本添加点击事件的id, 仅UILabel有效，需要实现label.rz_tapAction方法 */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapActionByLable;
 @end
- 
+
 @interface RZColorfulAttribute (Other)
 #pragma mark - 设置文本段落样式
 /** 段落样式，具体设置请看 RZParagraphStyle.h  */
@@ -119,23 +119,50 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 
 #pragma mark - 富文本 url，仅UITextViewd点击有效
 @interface RZColorfulAttribute (UITextView)
-/** 给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效
+/** 给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效, 如果有实现点击事件， 可以替换成tapAction:
  设置url属性，要实现点击，需实现UITextView的delegate的url点击事件
  设置之后，url的文本会默认带蓝色下划线的样式，可以设置textView.linkTextAttributes = @{} 清除掉
  */
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSURL * __nullable))url RZWARNING("如果有实现点击事件， 可以替换成tapAction:");
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSURL * __nullable))url;
 /* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapAction;
 @end
 
+@interface RZColorfulAttribute (iOS14)
+/// iOS 14
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber * __nullable))tracking API_AVAILABLE(ios(14.0));
+@end
 @interface RZColorfulAttribute (iOS15)
+/// 指定文本的展示意图
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInlinePresentationIntent))inlinePresentationIntent API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))alternateDescription API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))imageURL API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))languageIdentifier API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))replacementIndex API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))morphology API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))inflectionRule API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))inflectionAlternative API_AVAILABLE(ios(15.0));
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))presentationIntentAttributeName API_AVAILABLE(ios(15.0));
+/// 替代描述alter
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))alternateDescription API_AVAILABLE(ios(15.0));
+/// 与文本关联的图片的 URL
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSURL * __nullable))imageURL API_AVAILABLE(ios(15.0));
+/// 标识文本的语言 如 zh-Hans
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))languageIdentifier API_AVAILABLE(ios(15.0));
+/// 文本替换的索引
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInteger))replacementIndex API_AVAILABLE(ios(15.0));
+/// 语法形态
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSMorphology * __nullable))morphology API_AVAILABLE(ios(15.0));
+/// 变形规则，可搭配morphology使用
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSInflectionRule * __nullable))inflectionRule API_AVAILABLE(ios(15.0));
+/// 指定替代的变体形式
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))inflectionAlternative API_AVAILABLE(ios(15.0));
+/// 标记文本的语义意图
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSPresentationIntent * __nullable))presentationIntentAttributeName API_AVAILABLE(ios(15.0));
+@end
+@interface RZColorfulAttribute (iOS16)
+/// iOS 16
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSAttributedStringMarkdownSourcePosition * __nullable))markdownSourcePosition API_AVAILABLE(ios(16.0));
+@end
+@interface RZColorfulAttribute (iOS17)
+/// iOS 17
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))agreeWithArgument API_AVAILABLE(ios(17.0));
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))agreeWithConcept API_AVAILABLE(ios(17.0));
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))referentConcept API_AVAILABLE(ios(17.0));
+@end
+@interface RZColorfulAttribute (iOS18)
+/// iOS 18
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))localizedNumberFormat API_AVAILABLE(ios(18.0));
 @end

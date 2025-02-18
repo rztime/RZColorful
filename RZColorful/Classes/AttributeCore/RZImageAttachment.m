@@ -20,6 +20,8 @@
 @property (nonatomic, strong) RZParagraphStyle *paragraphStyle;
 /** 阴影 */
 @property (nonatomic, strong) RZShadow *shadow;
+/**  */
+@property (nonatomic, strong) RZColorfulAttribute *more;
 
 @property (nonatomic, strong) NSMutableDictionary *dict;
 
@@ -40,6 +42,9 @@
     }
     if (_hadShadow) {
         self.dict[NSShadowAttributeName] = [_shadow code];
+    }
+    if (_more) {
+        [self.dict addEntriesFromDictionary:[_more code]];
     }
     return self.dict.copy;
 }
@@ -164,6 +169,12 @@
         _hadShadow = YES;
     }
     return _shadow;
+}
+- (RZColorfulAttribute *)more {
+    if (!_more) {
+        _more = [[RZColorfulAttribute alloc] init];
+    }
+    return _more;
 }
 #pragma clang diagnostic pop
 @end

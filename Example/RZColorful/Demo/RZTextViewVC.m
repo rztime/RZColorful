@@ -35,6 +35,7 @@
     
     [_textView rz_colorfulConfer:^(RZColorfulConferrer * _Nonnull confer) {
         confer.text(@"").font([UIFont systemFontOfSize:16]);
+        
         confer.text(@"百年来，我们党团结带领人民进行的一切奋斗、一切牺牲、一切创造").font([UIFont systemFontOfSize:16]).textColor([UIColor blackColor]);
         confer.text(@"都是在践行为中国人民谋幸福、为中华民族谋复兴的初心使命\n中国共产党的成就和贡献，不仅是历史性的，也是世界性的").font([UIFont systemFontOfSize:16]).textColor([UIColor redColor]);
         confer.text(@"\n\n\n");
