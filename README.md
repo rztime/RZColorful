@@ -30,8 +30,8 @@ RZColorful is available under the MIT license. See the LICENSE file for more inf
 
 
 # RZColorful
-NSAttributedString 富文本方法 (图文混排、多样式文本)
-
+iOS NSAttributedString 富文本方法 (图文混排、多样式文本); 文本超行，自动添加"折叠"、"全部"; markdown 转 html;
+支持UILabel、UITextView、UITextField中可点击带链接的文本
 
 ## 更新日志
 [更新日志](https://github.com/rztime/RZColorful/blob/master/UpdateLog.md)
@@ -52,6 +52,7 @@ UITextView实现的富文本编辑器[RZRichTextView](https://github.com/rztime/
 * 支持UILabel、UITextView、UITextField的attributedText的设置。
 * 支持获取NSAttributedString中的图片
 * 支持 HTML 与 NSAttributedString互换（支持图片）
+* 支持 markdown 文档转换为html
 * 包含的属性快捷设置：
     * 段落样式
     * 阴影

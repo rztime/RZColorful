@@ -1,3 +1,13 @@
+##### 1.7.0
+
+新增了markdown文档转换为html的方法
+```
+// 1.初始化(可以提前初始化，用于下载最新的js解析方法)  
+[MarkdownRZ asyncInit:3];
+// 2.解析 解析md后的html，没有任何的样式，需要自行组装head里style：颜色、字号、列表、代码等等）
+NSString *html = [MarkdownRZ parse:md];
+```
+
 ##### 1.6.0
 
 新增完善iOS14-18的富文本属性

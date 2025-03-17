@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RZColorful'
-  s.version          = '1.6.0'
+  s.version          = '1.7.0'
   s.summary          = 'NSAttributedString富文本的快捷设置方法集合,以及UITextView、UITextField、UILabel富文本简单优雅的使用, UILabel支持富文本点击，超行折叠、展开功能'
 
 # This description is used to generate tags and improve search results.

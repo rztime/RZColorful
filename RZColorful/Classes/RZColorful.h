@@ -19,3 +19,4 @@
 #import "RZImageAttachment.h"
 #import "RZParagraphStyle.h"
 #import "RZShadow.h"
+#import "MarkdownRZ.h"
