@@ -26,7 +26,7 @@
         confer.text(@"...").font([UIFont systemFontOfSize:18]).textColor([UIColor redColor]);
     }];
     NSAttributedString *attr = [NSAttributedString rz_colorfulConfer:^(RZColorfulConferrer * _Nullable confer) {
-        confer.htmlText(@"\n\n\n<span style=\"background-color: red;\">标签富文本</br></span>").font([UIFont systemFontOfSize:16]);
+        confer.htmlText(@"\n\n\n<span>标签富文本</br></span><a href=\"https://www.baidu.com\">百度一下</a>").font([UIFont systemFontOfSize:16]);
         confer.text(@"\n正文使用方法:常规 字体 + 颜色\n\n").font([UIFont systemFontOfSize:16]).textColor(UIColor.blackColor);
         
         confer.text(@"添加本地图片 ").font([UIFont systemFontOfSize:20]).textColor(UIColor.redColor);

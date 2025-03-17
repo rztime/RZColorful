@@ -14,26 +14,25 @@
     if (!html) {
         return [NSAttributedString new];
     }
-    NSDictionary *options = @{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType};
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType,
+                              NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)};
     NSError *error;
     NSMutableAttributedString *htmlString = [[NSAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding] options:options documentAttributes:nil error:&error].mutableCopy;
     if (!error) {
-            // 修复URL在未设置http时，会自动添加如 “applewebdata://BF307C6C-5A2C-4F76-B3A0-6FD67E66CF82/”
-        NSArray <RZAttributedStringInfo *> *fixURL = [htmlString rz_attributedStringByAttributeName:NSLinkAttributeName];
-        [fixURL enumerateObjectsUsingBlock:^(RZAttributedStringInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSURL *url = obj.value;
-            if ([url isKindOfClass:[NSString class]]) {
-                url = [NSURL URLWithString:((NSString *)url)];
+        // 修复URL在未设置http时，会自动添加如 “applewebdata://BF307C6C-5A2C-4F76-B3A0-6FD67E66CF82/”
+        [htmlString enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, htmlString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+            NSURL *url;
+            if ([value isKindOfClass:[NSString class]]) {
+                url = [NSURL URLWithString:((NSString *)value)];
+            } else if ([value isKindOfClass:[NSURL class]]) {
+                url = (NSURL *)value;
             }
-            if ([url isKindOfClass:[NSURL class]]) {
-                if ([url.scheme isEqualToString:@"applewebdata"]) {
-                    NSString *tempUrl = url.absoluteString;
-                    NSString *originUrl = [tempUrl stringByReplacingOccurrencesOfString:@"^(?:applewebdata://[0-9A-Z-]*/?)" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, tempUrl.length)];
-                    if (originUrl.length > 0) {
-                        url = [NSURL URLWithString:originUrl];
-                        [obj.attributedString setAttributes:@{NSLinkAttributeName:url} range:NSMakeRange(0, obj.attributedString.length)];
-                        [htmlString replaceCharactersInRange:obj.range withAttributedString:obj.attributedString];
-                    }
+            if ([url.scheme isEqualToString:@"applewebdata"]) {
+                NSString *tempUrl = url.absoluteString;
+                NSString *originUrl = [tempUrl stringByReplacingOccurrencesOfString:@"^(?:applewebdata://[0-9A-Z-]*/?)" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, tempUrl.length)];
+                if (originUrl.length > 0) {
+                    url = [NSURL URLWithString:originUrl];
+                    [htmlString addAttribute:NSLinkAttributeName value:url range:range];
                 }
             }
         }];
