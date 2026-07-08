@@ -64,6 +64,13 @@ typedef NS_ENUM(NSInteger, RZAttributedStringAppendCondition) {
 @end
 
 @interface NSAttributedString (RZLines)
+/// 绘制的总位置
+/// @param size 内容的最大size
+/// @param numberOfLines 行数
+- (CGRect)rz_usedRectWithSize:(CGSize)size numberOfLines:(NSInteger)numberOfLines;
+/// 计算moreThan时，需注意最后一个字符串是否为\n,如果是则需要追加一个字符，否则计算结果可能会导致多出一行空白
+/// @return 处理后的富文本
+- (nullable NSAttributedString *)rz_moreThanFix;
 
 /// 计算NSAttributedString的文本在width限制条件下， 是否超过line行
 - (BOOL)rz_moreThan:(NSInteger)line maxWidth:(CGFloat)width;

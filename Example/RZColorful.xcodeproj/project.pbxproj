@@ -24,11 +24,12 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		B26455992D5C49EA00F056AD /* RZTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B26455982D5C49EA00F056AD /* RZTestViewController.m */; };
-		B285FE1427A0FC81003F4D73 /* RZFoldLabelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */; };
-		B285FE1727A12B22003F4D73 /* RZTextViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B285FE1627A12B22003F4D73 /* RZTextViewVC.m */; };
-		B286D7DE279FFD9000F182BD /* AttributedStringUseDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B286D7DD279FFD9000F182BD /* AttributedStringUseDemoVC.m */; };
 		B2A9F25C2D841611005BE498 /* MDToHtmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A9F25B2D841611005BE498 /* MDToHtmlViewController.m */; };
+		B2F326582FFCA969004ADF77 /* BaseUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F326572FFCA969004ADF77 /* BaseUseViewController.m */; };
+		B2F3265A2FFCAE92004ADF77 /* Html.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B2F326592FFCAE92004ADF77 /* Html.bundle */; };
+		B2F3265D2FFCD861004ADF77 /* TextClickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F3265C2FFCD861004ADF77 /* TextClickViewController.m */; };
+		B2F326602FFCDA48004ADF77 /* TextLineModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F3265F2FFCDA48004ADF77 /* TextLineModeViewController.m */; };
+		B2F326632FFCE106004ADF77 /* HTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F326622FFCE106004ADF77 /* HTMLViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,16 +69,17 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A19DA097C46AFE01BA828C77 /* Pods-RZColorful_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorful_Example.release.xcconfig"; path = "Target Support Files/Pods-RZColorful_Example/Pods-RZColorful_Example.release.xcconfig"; sourceTree = "<group>"; };
 		B20D9104296D04C90077BDDD /* UpdateLog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = UpdateLog.md; path = ../UpdateLog.md; sourceTree = "<group>"; };
-		B26455972D5C49EA00F056AD /* RZTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTestViewController.h; sourceTree = "<group>"; };
-		B26455982D5C49EA00F056AD /* RZTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZTestViewController.m; sourceTree = "<group>"; };
-		B285FE1227A0FC81003F4D73 /* RZFoldLabelVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZFoldLabelVC.h; sourceTree = "<group>"; };
-		B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZFoldLabelVC.m; sourceTree = "<group>"; };
-		B285FE1527A12B22003F4D73 /* RZTextViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZTextViewVC.h; sourceTree = "<group>"; };
-		B285FE1627A12B22003F4D73 /* RZTextViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZTextViewVC.m; sourceTree = "<group>"; };
-		B286D7DC279FFD9000F182BD /* AttributedStringUseDemoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributedStringUseDemoVC.h; sourceTree = "<group>"; };
-		B286D7DD279FFD9000F182BD /* AttributedStringUseDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttributedStringUseDemoVC.m; sourceTree = "<group>"; };
 		B2A9F25A2D841611005BE498 /* MDToHtmlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDToHtmlViewController.h; sourceTree = "<group>"; };
 		B2A9F25B2D841611005BE498 /* MDToHtmlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDToHtmlViewController.m; sourceTree = "<group>"; };
+		B2F326562FFCA969004ADF77 /* BaseUseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseUseViewController.h; sourceTree = "<group>"; };
+		B2F326572FFCA969004ADF77 /* BaseUseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseUseViewController.m; sourceTree = "<group>"; };
+		B2F326592FFCAE92004ADF77 /* Html.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Html.bundle; sourceTree = "<group>"; };
+		B2F3265B2FFCD861004ADF77 /* TextClickViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextClickViewController.h; sourceTree = "<group>"; };
+		B2F3265C2FFCD861004ADF77 /* TextClickViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextClickViewController.m; sourceTree = "<group>"; };
+		B2F3265E2FFCDA48004ADF77 /* TextLineModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextLineModeViewController.h; sourceTree = "<group>"; };
+		B2F3265F2FFCDA48004ADF77 /* TextLineModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextLineModeViewController.m; sourceTree = "<group>"; };
+		B2F326612FFCE106004ADF77 /* HTMLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLViewController.h; sourceTree = "<group>"; };
+		B2F326622FFCE106004ADF77 /* HTMLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLViewController.m; sourceTree = "<group>"; };
 		CAB0873DA6E2668F4DE41E81 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CC77877685AB8960CC9A7AB3 /* Pods-RZColorful_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZColorful_Example.debug.xcconfig"; path = "Target Support Files/Pods-RZColorful_Example/Pods-RZColorful_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		DAFD85FCB58F79DABF01091F /* Pods_RZColorful_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RZColorful_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 				6003F5A6195388D20070C39A /* RZViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				B2F326592FFCAE92004ADF77 /* Html.bundle */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for RZColorful";
@@ -206,16 +209,16 @@
 		B286D7DB279FFD6C00F182BD /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				B286D7DC279FFD9000F182BD /* AttributedStringUseDemoVC.h */,
-				B286D7DD279FFD9000F182BD /* AttributedStringUseDemoVC.m */,
-				B285FE1227A0FC81003F4D73 /* RZFoldLabelVC.h */,
-				B285FE1327A0FC81003F4D73 /* RZFoldLabelVC.m */,
-				B285FE1527A12B22003F4D73 /* RZTextViewVC.h */,
-				B285FE1627A12B22003F4D73 /* RZTextViewVC.m */,
-				B26455972D5C49EA00F056AD /* RZTestViewController.h */,
-				B26455982D5C49EA00F056AD /* RZTestViewController.m */,
 				B2A9F25A2D841611005BE498 /* MDToHtmlViewController.h */,
 				B2A9F25B2D841611005BE498 /* MDToHtmlViewController.m */,
+				B2F326562FFCA969004ADF77 /* BaseUseViewController.h */,
+				B2F326572FFCA969004ADF77 /* BaseUseViewController.m */,
+				B2F3265B2FFCD861004ADF77 /* TextClickViewController.h */,
+				B2F3265C2FFCD861004ADF77 /* TextClickViewController.m */,
+				B2F3265E2FFCDA48004ADF77 /* TextLineModeViewController.h */,
+				B2F3265F2FFCDA48004ADF77 /* TextLineModeViewController.m */,
+				B2F326612FFCE106004ADF77 /* HTMLViewController.h */,
+				B2F326622FFCE106004ADF77 /* HTMLViewController.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2F3265A2FFCAE92004ADF77 /* Html.bundle in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -361,11 +365,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-RZColorful_Example/Pods-RZColorful_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/RZColorful/RZColorful.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RZColorful.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,13 +407,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B286D7DE279FFD9000F182BD /* AttributedStringUseDemoVC.m in Sources */,
-				B285FE1427A0FC81003F4D73 /* RZFoldLabelVC.m in Sources */,
+				B2F3265D2FFCD861004ADF77 /* TextClickViewController.m in Sources */,
+				B2F326582FFCA969004ADF77 /* BaseUseViewController.m in Sources */,
 				6003F59E195388D20070C39A /* RZAppDelegate.m in Sources */,
+				B2F326632FFCE106004ADF77 /* HTMLViewController.m in Sources */,
 				B2A9F25C2D841611005BE498 /* MDToHtmlViewController.m in Sources */,
+				B2F326602FFCDA48004ADF77 /* TextLineModeViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* RZViewController.m in Sources */,
-				B26455992D5C49EA00F056AD /* RZTestViewController.m in Sources */,
-				B285FE1727A12B22003F4D73 /* RZTextViewVC.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,7 +545,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RZColorful/RZColorful-Prefix.pch";
 				INFOPLIST_FILE = "RZColorful/RZColorful-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,7 +562,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RZColorful/RZColorful-Prefix.pch";
 				INFOPLIST_FILE = "RZColorful/RZColorful-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -582,7 +588,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -604,7 +610,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

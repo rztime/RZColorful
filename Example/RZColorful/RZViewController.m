@@ -7,7 +7,7 @@
 //
 
 #import "RZViewController.h"
-#import <RZColorful/RZColorful.h>
+#import <RZColorful.h>
 #import <Masonry/Masonry.h>
 
 @interface RZViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -28,10 +28,10 @@
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    _items = @[@{@"富文本常规使用": @"AttributedStringUseDemoVC"},
-               @{@"显示折叠展开的label": @"RZFoldLabelVC"},
-               @{@"UITextView常规使用": @"RZTextViewVC"},
-               @{@"测试": @"RZTestViewController"},
+    _items = @[@{@"基本用法": @"BaseUseViewController"},
+               @{@"文本、图片可点击": @"TextClickViewController"},
+               @{@"折叠、展开、换行方式等": @"TextLineModeViewController"},
+               @{@"HTML 转富文本": @"HTMLViewController"},
                @{@"markdow to html": @"MDToHtmlViewController"}];
 }
 

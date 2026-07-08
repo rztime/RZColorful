@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (RZImageAttachment *(^)(UIImage * _Nullable))image;
 /** 通过url添加图片 */
 - (RZImageAttachment *(^)(NSString * _Nullable))imageByUrl;
+/** 添加自定义view（view的size需要正确设置），原理是用一个空白图片填充到NSAttachment，然后在该位置处将view加在父视图上 */
+- (RZImageAttachment *(^)(UIView * _Nullable))view;
 /** 设置当前控件对象统一段落样式, 这里设置段落之后，请勿使用and等连接词 ，在text中设置了段落样式，则text的段落样式优先级高于统一段落样式 */
 - (RZParagraphStyle * _Nullable)paragraphStyle;
 /** 设置统一阴影对象 , 请勿使用and等连接词，在text中设置了阴影样式，则text的阴影样式优先级高于统一阴影样式 */

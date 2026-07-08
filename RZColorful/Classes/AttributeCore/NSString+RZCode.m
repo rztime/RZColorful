@@ -7,6 +7,8 @@
 //
 
 #import "NSString+RZCode.h"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation NSString (RZCode)
 
@@ -28,3 +30,4 @@
 }
   
 @end
+#pragma clang diagnostic pop

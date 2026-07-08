@@ -20,3 +20,5 @@
 #import "RZParagraphStyle.h"
 #import "RZShadow.h"
 #import "MarkdownRZ.h"
+#import "RZTextLayout.h"
+#import "RZColorfulView.h"

@@ -9,6 +9,7 @@
 #import "RZImageAttachment.h"
 #import "NSAttributedString+RZColorful.h"
 #import "NSString+RZCode.h"
+#import <objc/runtime.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -70,20 +71,26 @@
  */
 - (RZImageAttachment *(^)(NSString *tapId))tapAction {
     return ^id(NSString *tapId) {
-        self.dict[NSLinkAttributeName] = tapId.rz_encodedString;
+        self.dict[RZTapActionAttributeName] = tapId.rz_encodedString;
         return self;
     };
 }
- 
-/* 给属性文本添加点击事件  只有UILabel可以用，且UILabel需要实现方法 rz_tapAction */
-- (RZImageAttachment *(^)(NSString *tapId))tapActionByLable {
-    return ^id(NSString *tapId) { 
-        self.dict[NSTapActionByLabelAttributeName] = tapId.rz_encodedString;
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
+- (RZImageAttachment *(^)(ColorfulClickedRZ __nullable))clicked {
+    return ^id(ColorfulClickedRZ clicked) {
+        self.dict[RZClickedActionAttributeName] = clicked;
+        return self;
+    };
+}
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
+- (RZImageAttachment *(^)(ColorfulBackgroundViewRZ __nullable))backgroundView {
+    return ^id(ColorfulBackgroundViewRZ back) {
+        self.dict[RZBackgroundViewAttributeName] = back;
         return self;
     };
 }
 /** 自定义属性和值 */
-- (RZColorfulAttribute * (^)(NSAttributedStringKey key, id value))custom {
+- (RZImageAttachment * (^)(NSAttributedStringKey key, id value))custom {
     return ^id(NSAttributedStringKey key, id value) {
         self.dict[key] = value;
         return self;
@@ -91,20 +98,29 @@
 }
 /**
  水平对齐方式
+ size(其中一个为0时，自适应)
  align 上，中，下
  refer 对齐的参考系 （前后的字体）
  */
 - (RZImageAttachment *(^)(CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font))size {
     return ^id (CGSize size, RZImageAttachmentHorizontalAlign align, UIFont *font) {
+        CGSize newSize = size;
+        if (size.width == 0 && size.height == 0) {
+            newSize = self.imageBounds.size;
+        } else if (size.width == 0) {
+            newSize.width = self.imageBounds.size.width / self.imageBounds.size.height * size.height;
+        } else if (size.height == 0) {
+            newSize.height = self.imageBounds.size.height * size.width / self.imageBounds.size.width;
+        }
         CGFloat y = 0;
         CGFloat fontHeight = font.ascender - font.descender;
         switch (align) {
             case RZHorizontalAlignTop: {
-                y = -(size.height - fontHeight) + font.descender;
+                y = -(newSize.height - fontHeight) + font.descender;
                 break;
             }
             case RZHorizontalAlignCenter: {
-                y = -(size.height - fontHeight)/2.f + font.descender;
+                y = -(newSize.height - fontHeight)/2.f + font.descender;
                 break;
             }
             case RZHorizontalAlignBottom: {
@@ -114,7 +130,7 @@
             default:
                 break;
         }
-        self.imageBounds = CGRectMake(0, y, size.width, size.height);
+        self.imageBounds = CGRectMake(0, y, newSize.width, newSize.height);
         return self;
     };
 }
@@ -176,5 +192,35 @@
     }
     return _more;
 }
-#pragma clang diagnostic pop
 @end
+
+@implementation NSTextAttachment (RZCustomView)
+
+static const char *kCustomViewKey = "kCustomViewKey";
+
+- (UIView *)customView {
+    return objc_getAssociatedObject(self, kCustomViewKey);
+}
+
+- (void)setCustomView:(UIView *)customView {
+    objc_setAssociatedObject(self, kCustomViewKey, customView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
+@implementation UIImage (RZEmptyImage)
+
++ (UIImage *)rz_transparentImage {
+    static UIImage *transparentImage = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CGSize size = CGSizeMake(1, 1);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        transparentImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    });
+    return transparentImage;
+}
+
+@end
+#pragma clang diagnostic pop

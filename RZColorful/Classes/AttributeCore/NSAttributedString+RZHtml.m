@@ -7,6 +7,8 @@
     //
 
 #import "NSAttributedString+RZHtml.h"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation NSAttributedString (RZHtml)
     // 将html转换成 NSAttributedString
@@ -393,4 +395,4 @@
     return flag;
 }
 @end
-
+#pragma clang diagnostic pop

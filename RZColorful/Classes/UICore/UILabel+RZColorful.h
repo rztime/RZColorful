@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RZColorfulConferrer.h"
+#import "RZColorfulAttribute.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,10 +53,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param foldText 超过行数之后，全部展开状态显示的文本  如”收起“  需要给文本设置NSTapActionByLabel属性 (tapActionByLable)
 - (void)rz_setAttributedString:(NSAttributedString * _Nullable)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *_Nullable)allText showFoldText:(NSAttributedString *_Nullable)foldText;
 
-typedef void(^RZLabelTapAction)(UILabel *_Nonnull label, NSString * _Nonnull tapActionId, NSRange range);
+/// 设置富文本超行时自定义截断方式
+/// @param attr 原文
+/// @param line 最大行数
+/// @param width 最大宽度
+/// @param mode 截断方式
+/// @param placeHolder 截断时占位内容 如原系统是"..."， 可改为其他自定义内容
+- (void)rz_setAttributedString:(NSAttributedString * _Nullable)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)mode placeHolder:(NSAttributedString *_Nullable)placeHolder;
+
 /// 给label的富文本添加文本点击事件
 /// 注意：NSAttributedString里的每一个字，都需要设置字体，否则无法准确点击位置（内部使用UITextView计算位置，无字体时，默认给的11号字体，会导致位置计算错误）
 /// @param tapAction ，tapActionId 即tapActionByLable里的内容
-- (void)rz_tapAction:(RZLabelTapAction _Nullable)tapAction;
+- (void)rz_tapAction:(ColorfulTapActionRZ _Nullable)tapAction;
 @end
 NS_ASSUME_NONNULL_END

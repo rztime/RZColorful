@@ -1,10 +1,11 @@
 use_frameworks!
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'RZColorful_Example' do
   pod 'RZColorful', :path => '../'
   pod 'Masonry'
+  pod 'SDWebImage'
   target 'RZColorful_Tests' do
     inherit! :search_paths
 

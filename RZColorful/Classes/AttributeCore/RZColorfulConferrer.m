@@ -20,6 +20,7 @@
 typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
     RZColorfulAttributeBoxTypePlainText,
     RZColorfulAttributeBoxTypeImage,
+    RZColorfulAttributeBoxTypeView,
     RZColorfulAttributeBoxTypeHTMLText,
     RZColorfulAttributeBoxTypeImageURL,
 };
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
 @property (nonatomic, assign) RZColorfulAttributeBoxType type;
 @property (nonatomic, copy)   NSString *text;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIView *view;
 @property (nonatomic, strong) RZImageAttachment *attach;
 @property (nonatomic, strong) RZColorfulAttribute *attribute;
 
@@ -60,6 +62,18 @@ typedef NS_ENUM(NSInteger, RZColorfulAttributeBoxType) {
             NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
             attchment.image = self.image;
             attchment.bounds = self.attach.imageBounds;
+            NSDictionary *c = [self.attach code];
+            if (c) {
+                [dict addEntriesFromDictionary:c];
+            }
+            [text appendAttributedString: [NSAttributedString attributedStringWithAttachment:attchment]];
+            break;
+        }
+        case RZColorfulAttributeBoxTypeView: {
+            NSTextAttachment *attchment = [[NSTextAttachment alloc] init];
+            attchment.image = [UIImage rz_transparentImage];
+            attchment.bounds = self.attach.imageBounds;
+            attchment.customView = self.view;
             NSDictionary *c = [self.attach code];
             if (c) {
                 [dict addEntriesFromDictionary:c];
@@ -104,6 +118,10 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
         box.text = content;
     } else if ([content isKindOfClass:[UIImage class]]) {
         box.image = content;
+        box.attach.bounds(CGRectMake(0, 0, box.image.size.width, box.image.size.width));
+    } else if ([content isKindOfClass:[UIView class]]) {
+        box.view = (UIView *)content;
+        box.attach.bounds(CGRectMake(0, 0, box.view.frame.size.width, box.view.frame.size.width));
     }
     return box;
 }
@@ -189,6 +207,17 @@ RZColorfulAttributeBox *RZ_ATTRIBUTEBOXBY(id content, RZColorfulAttributeBoxType
             imageUrl = @"";
         }
         RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(imageUrl, RZColorfulAttributeBoxTypeImageURL);
+        [self.contents addObject:box];
+        return box.attach;
+    };
+}
+/**
+ /// 添加自定义view（view的size需要正确设置），
+ /// 原理是用一个空白图片填充到NSAttachment，然后在该位置处将view加在父视图上
+ */
+- (RZImageAttachment *(^)(UIView * _Nullable))view {
+    return ^id (UIView *view){
+        RZColorfulAttributeBox *box = RZ_ATTRIBUTEBOXBY(view, RZColorfulAttributeBoxTypeView);
         [self.contents addObject:box];
         return box.attach;
     };

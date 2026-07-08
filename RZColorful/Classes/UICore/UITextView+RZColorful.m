@@ -8,12 +8,10 @@
 
 #import "UITextView+RZColorful.h"
 #import "NSAttributedString+RZColorful.h"
-#import "RZTapActionHelper.h"
 #import <objc/runtime.h>
+#import "RZColorfulView.h"
 
 @interface UITextView ()
-
-@property (nonatomic, strong) RZTapActionHelper *helper;
 
 @end
 
@@ -101,24 +99,36 @@
     return self.selectedRange.location;;
 }
 
-- (void)setHelper:(RZTapActionHelper *)helper {
-    objc_setAssociatedObject(self, @"rzweakHelper", helper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (RZTapActionHelper *)helper {
-    return objc_getAssociatedObject(self, @"rzweakHelper");
-}
-
-- (void)setRzDidTapTextView:(BOOL(^)(id __nullable))rzDidTapTextView {
-    if (!self.helper) {
-        RZTapActionHelper *helper = [[RZTapActionHelper alloc] init];
-        helper.textView = self;
-        self.helper = helper;
+/// 设置富文本（超过行数后，自动追加“展开” “收起”）
+/// @param attr 原文
+/// @param line 最大显示行数
+/// @param width 最大显示宽度，这个宽度用于计算文本行
+/// @param fold 当前是否折叠
+/// @param allText 超过了行数之后，折叠状态显示的文本 如”展开“  需要给文本设置rztapLabel属性  (tapActionByLable)
+/// @param foldText 超过行数之后，全部展开状态显示的文本  如”收起“  需要给文本设置rztapLabel属性 (tapActionByLable)
+- (void)rz_setAttributedString:(NSAttributedString *)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *)allText showFoldText:(NSAttributedString *)foldText {
+    if (attr == nil || attr.length == 0) {
+        self.attributedText = attr;
+        return;
     }
-    objc_setAssociatedObject(self, @"rzDidTapTextView", rzDidTapTextView, OBJC_ASSOCIATION_COPY);
+    self.attributedText = [attr rz_attributedStringBy:line maxWidth:width isFold:fold showAllText:allText showFoldText:foldText];
 }
-- (BOOL(^)(id __nullable))rzDidTapTextView {
-    return objc_getAssociatedObject(self, @"rzDidTapTextView");
+/// 设置富文本超行时自定义截断方式
+/// @param attr 原文
+/// @param line 最大行数
+/// @param width 最大宽度
+/// @param mode 截断方式
+/// @param placeHolder 截断时占位内容 如原系统是"..."， 可改为其他自定义内容
+- (void)rz_setAttributedString:(NSAttributedString * _Nullable)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)mode placeHolder:(NSAttributedString *_Nullable)placeHolder {
+    if (attr == nil || attr.length == 0) {
+        self.attributedText = attr;
+        return;
+    }
+    self.attributedText = [attr rz_attributedStringBy:line maxWidth:width lineBreakMode:mode placeHolder:placeHolder];
+}
+- (void)rz_tapAction:(ColorfulTapActionRZ)tapAction {
+    RZColorfulView *v = [self activeColorful:true];
+    v.tapAction = tapAction;
 }
 /// 获取range所在文本的位置
 - (CGRect)rz_rectFor:(NSRange)range {
@@ -143,4 +153,46 @@
     }];
     return res;
 }
+- (void)disableLink:(BOOL)disable {
+    self.rzHelper.disableLink = disable;
+}
+- (void)disableAttachment:(BOOL)disable {
+    self.rzHelper.disableAttachment = disable;
+}
+
+@end
+
+@implementation RZTextViewHelper
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction API_AVAILABLE(ios(10.0)) {
+    return !self.disableLink;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction API_AVAILABLE(ios(10.0)) {
+    return !self.disableAttachment;
+}
+
+@end
+@implementation UITextView (RZHelper)
+
+static const char *kRZTextViewHelperKey = "kRZTextViewHelperKey";
+
+- (RZTextViewHelper *)rzHelper {
+    RZTextViewHelper *helper = objc_getAssociatedObject(self, kRZTextViewHelperKey);
+    if (!helper) {
+        helper = [[RZTextViewHelper alloc] init];
+        self.rzHelper = helper;
+    }
+    return helper;
+}
+
+- (void)setRzHelper:(RZTextViewHelper *)rzHelper {
+    objc_setAssociatedObject(self, kRZTextViewHelperKey, rzHelper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (rzHelper) {
+        self.delegate = rzHelper;
+    }
+}
+
 @end

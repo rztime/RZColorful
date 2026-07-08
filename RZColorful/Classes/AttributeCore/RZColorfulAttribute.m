@@ -209,20 +209,28 @@
 /* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
 - (RZColorfulAttribute *(^)(NSString *))tapAction {
     return ^id(NSString *tapId) {
-        self.colorfuls[NSLinkAttributeName] = tapId.rz_encodedString;
+        self.colorfuls[RZTapActionAttributeName] = tapId.rz_encodedString;
         return self;
     };
 }
-
-NSAttributedStringKey const NSTapActionByLabelAttributeName = @"RZTapActionByLabel";
-
-/* 给文本添加点击事件的id, 仅UILabel有效，需要实现label.rz_tapAction方法 */
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapActionByLable {
-    return  ^id (NSString *tapId) {
-        self.colorfuls[NSTapActionByLabelAttributeName] = tapId.rz_encodedString;;
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
+- (RZColorfulAttribute *(^)(ColorfulClickedRZ __nullable))clicked {
+    return ^id(ColorfulClickedRZ clicked) {
+        self.colorfuls[RZClickedActionAttributeName] = clicked;
         return self;
     };
 }
+/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView  */
+- (RZColorfulAttribute *(^)(ColorfulBackgroundViewRZ __nullable))backgroundView {
+    return ^id(ColorfulBackgroundViewRZ back) {
+        self.colorfuls[RZBackgroundViewAttributeName] = back;
+        return self;
+    };
+}
+NSAttributedStringKey const RZTapActionAttributeName = @"RZTapActionAttributeName";
+NSAttributedStringKey const RZClickedActionAttributeName = @"RZClickedActionAttributeName";
+NSAttributedStringKey const RZBackgroundViewAttributeName = @"RZBackgroundViewAttributeName";
+
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSNumber *))tracking API_AVAILABLE(ios(14.0)) {
     return ^id(NSNumber * tracking) {
         self.colorfuls[NSTrackingAttributeName] = tracking;
@@ -310,6 +318,30 @@ NSAttributedStringKey const NSTapActionByLabelAttributeName = @"RZTapActionByLab
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))localizedNumberFormat API_AVAILABLE(ios(18.0)) {
     return ^id(id localizedNumberFormat) {
         self.colorfuls[NSLocalizedNumberFormatAttributeName] = localizedNumberFormat;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextHighlightStyle __nullable))textHighight API_AVAILABLE(ios(18.0)) {
+    return ^id(id textHighight) {
+        self.colorfuls[NSTextHighlightStyleAttributeName] = textHighight;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextHighlightStyle __nullable))textHightlightColorScheme API_AVAILABLE(ios(18.0)) {
+    return ^id(id textHightlightColorScheme) {
+        self.colorfuls[NSTextHighlightColorSchemeAttributeName] = textHightlightColorScheme;
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(BOOL))adaptiveImageGlyph API_AVAILABLE(ios(18.0)) {
+    return ^id(BOOL adaptiveImageGlyph) {
+        self.colorfuls[NSAdaptiveImageGlyphAttributeName] = @(adaptiveImageGlyph);
+        return self;
+    };
+}
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(BOOL))writingToolsExclusion API_AVAILABLE(ios(18.2)) {
+    return ^id(BOOL value) {
+        self.colorfuls[NSWritingToolsExclusionAttributeName] = @(value);
         return self;
     };
 }

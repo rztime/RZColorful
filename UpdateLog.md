@@ -1,3 +1,53 @@
+##### 2.0.0
+
+此次进行了大更新，统一了UILabel和UITextView关于富文本的用法，不需要区分了
+
+
+```
+1.以前的 tapAction(), tapActionByLable() 不在区分UILabel或者UITextView, 
+仅保留tapAction(), 与link() 的区别是link添加的url，会使文本为蓝色+下划线
+原key：NSTapActionByLabelAttributeName删除，替换改为key：RZTapActionAttributeName
+```
+
+```
+2.UITextView的rzDidTapTextView方法删掉，替换为与UILabel一样的rz_tapAction;
+```
+
+```
+3.新增confer.view()方法，可以添加自定义的view，本质是添加的NSAttachment,最终将自定义view显示在UILabel或者UITextView对应的位置上，实现了gif、自定义标签等功能
+confer.view([self gifView]).size(CGSizeMake(200, 100), RZHorizontalAlignCenter, [UIFont systemFontOfSize:16]);
+```
+
+```
+4.新增backgroundView(), 可以用于对文本添加背景视图，设置圆角，背景图等等
+confer.text(@"hello").font([UIFont systemFontOfSize:16]).textColor([UIColor redColor]).tapAction(@"点击背景").backgroundView( ^(NSArray<NSValue *> *rects) {
+    NSMutableArray *views = [[NSMutableArray alloc] init];
+    [rects enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect rect = obj.CGRectValue;
+        UIView *view = [[UIView alloc] initWithFrame:rect];
+        view.backgroundColor = [UIColor redColor];
+        view.alpha = 0.3;
+        view.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, 21);
+        [views addObject:view];
+        /// 如果UIView.isUserInteractionEnabled = true, 则将不会触发tapAction，link，clicked等事件
+        view.userInteractionEnabled = false;
+    }];
+    return views.copy;
+});
+```
+
+```
+5.新增clicked()方法，可直接用block来处理文本、图片、backgroundView的点击事件
+confer.text(@"hello").clicked( ^(id sender, NSRange range) {
+    
+});
+```
+
+```
+新增RZTextLayout，用于计算富文本的相关信息
+```
+本次更新后，解决了UILabel在加载了大量可点击文本时，导致的hitTest方法耗时卡顿的问题
+
 ##### 1.7.0
 
 新增了markdown文档转换为html的方法

@@ -8,8 +8,7 @@
 
 #import "UILabel+RZColorful.h"
 #import "NSAttributedString+RZColorful.h"
-#import "LabelFoldHelper.h"
-
+#import "RZColorfulView.h"
 @implementation UILabel (RZColorful)
 
 /**
@@ -109,27 +108,24 @@
     }
     self.attributedText = [attr rz_attributedStringBy:line maxWidth:width isFold:fold showAllText:allText showFoldText:foldText];
 }
-
-- (void)rz_tapAction:(RZLabelTapAction)tapAction {
+/// 设置富文本超行时自定义截断方式
+/// @param attr 原文
+/// @param line 最大行数
+/// @param width 最大宽度
+/// @param mode 截断方式
+/// @param placeHolder 截断时占位内容 如原系统是"..."， 可改为其他自定义内容
+- (void)rz_setAttributedString:(NSAttributedString * _Nullable)attr maxLine:(NSInteger)line maxWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)mode placeHolder:(NSAttributedString *_Nullable)placeHolder {
     self.numberOfLines = 0;
-    self.userInteractionEnabled = true;
-    __block LabelFoldHelper *helper;
-    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass: [LabelFoldHelper class]]) {
-            helper = (LabelFoldHelper *)obj;
-            *stop = true;
-        }
-    }];
-    if (helper == nil) {
-        helper = [[LabelFoldHelper alloc] initWithtarget:self tapAction:tapAction];
-        [self addSubview:helper];
-        UIView *v1 = helper;
-        NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:v1 attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
-        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:v1 attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
-        NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:v1 attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0];
-        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:v1 attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
-        [self addConstraints:@[left, top, right, bottom]];
+    if (attr == nil || attr.length == 0) {
+        self.attributedText = attr;
+        return;
     }
+    self.attributedText = [attr rz_attributedStringBy:line maxWidth:width lineBreakMode:mode placeHolder:placeHolder];
+}
+
+- (void)rz_tapAction:(ColorfulTapActionRZ)tapAction {
+    RZColorfulView *v = [self activeColorful:true];
+    v.tapAction = tapAction;
 }
 
 @end

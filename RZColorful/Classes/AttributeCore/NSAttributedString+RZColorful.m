@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import <CoreText/CoreText.h>
 #import "NSAttributedString+RZHtml.h"
+#import "RZTextLayout.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -181,14 +182,41 @@
 
 @implementation NSAttributedString(RZLines)
 
+- (CGRect)rz_usedRectWithSize:(CGSize)size numberOfLines:(NSInteger)numberOfLines {
+    RZTextLayout *layout = [RZTextLayout shared];
+    [layout updateAttributedString:self];
+    [layout updateSize:size];
+    [layout updateNumberOfLines:numberOfLines];
+    return [layout usedRect];
+}
+- (nullable NSAttributedString *)rz_moreThanFix {
+    NSAttributedString *attr = self;
+    // 检查是否以 \n 结尾
+    if ([attr.string hasSuffix:@"\n"]) {
+        // 追加一个字符 "1"
+        NSMutableAttributedString *mutableAttr = [attr mutableCopy];
+        NSAttributedString *appendStr = [[NSAttributedString alloc] initWithString:@"1"];
+        [mutableAttr appendAttributedString:appendStr];
+        return [mutableAttr copy];
+    }
+    return attr;
+}
 - (BOOL)rz_moreThan:(NSInteger)line maxWidth:(CGFloat)width {
-    UILabel *label = [[UILabel alloc] init];
-    label.numberOfLines = 0;
-    label.attributedText = self;
-    CGSize tempSize = CGSizeMake(width, CGFLOAT_MAX);
-    CGFloat allHeight = [label textRectForBounds:CGRectMake(0, 0, tempSize.width, tempSize.height) limitedToNumberOfLines:0].size.height;
-    CGFloat lineHeight = [label textRectForBounds:CGRectMake(0, 0, tempSize.width, tempSize.height) limitedToNumberOfLines:line].size.height;
-    return ceil(allHeight) > ceil(lineHeight);
+    // 如果 line == 0，表示不限制行数，直接返回 NO
+    if (line == 0) {
+        return NO;
+    }
+    RZTextLayout *layout = [RZTextLayout shared];
+    [layout updateSize:CGSizeMake(width, CGFLOAT_MAX)];
+    
+    // 获取处理后的富文本（处理 \n 结尾的情况）
+    NSAttributedString *fixedAttr = [self rz_moreThanFix];
+    if (!fixedAttr) {
+        return NO;
+    }
+    [layout updateAttributedString:fixedAttr];
+    // 判断是否超过行数
+    return [layout moreThanLines:line];
 }
 
 - (NSAttributedString *)rz_attributedStringBy:(NSInteger)maxLine maxWidth:(CGFloat)width isFold:(BOOL)fold showAllText:(NSAttributedString *)allText showFoldText:(NSAttributedString *)foldText {

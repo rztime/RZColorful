@@ -35,8 +35,19 @@ typedef NS_ENUM(NSInteger, RZWriteDirection) { // 书写方向
     RZWDLeftToRight = LRO,   // 从左到右
     RZWDRightToLeft = RLO,   // 从右到左 
 };
-/// 给label添加一个点击事件的key，不用NSLink，是因为NSLink会默认加蓝色及下划线
-UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeName;
+/// 点击事件的tapAction key
+UIKIT_EXTERN NSAttributedStringKey const _Nonnull RZTapActionAttributeName;
+/// 点击事件的clicked key
+UIKIT_EXTERN NSAttributedStringKey const _Nonnull RZClickedActionAttributeName;
+/// 添加背景图 key
+UIKIT_EXTERN NSAttributedStringKey const _Nonnull RZBackgroundViewAttributeName;
+
+/// Any 为UILabel或者UITextView
+typedef void (^ColorfulClickedRZ)(id _Nullable sender, NSRange range);
+/// Any 为UILabel或者UITextView
+typedef void (^ColorfulTapActionRZ)(id _Nullable sender, NSString * _Nonnull actionId, NSRange range);
+/// 背景视图构建block
+typedef NSArray<UIView *> * _Nonnull (^ColorfulBackgroundViewRZ)(NSArray<NSValue *> * _Nullable rects);
 
 @interface RZColorfulAttribute : NSObject
 
@@ -99,11 +110,6 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSAttributedStringKey _Nonnull, id __nullable))custom;
 
 @end
-#pragma mark - 富文本 url，仅UITextViewd点击有效
-@interface RZColorfulAttribute (UILabel)
-/* 给文本添加点击事件的id, 仅UILabel有效，需要实现label.rz_tapAction方法 */
-- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapActionByLable;
-@end
 
 @interface RZColorfulAttribute (Other)
 #pragma mark - 设置文本段落样式
@@ -117,15 +123,21 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 - (RZShadow *_Nonnull)shadow;
 @end
 
-#pragma mark - 富文本 url，仅UITextViewd点击有效
-@interface RZColorfulAttribute (UITextView)
-/** 给文本添加链接，并且可点击跳转浏览器打开  仅UITextView点击有效, 如果有实现点击事件， 可以替换成tapAction:
- 设置url属性，要实现点击，需实现UITextView的delegate的url点击事件
- 设置之后，url的文本会默认带蓝色下划线的样式，可以设置textView.linkTextAttributes = @{} 清除掉
+#pragma mark - 富文本 点击、自定义view等
+@interface RZColorfulAttribute (Tap)
+/** 给文本添加链接
+    url和tapAction，都可以给UITextView和UILabel添加点击事件，区别在于link可能会有蓝色
  */
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSURL * __nullable))url;
-/* 给属性文本添加点击事件  只有UITextView可以用，且UITextView需要实现block  didTapTextView */
+/* 给属性文本添加点击事件  不区分UILabel、UITextView*/
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSString * __nullable))tapAction;
+
+/* 添加点击事件(block方式)*/
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(ColorfulClickedRZ __nullable))clicked;
+/* 添加一个backgroundView
+ UIlabel中，backgroundView是在文本上面
+ UITextView中，backgroundView是在文本下面 */
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(ColorfulBackgroundViewRZ __nullable))backgroundView;
 @end
 
 @interface RZColorfulAttribute (iOS14)
@@ -165,4 +177,9 @@ UIKIT_EXTERN NSAttributedStringKey const _Nonnull NSTapActionByLabelAttributeNam
 @interface RZColorfulAttribute (iOS18)
 /// iOS 18
 - (RZColorfulAttribute * _Nonnull(^_Nonnull)(id __nullable))localizedNumberFormat API_AVAILABLE(ios(18.0));
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextHighlightStyle __nullable))textHighight API_AVAILABLE(ios(18.0));
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(NSTextHighlightColorScheme __nullable))textHightlightColorScheme API_AVAILABLE(ios(18.0));
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(BOOL))adaptiveImageGlyph API_AVAILABLE(ios(18.0));
+
+- (RZColorfulAttribute * _Nonnull(^_Nonnull)(BOOL))writingToolsExclusion API_AVAILABLE(ios(18.2));
 @end
